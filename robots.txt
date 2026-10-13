@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+# 公開URL確定後にSitemap行を追加
