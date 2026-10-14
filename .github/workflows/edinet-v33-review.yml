@@ -1,0 +1,36 @@
+
+name: EDINET v3.3 financial review
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Number of companies (1-10); start with 1'
+        required: true
+        default: '1'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test v3.3 parser
+        run: python3 -m unittest -v test_v33.py
+      - name: Fetch EDINET candidates
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          LIMIT: ${{ inputs.limit }}
+        run: python3 edinet_v33.py --discovery discovery-v31.json --limit "$LIMIT" --output edinet-v33-output
+      - name: Upload review files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v33-review
+          path: edinet-v33-output/
+          retention-days: 7
+          if-no-files-found: warn
