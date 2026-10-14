@@ -18,3 +18,7 @@ GitHub Pages `https://cog-vja.github.io/maker-career-lab/` 用。すべてのフ
 
 ## 改善点
 7本の実用記事、企業分析チェックリスト、canonical、Article構造化データ、sitemap、レスポンシブデザイン、編集方針と広告開示。
+
+
+## v0.4 スマートフォン余白調整
+全ページ共通の style.css を調整しました。左右24pxの余白、長い英語見出しの折返し、横スクロール防止、見出し文字サイズの調整を実施。GitHubでは style.css だけの更新でも反映できます。
