@@ -1,0 +1,50 @@
+
+name: EDINET connection test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Test EDINET API
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+        run: |
+          python3 - <<'PY'
+          import os
+          import json
+          import datetime
+          import urllib.request
+          import urllib.parse
+
+          key = os.environ.get("EDINET_API_KEY")
+          if not key:
+              raise SystemExit("EDINET_API_KEY is not set")
+
+          day = datetime.date.today().isoformat()
+          params = urllib.parse.urlencode({
+              "date": day,
+              "type": 2,
+              "Subscription-Key": key
+          })
+          url = (
+              "https://api.edinet-fsa.go.jp/api/v2/documents.json?"
+              + params
+          )
+          request = urllib.request.Request(url)
+
+          with urllib.request.urlopen(request, timeout=30) as r:
+              data = json.load(r)
+
+          if str(data.get("metadata", {}).get("status")) != "200":
+              raise SystemExit("EDINET API returned an error")
+
+          print("EDINET API connection succeeded.")
+          print("Documents:", len(data.get("results", [])))
+          PY
