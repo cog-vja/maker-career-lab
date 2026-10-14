@@ -59,7 +59,9 @@ def main():
     fields=['ticker','company','docID','periodEnd','status',*v32.TAGS.keys(),'operating_margin_pct','revenue_growth_pct','operating_cf_to_revenue_pct','publication_status']
     with (out/'company-candidates-v33.csv').open('w',newline='',encoding='utf-8-sig') as f:
         w=csv.DictWriter(f,fieldnames=fields);w.writeheader()
-        for row in summary:w.writerow({**row,**row.get('selected_values',{}),**row.get('derived_values',{})})
+        for row in summary:
+            flat={**row,**row.get('selected_values',{}),**row.get('derived_values',{})}
+            w.writerow({field:flat.get(field) for field in fields})
     (out/'README.txt').write_text('UNVERIFIED: compare all candidate values against original annual reports before publication.\n',encoding='utf-8')
     if any(r['status']=='error' for r in summary):raise RuntimeError('Download errors; inspect artifact')
     if not any(any(v is not None for v in r.get('selected_values',{}).values()) for r in summary):raise RuntimeError('No values extracted; inspect artifact')
