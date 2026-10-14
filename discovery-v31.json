@@ -1,0 +1,331 @@
+{
+  "status": "unverified",
+  "checked_days": 150,
+  "requested_days": 150,
+  "found_count": 10,
+  "target_count": 10,
+  "targets": [
+    {
+      "ticker": "6857",
+      "target_name": "アドバンテスト",
+      "selected": {
+        "docID": "S100YKTA",
+        "edinetCode": "E01950",
+        "secCode": "68570",
+        "filerName": "株式会社アドバンテスト",
+        "docDescription": "有価証券報告書－第84期(2025/04/01－2026/03/31)",
+        "docTypeCode": "120",
+        "submitDateTime": "2026-06-26 14:05",
+        "periodStart": "2025-04-01",
+        "periodEnd": "2026-03-31",
+        "csvFlag": "1",
+        "withdrawalStatus": "0"
+      },
+      "all_annual_reports": [
+        {
+          "docID": "S100YKTA",
+          "edinetCode": "E01950",
+          "secCode": "68570",
+          "filerName": "株式会社アドバンテスト",
+          "docDescription": "有価証券報告書－第84期(2025/04/01－2026/03/31)",
+          "docTypeCode": "120",
+          "submitDateTime": "2026-06-26 14:05",
+          "periodStart": "2025-04-01",
+          "periodEnd": "2026-03-31",
+          "csvFlag": "1",
+          "withdrawalStatus": "0"
+        }
+      ]
+    },
+    {
+      "ticker": "8035",
+      "target_name": "東京エレクトロン",
+      "selected": {
+        "docID": "S100YEOO",
+        "edinetCode": "E02652",
+        "secCode": "80350",
+        "filerName": "東京エレクトロン株式会社",
+        "docDescription": "有価証券報告書－第63期(2025/04/01－2026/03/31)",
+        "docTypeCode": "120",
+        "submitDateTime": "2026-06-22 10:15",
+        "periodStart": "2025-04-01",
+        "periodEnd": "2026-03-31",
+        "csvFlag": "1",
+        "withdrawalStatus": "0"
+      },
+      "all_annual_reports": [
+        {
+          "docID": "S100YEOO",
+          "edinetCode": "E02652",
+          "secCode": "80350",
+          "filerName": "東京エレクトロン株式会社",
+          "docDescription": "有価証券報告書－第63期(2025/04/01－2026/03/31)",
+          "docTypeCode": "120",
+          "submitDateTime": "2026-06-22 10:15",
+          "periodStart": "2025-04-01",
+          "periodEnd": "2026-03-31",
+          "csvFlag": "1",
+          "withdrawalStatus": "0"
+        }
+      ]
+    },
+    {
+      "ticker": "6146",
+      "target_name": "ディスコ",
+      "selected": {
+        "docID": "S100YC6I",
+        "edinetCode": "E01506",
+        "secCode": "61460",
+        "filerName": "株式会社ディスコ",
+        "docDescription": "有価証券報告書－第87期(2025/04/01－2026/03/31)",
+        "docTypeCode": "120",
+        "submitDateTime": "2026-06-16 15:08",
+        "periodStart": "2025-04-01",
+        "periodEnd": "2026-03-31",
+        "csvFlag": "1",
+        "withdrawalStatus": "0"
+      },
+      "all_annual_reports": [
+        {
+          "docID": "S100YC6I",
+          "edinetCode": "E01506",
+          "secCode": "61460",
+          "filerName": "株式会社ディスコ",
+          "docDescription": "有価証券報告書－第87期(2025/04/01－2026/03/31)",
+          "docTypeCode": "120",
+          "submitDateTime": "2026-06-16 15:08",
+          "periodStart": "2025-04-01",
+          "periodEnd": "2026-03-31",
+          "csvFlag": "1",
+          "withdrawalStatus": "0"
+        }
+      ]
+    },
+    {
+      "ticker": "7735",
+      "target_name": "SCREENホールディングス",
+      "selected": {
+        "docID": "S100YK9N",
+        "edinetCode": "E02288",
+        "secCode": "77350",
+        "filerName": "株式会社ＳＣＲＥＥＮホールディングス",
+        "docDescription": "有価証券報告書－第85期(2025/04/01－2026/03/31)",
+        "docTypeCode": "120",
+        "submitDateTime": "2026-06-25 13:00",
+        "periodStart": "2025-04-01",
+        "periodEnd": "2026-03-31",
+        "csvFlag": "1",
+        "withdrawalStatus": "0"
+      },
+      "all_annual_reports": [
+        {
+          "docID": "S100YK9N",
+          "edinetCode": "E02288",
+          "secCode": "77350",
+          "filerName": "株式会社ＳＣＲＥＥＮホールディングス",
+          "docDescription": "有価証券報告書－第85期(2025/04/01－2026/03/31)",
+          "docTypeCode": "120",
+          "submitDateTime": "2026-06-25 13:00",
+          "periodStart": "2025-04-01",
+          "periodEnd": "2026-03-31",
+          "csvFlag": "1",
+          "withdrawalStatus": "0"
+        }
+      ]
+    },
+    {
+      "ticker": "6920",
+      "target_name": "レーザーテック",
+      "selected": {
+        "docID": "S100Z32V",
+        "edinetCode": "E01991",
+        "secCode": "69200",
+        "filerName": "レーザーテック株式会社",
+        "docDescription": "有価証券報告書－第64期(2025/07/01－2026/06/30)",
+        "docTypeCode": "120",
+        "submitDateTime": "2026-09-24 15:39",
+        "periodStart": "2025-07-01",
+        "periodEnd": "2026-06-30",
+        "csvFlag": "1",
+        "withdrawalStatus": "0"
+      },
+      "all_annual_reports": [
+        {
+          "docID": "S100Z32V",
+          "edinetCode": "E01991",
+          "secCode": "69200",
+          "filerName": "レーザーテック株式会社",
+          "docDescription": "有価証券報告書－第64期(2025/07/01－2026/06/30)",
+          "docTypeCode": "120",
+          "submitDateTime": "2026-09-24 15:39",
+          "periodStart": "2025-07-01",
+          "periodEnd": "2026-06-30",
+          "csvFlag": "1",
+          "withdrawalStatus": "0"
+        }
+      ]
+    },
+    {
+      "ticker": "6861",
+      "target_name": "キーエンス",
+      "selected": {
+        "docID": "S100YAHE",
+        "edinetCode": "E01967",
+        "secCode": "68610",
+        "filerName": "株式会社キーエンス",
+        "docDescription": "有価証券報告書－第57期(2025/03/21－2026/03/20)",
+        "docTypeCode": "120",
+        "submitDateTime": "2026-06-15 15:00",
+        "periodStart": "2025-03-21",
+        "periodEnd": "2026-03-20",
+        "csvFlag": "1",
+        "withdrawalStatus": "0"
+      },
+      "all_annual_reports": [
+        {
+          "docID": "S100YAHE",
+          "edinetCode": "E01967",
+          "secCode": "68610",
+          "filerName": "株式会社キーエンス",
+          "docDescription": "有価証券報告書－第57期(2025/03/21－2026/03/20)",
+          "docTypeCode": "120",
+          "submitDateTime": "2026-06-15 15:00",
+          "periodStart": "2025-03-21",
+          "periodEnd": "2026-03-20",
+          "csvFlag": "1",
+          "withdrawalStatus": "0"
+        }
+      ]
+    },
+    {
+      "ticker": "6954",
+      "target_name": "ファナック",
+      "selected": {
+        "docID": "S100YG3Q",
+        "edinetCode": "E01946",
+        "secCode": "69540",
+        "filerName": "ファナック株式会社",
+        "docDescription": "有価証券報告書－第57期(2025/04/01－2026/03/31)",
+        "docTypeCode": "120",
+        "submitDateTime": "2026-06-22 15:50",
+        "periodStart": "2025-04-01",
+        "periodEnd": "2026-03-31",
+        "csvFlag": "1",
+        "withdrawalStatus": "0"
+      },
+      "all_annual_reports": [
+        {
+          "docID": "S100YG3Q",
+          "edinetCode": "E01946",
+          "secCode": "69540",
+          "filerName": "ファナック株式会社",
+          "docDescription": "有価証券報告書－第57期(2025/04/01－2026/03/31)",
+          "docTypeCode": "120",
+          "submitDateTime": "2026-06-22 15:50",
+          "periodStart": "2025-04-01",
+          "periodEnd": "2026-03-31",
+          "csvFlag": "1",
+          "withdrawalStatus": "0"
+        }
+      ]
+    },
+    {
+      "ticker": "6506",
+      "target_name": "安川電機",
+      "selected": {
+        "docID": "S100Y69H",
+        "edinetCode": "E01741",
+        "secCode": "65060",
+        "filerName": "株式会社安川電機",
+        "docDescription": "有価証券報告書－第110期(2025/03/01－2026/02/28)",
+        "docTypeCode": "120",
+        "submitDateTime": "2026-05-25 15:58",
+        "periodStart": "2025-03-01",
+        "periodEnd": "2026-02-28",
+        "csvFlag": "1",
+        "withdrawalStatus": "0"
+      },
+      "all_annual_reports": [
+        {
+          "docID": "S100Y69H",
+          "edinetCode": "E01741",
+          "secCode": "65060",
+          "filerName": "株式会社安川電機",
+          "docDescription": "有価証券報告書－第110期(2025/03/01－2026/02/28)",
+          "docTypeCode": "120",
+          "submitDateTime": "2026-05-25 15:58",
+          "periodStart": "2025-03-01",
+          "periodEnd": "2026-02-28",
+          "csvFlag": "1",
+          "withdrawalStatus": "0"
+        }
+      ]
+    },
+    {
+      "ticker": "6645",
+      "target_name": "オムロン",
+      "selected": {
+        "docID": "S100YG81",
+        "edinetCode": "E01755",
+        "secCode": "66450",
+        "filerName": "オムロン株式会社",
+        "docDescription": "有価証券報告書－第89期(2025/04/01－2026/03/31)",
+        "docTypeCode": "120",
+        "submitDateTime": "2026-06-22 10:36",
+        "periodStart": "2025-04-01",
+        "periodEnd": "2026-03-31",
+        "csvFlag": "1",
+        "withdrawalStatus": "0"
+      },
+      "all_annual_reports": [
+        {
+          "docID": "S100YG81",
+          "edinetCode": "E01755",
+          "secCode": "66450",
+          "filerName": "オムロン株式会社",
+          "docDescription": "有価証券報告書－第89期(2025/04/01－2026/03/31)",
+          "docTypeCode": "120",
+          "submitDateTime": "2026-06-22 10:36",
+          "periodStart": "2025-04-01",
+          "periodEnd": "2026-03-31",
+          "csvFlag": "1",
+          "withdrawalStatus": "0"
+        }
+      ]
+    },
+    {
+      "ticker": "6841",
+      "target_name": "横河電機",
+      "selected": {
+        "docID": "S100YE3H",
+        "edinetCode": "E01878",
+        "secCode": "68410",
+        "filerName": "横河電機株式会社",
+        "docDescription": "有価証券報告書－第150期(2025/04/01－2026/03/31)",
+        "docTypeCode": "120",
+        "submitDateTime": "2026-06-18 15:31",
+        "periodStart": "2025-04-01",
+        "periodEnd": "2026-03-31",
+        "csvFlag": "1",
+        "withdrawalStatus": "0"
+      },
+      "all_annual_reports": [
+        {
+          "docID": "S100YE3H",
+          "edinetCode": "E01878",
+          "secCode": "68410",
+          "filerName": "横河電機株式会社",
+          "docDescription": "有価証券報告書－第150期(2025/04/01－2026/03/31)",
+          "docTypeCode": "120",
+          "submitDateTime": "2026-06-18 15:31",
+          "periodStart": "2025-04-01",
+          "periodEnd": "2026-03-31",
+          "csvFlag": "1",
+          "withdrawalStatus": "0"
+        }
+      ]
+    }
+  ],
+  "scan_errors": [],
+  "notice": "EDINET書類検索結果。訂正書類・対象会社・決算期は人手で要確認。"
+}
