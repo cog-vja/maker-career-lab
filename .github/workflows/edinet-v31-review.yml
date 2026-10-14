@@ -1,0 +1,40 @@
+
+name: EDINET v3.1 data review
+
+on:
+  workflow_dispatch:
+    inputs:
+      lookback_days:
+        description: '提出書類の検索日数 (1〜200。初回は150日推奨)'
+        required: true
+        default: '150'
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: edinet-v31-review
+  cancel-in-progress: false
+
+jobs:
+  review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Search EDINET and extract unapproved candidates
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          LOOKBACK_DAYS: ${{ inputs.lookback_days }}
+        run: |
+          python3 -m unittest -q test_pipeline.py test_batch_v31.py
+          python3 edinet_batch_v31.py --days "$LOOKBACK_DAYS" --delay 2.5 --max-docs 10 --output edinet-review-output
+      - name: Upload review results (not public site data)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v31-review
+          path: edinet-review-output/
+          retention-days: 7
+          if-no-files-found: warn
