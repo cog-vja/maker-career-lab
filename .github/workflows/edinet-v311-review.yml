@@ -1,0 +1,47 @@
+
+name: EDINET v3.11 ten-company integrated review
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Number of companies (1-10); default all 10'
+        required: true
+        default: '10'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run regression tests
+        run: |
+          python3 -m unittest -v \
+            test_v33.py test_v34.py test_v35.py test_v36.py \
+            test_v37.py test_v38.py test_v39.py test_v310.py \
+            test_v311.py test_v311_regression.py
+
+      - name: Download and integrate EDINET filings
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          LIMIT: ${{ inputs.limit }}
+        run: |
+          python3 edinet_v311.py \
+            --discovery discovery-v31.json \
+            --limit "$LIMIT" \
+            --output edinet-v311-output
+
+      - name: Upload diagnostic review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v311-review
+          path: edinet-v311-output/
+          retention-days: 7
+          if-no-files-found: warn
