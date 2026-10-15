@@ -1,0 +1,37 @@
+
+name: EDINET v3.12 download nine originals
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  download:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify nine-company target selection and tests
+        run: |
+          python3 -m unittest -v test_v312.py
+          python3 download_edinet_originals_v312.py --discovery discovery-v31.json --dry-run
+
+      - name: Download nine original EDINET ZIPs
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+        run: |
+          python3 download_edinet_originals_v312.py \
+            --discovery discovery-v31.json \
+            --output edinet-v312-originals
+
+      - name: Upload originals and verification manifest
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v312-nine-originals
+          path: edinet-v312-originals/
+          retention-days: 7
+          if-no-files-found: warn
