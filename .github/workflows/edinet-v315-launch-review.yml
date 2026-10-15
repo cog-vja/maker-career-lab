@@ -1,0 +1,50 @@
+
+name: EDINET v3.15 launch readiness review
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'preview first; publish requires explicit approval'
+        required: true
+        default: 'preview'
+        type: choice
+        options:
+          - preview
+          - publish
+
+permissions:
+  contents: read
+
+jobs:
+  review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run release safety tests
+        run: python3 -m unittest -v test_v314.py test_v315.py
+
+      - name: Build staged site files
+        env:
+          MODE: ${{ inputs.mode }}
+        run: |
+          if [ "$MODE" = "publish" ]; then
+            python3 build_release_v315.py --review fixtures-v314.zip --output v315-output --mode publish --approval release-approval-v314.json
+          else
+            python3 build_release_v315.py --review fixtures-v314.zip --output v315-output --mode preview
+          fi
+
+      - name: Upload staged files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v315-launch-review
+          path: v315-output/
+          retention-days: 7
+          if-no-files-found: warn
