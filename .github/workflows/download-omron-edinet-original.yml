@@ -1,0 +1,86 @@
+
+name: Download OMRON EDINET original ZIP
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  download:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Download and verify original filing
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib
+          import io
+          import json
+          import os
+          from pathlib import Path
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          import zipfile
+
+          doc_id = 'S100YG81'
+          api_key = os.environ.get('EDINET_API_KEY')
+          if not api_key:
+              raise SystemExit('Missing GitHub Actions secret EDINET_API_KEY')
+
+          out = Path('edinet-original')
+          out.mkdir(exist_ok=True)
+          query = urllib.parse.urlencode({'type': '1', 'Subscription-Key': api_key})
+          url = f'https://api.edinet-fsa.go.jp/api/v2/documents/{doc_id}?{query}'
+          request = urllib.request.Request(url, headers={'User-Agent': 'maker-career-lab/omron-source-download'})
+          try:
+              with urllib.request.urlopen(request, timeout=90) as response:
+                  data = response.read(80_000_001)
+                  content_type = response.headers.get('Content-Type', '')
+          except urllib.error.HTTPError as exc:
+              raise SystemExit(f'EDINET HTTP error: {exc.code}') from None
+          except urllib.error.URLError as exc:
+              raise SystemExit(f'EDINET network error: {type(exc.reason).__name__}') from None
+
+          if len(data) > 80_000_000:
+              raise SystemExit('Original filing exceeds the 80 MB safety limit')
+          if not zipfile.is_zipfile(io.BytesIO(data)):
+              raise SystemExit(f'EDINET response is not a ZIP (Content-Type: {content_type})')
+
+          with zipfile.ZipFile(io.BytesIO(data)) as archive:
+              invalid_member = archive.testzip()
+              if invalid_member:
+                  raise SystemExit('ZIP integrity check failed')
+              files = [item for item in archive.infolist() if not item.is_dir()]
+              if not any('/publicdoc/' in ('/' + item.filename.lower()) for item in files):
+                  raise SystemExit('Expected XBRL/PublicDoc content was not found')
+              inventory = {
+                  'docID': doc_id,
+                  'edinet_type': 1,
+                  'archive_size_bytes': len(data),
+                  'sha256': hashlib.sha256(data).hexdigest(),
+                  'file_count': len(files),
+                  'xbrl_count': sum(item.filename.lower().endswith('.xbrl') for item in files),
+                  'html_count': sum(item.filename.lower().endswith(('.htm', '.html')) for item in files),
+                  'files': [{'path': item.filename, 'bytes': item.file_size} for item in files],
+              }
+
+          (out / f'OMRON-{doc_id}-type1-original.zip').write_bytes(data)
+          (out / 'manifest.json').write_text(json.dumps(inventory, ensure_ascii=False, indent=2), encoding='utf-8')
+          print(f'Download verified: {doc_id}, {len(files)} files, {len(data)} bytes')
+          print('The EDINET API key is not included in the artifact.')
+          PY
+
+      - name: Upload original ZIP and manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: omron-S100YG81-original
+          path: edinet-original/
+          retention-days: 7
+          if-no-files-found: error
