@@ -1,0 +1,50 @@
+
+name: EDINET v3.7 source structure review
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Number of companies (1-10); default all 10'
+        required: true
+        default: '10'
+        type: string
+      inspect_type1:
+        description: 'Also inspect original type=1 ZIP for US GAAP filings'
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run regression tests
+        run: python3 -m unittest -v test_v33.py test_v34.py test_v35.py test_v36.py test_v37.py
+
+      - name: Inspect EDINET source structure
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          LIMIT: ${{ inputs.limit }}
+          INSPECT_TYPE1: ${{ inputs.inspect_type1 }}
+        run: |
+          if [ "$INSPECT_TYPE1" = "true" ]; then
+            python3 edinet_v37.py --discovery discovery-v31.json --limit "$LIMIT" --inspect-type1 --output edinet-v37-output
+          else
+            python3 edinet_v37.py --discovery discovery-v31.json --limit "$LIMIT" --output edinet-v37-output
+          fi
+
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v37-review
+          path: edinet-v37-output/
+          retention-days: 7
+          if-no-files-found: warn
