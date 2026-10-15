@@ -1,0 +1,39 @@
+
+name: EDINET v3.6 financial quality review
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Number of companies (1-10); default all 10'
+        required: true
+        default: '10'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run regression tests
+        run: python3 -m unittest -v test_v33.py test_v34.py test_v35.py test_v36.py
+
+      - name: Extract and diagnose EDINET filings
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          LIMIT: ${{ inputs.limit }}
+        run: python3 edinet_v36.py --discovery discovery-v31.json --limit "$LIMIT" --output edinet-v36-output
+
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v36-review
+          path: edinet-v36-output/
+          retention-days: 7
+          if-no-files-found: warn
