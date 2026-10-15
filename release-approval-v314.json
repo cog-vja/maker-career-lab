@@ -1,0 +1,18 @@
+{
+  "release_version": "3.14",
+  "approved": true,
+  "artifact_sha256": "95e2c7fd2b476ba17b8e399114c24ec8402ca590654eb3d3a9dd308d6e2162b1",
+  "document_ids": {
+    "6146": "S100YC6I",
+    "6506": "S100Y69H",
+    "6645": "S100YG81",
+    "6841": "S100YE3H",
+    "6857": "S100YKTA",
+    "6861": "S100YAHE",
+    "6920": "S100Z32V",
+    "6954": "S100YG3Q",
+    "7735": "S100YK9N",
+    "8035": "S100YEOO"
+  },
+  "reviewer_confirmation": "I reviewed and approve the ten companies and sixty metrics for public release"
+}
