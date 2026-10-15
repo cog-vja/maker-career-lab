@@ -1,0 +1,49 @@
+
+name: EDINET v3.13 ten-company quality review
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Number of companies (1-100); default original ten'
+        required: true
+        default: '10'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run quality and regression tests
+        run: |
+          python3 -m unittest -v \
+            test_v33.py test_v34.py test_v35.py test_v36.py \
+            test_v37.py test_v38.py test_v39.py test_v310.py \
+            test_v311.py test_v311_regression.py \
+            test_v313.py test_v313_regression.py
+
+      - name: Download and independently reconcile filing originals
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          LIMIT: ${{ inputs.limit }}
+        run: |
+          python3 edinet_v313.py \
+            --mode live \
+            --discovery discovery-v31.json \
+            --limit "$LIMIT" \
+            --output edinet-v313-output
+
+      - name: Upload original-filing quality diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v313-quality-review
+          path: edinet-v313-output/
+          retention-days: 7
+          if-no-files-found: warn
