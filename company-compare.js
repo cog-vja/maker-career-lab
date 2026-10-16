@@ -1,4 +1,4 @@
-/* Maker Career Lab v3.19. Only source-verified, release-staged companies are displayed.
+/* Maker Career Lab v3.20. Only source-verified, release-staged companies are displayed.
  * Additional discovery and incomplete issuer data are deliberately NOT loaded here.
  */
 (()=>{'use strict';
@@ -6,7 +6,7 @@ const $=id=>document.getElementById(id);
 const actual=Array.isArray(window.MCL_COMPANIES)?window.MCL_COMPANIES:[];
 const demos=Array.isArray(window.MCL_DEMOS)?window.MCL_DEMOS:[];
 const normalized=s=>String(s||'').normalize('NFKC').toLowerCase().replace(/[\s　・（）()]/g,'').replace(/株式会社/g,'');
-const get=name=>actual.find(c=>normalized(c.name)===normalized(name)||c.aliases?.some(a=>normalized(a)===normalized(name)));
+const get=name=>actual.find(c=>String(c.id)===String(name).trim()||normalized(c.name)===normalized(name)||c.aliases?.some(a=>normalized(a)===normalized(name)));
 const n=x=>typeof x==='number'&&Number.isFinite(x)?x:null;
 const ratio=(x,y)=>n(x)!==null&&n(y)!==null&&y!==0?100*x/y:null;
 const calc=c=>({...c,margin:ratio(c.operatingProfit,c.revenue),growth:n(c.revenue)!==null&&n(c.revenuePrev)!==null&&c.revenuePrev!==0?100*(c.revenue/c.revenuePrev-1):null,cfRatio:ratio(c.operatingCashFlow,c.revenue)});
@@ -80,9 +80,20 @@ function submit(e){
  show(ca,cb);
 }
 function init(){
- $('dataset-status').textContent=actual.length+'社（原本照合・公開承認済み）';
+ $('dataset-status').textContent=actual.length+'社（有価証券報告書の原本照合済み）';
  const dl=$('company-list');for(const c of actual)dl.append(text('option',c.name));
  $('compare-form').addEventListener('submit',submit);
+ const catalog=$('company-catalog'), search=$('catalog-search');
+ const renderCatalog=()=>{
+   const term=normalized(search.value), items=actual.filter(c=>!term||normalized(c.name).includes(term)||String(c.id).includes(term)||c.aliases?.some(a=>normalized(a).includes(term))).slice(0,110);
+   catalog.replaceChildren();for(const c of items){
+     const btn=text('button',c.name+'（'+c.id+'）');btn.type='button';
+     btn.addEventListener('click',()=>{$('name-b').value=c.name;$('hint-b').textContent='';$('status').textContent='検討先に'+c.name+'を設定しました。';});
+     catalog.append(btn);
+   }
+   if(!items.length)catalog.append(text('p','該当する収録企業がありません。'));
+ };
+ search.addEventListener('input',renderCatalog);renderCatalog();
  $('demo').addEventListener('click',()=>{
    if(demos.length<2){$('status').textContent='デモデータを読み込めませんでした。';return;}
    $('name-a').value=demos[0].name;$('name-b').value=demos[1].name;show(demos[0],demos[1]);
