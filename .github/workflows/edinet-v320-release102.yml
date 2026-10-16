@@ -1,0 +1,115 @@
+
+name: EDINET v3.20 102-company source-gated release staging
+
+on:
+  workflow_dispatch:
+    inputs:
+      delay_seconds:
+        description: 'Delay between EDINET original ZIP requests (0.0 to 10.0 seconds)'
+        required: true
+        default: '0.7'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  source-gated-staging:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 100
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Verify required files before API calls
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          required = [
+              'edinet_v320.py', 'test_v320.py',
+              'company-master-v319.json', 'baseline-29-v320.js',
+              'original-audit-v320.json', 'affiliate-v320.json',
+              'site-update-v320/company-check.html',
+              'site-update-v320/company-compare.js',
+              'site-update-v320/affiliate-render.js',
+              'edinet_v313.py', 'edinet_v317.py', 'edinet_v38.py',
+              'edinet_v32.py', 'edinet_v33.py', 'edinet_v35.py',
+              'edinet_v36.py', 'edinet_v310.py', 'edinet_v311.py'
+          ]
+          missing = [p for p in required if not Path(p).is_file()]
+          if missing:
+              raise SystemExit('Missing v3.20 prerequisites: ' + ', '.join(missing))
+          print('Required file preflight PASS')
+          PY
+
+      - name: Run v3.20 offline quality, publication and ad safety tests
+        run: |
+          python3 -m unittest -v test_v320.py
+          python3 edinet_v320.py check
+          node --check site-update-v320/company-compare.js
+          node --check site-update-v320/affiliate-render.js
+
+      - name: Re-download all 79 EDINET originals and verify XBRL content and values
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          DELAY: ${{ inputs.delay_seconds }}
+        run: |
+          python3 edinet_v320.py live-audit \
+            --master company-master-v319.json \
+            --baseline baseline-29-v320.js \
+            --audit original-audit-v320.json \
+            --limit 79 \
+            --delay "$DELAY" \
+            --output v320-output
+
+      - name: Stage exactly 102 companies only after successful live source gate
+        run: |
+          python3 edinet_v320.py stage \
+            --master company-master-v319.json \
+            --baseline baseline-29-v320.js \
+            --audit original-audit-v320.json \
+            --ads affiliate-v320.json \
+            --site-templates site-update-v320 \
+            --live-result v320-output/live-review-summary-v320.json \
+            --live-progress v320-output/live-review-progress-v320.json \
+            --output v320-output
+
+      - name: Verify staged file counts and that A8 is disabled
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path('v320-output')
+          meta = json.loads((root/'release-summary-v320.json').read_text())
+          assert meta['staged_public_count'] == 102
+          assert meta['new_source_reconciled'] == 73
+          assert meta['baseline_rows_unchanged'] == 29
+          assert meta['live_original_recheck'] is True
+          assert meta['deployed_to_pages'] is False
+          assert meta['ads_enabled'] is False
+          assert len(list((root/'site-ready').iterdir())) == 5
+          print('Manual 102-company release staged; no automatic deployment')
+          PY
+          node --check v320-output/site-ready/company-data.js
+          node --check v320-output/site-ready/company-compare.js
+          node --check v320-output/site-ready/affiliate-config.js
+          node --check v320-output/site-ready/affiliate-render.js
+
+      - name: Upload diagnostics and manual site release (no auto-deploy)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v320-102-company-release-review
+          path: v320-output/
+          retention-days: 7
+          if-no-files-found: warn
