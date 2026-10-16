@@ -1,0 +1,21 @@
+{
+  "version": "3.18",
+  "purpose": "10 existing public, 19 source-reconciled pending approval, 1 blocked, 30 discovery candidates",
+  "files": {
+    "edinet_v318.py": "3606cd4699551f262c611925c1f51ef5aa702a1dc215c455e2a1903e60becd00",
+    "test_v318.py": "3c0e6924e4581987b0dd20df40e1fbab1a4a45aeb67437821494ba20f9f3cdc0",
+    "company-master-v318.json": "bf036164549a7152c42ba83061c76bae8f2064d2b0af40795c0abef911ba1c06",
+    "approved-ten-baseline-v318.json": "667edc746454fe5a347043375a6a0bf5e53733c90c09df725ce886ddbaffc739",
+    "v317-review-v318.zip": "71453ad3526f11e096d484c88941c0fe7f7b50496ce620794c472b31a83a0e87",
+    "filing-selections-v317.json": "535b41cde44a10c5021425770ffc9ae632358669df20e3a0fcf660e868a4cfb9",
+    "discover_edinet_v316.py": "822b0b26afa7643aeaa52d604358998b2bfee9b1c1f1e91b2da74551cd59d46c",
+    ".github/workflows/edinet-v318-batch-review.yml": "36a9b87fbc400ff5a647bf5c8c6e70ba335b6937ecd1273f1a768051bfd2dabc",
+    "reference-only/company-data.js": "94ac0b22156e6c858f20585c2ea4e98f638e45713c72707890b6b366daf83832",
+    "SETUP-iPHONE-v318.md": "b577312b43ab7085e621a8483a018eaf4f764aa1d3deb594e5be3e714caa94c1",
+    "VALIDATION-REPORT-v318.md": "18ba27ba46db8fbc5aa112280846094118c41fa5f97539d5e00a5ac3a6e8d907",
+    "README-v318.md": "b2600d7663ecc12e66f31995eada46bf542b13cf09daea88856945b30d3a52cf",
+    "local-validation-samples/review-summary-v318.json": "42f274c34f304c41b5f2db90ce11e3d3538f3e31a4e652a8c8954f61b08be7bb",
+    "local-validation-samples/metric-audit-v318.csv": "5407fd624d91e500016abbbffd582ad4641ca79d7324a9f5c57ea6b561112108",
+    "local-validation-samples/release-approval-template-v318.json": "0480c06669db2dc7cc95d5b57eca2db182eedc2ca936d81721199751ab6d8d59"
+  }
+}
