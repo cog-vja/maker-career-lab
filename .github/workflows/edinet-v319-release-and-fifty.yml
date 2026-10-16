@@ -1,0 +1,143 @@
+
+name: EDINET v3.19 29-company release staging and 50-company discovery
+
+on:
+  workflow_dispatch:
+    inputs:
+      lookback_days:
+        description: 'Days of EDINET filings to scan (1-400)'
+        required: true
+        default: '220'
+        type: string
+      download_originals:
+        description: 'Download original XBRL ZIPs for unambiguous 50-company candidates'
+        required: true
+        default: true
+        type: boolean
+      delay_seconds:
+        description: 'Delay between EDINET requests (seconds)'
+        required: true
+        default: '1.0'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  release-and-discovery:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 95
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check every required file before running
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          files = [
+              'edinet_v319.py', 'test_v319.py', 'company-master-v319.json',
+              'v318-originals-manifest-v319.json', 'approved-ten-company-data-v319.js',
+              'edinet_v318.py', 'discover_edinet_v316.py', 'company-master-v318.json',
+              'approved-ten-baseline-v318.json', 'filing-selections-v317.json',
+              'v317-review-v318.zip', 'company-data.js',
+              'site-update-v319/company-check.html', 'site-update-v319/company-compare.js'
+          ]
+          missing = [p for p in files if not Path(p).is_file()]
+          if missing:
+              raise SystemExit('Missing required files: ' + ', '.join(missing))
+          print('Required-file preflight PASS')
+          PY
+      - name: Test release integrity, source freeze and discovery safety
+        run: python3 -m unittest -v test_v319.py
+      - name: Stage reviewed 29-company dataset (never deploy)
+        run: |
+          python3 edinet_v319.py stage-release \
+            --master company-master-v319.json \
+            --current-js company-data.js \
+            --output v319-output
+      - name: Scan 50 new companies and optionally download EDINET originals
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          LOOKBACK: ${{ inputs.lookback_days }}
+          DOWNLOAD: ${{ inputs.download_originals }}
+          DELAY: ${{ inputs.delay_seconds }}
+        run: |
+          if [ "$DOWNLOAD" = 'true' ]; then
+            python3 edinet_v319.py discover \
+              --master company-master-v319.json \
+              --current-js company-data.js \
+              --lookback-days "$LOOKBACK" \
+              --delay "$DELAY" \
+              --download-originals \
+              --output v319-output
+          else
+            python3 edinet_v319.py discover \
+              --master company-master-v319.json \
+              --current-js company-data.js \
+              --lookback-days "$LOOKBACK" \
+              --delay "$DELAY" \
+              --output v319-output
+          fi
+      - name: Attach 29-company comparison page and script for manual release
+        if: always()
+        run: |
+          if [ -f v319-output/site-ready/company-data.js ]; then
+            cp site-update-v319/company-check.html v319-output/site-ready/company-check.html
+            cp site-update-v319/company-compare.js v319-output/site-ready/company-compare.js
+          fi
+      - name: Upload release and discovery reports (small artifact)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v319-release-and-discovery-report
+          path: |
+            v319-output/release-summary-v319.json
+            v319-output/site-ready/
+            v319-output/reconciliation/
+            v319-output/discovery-report/
+          retention-days: 7
+          if-no-files-found: warn
+      - name: Upload originals batch 1 (companies 1-10)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v319-originals-batch-01
+          path: v319-output/originals-batch-01/
+          retention-days: 7
+          if-no-files-found: ignore
+      - name: Upload originals batch 2 (companies 11-20)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v319-originals-batch-02
+          path: v319-output/originals-batch-02/
+          retention-days: 7
+          if-no-files-found: ignore
+      - name: Upload originals batch 3 (companies 21-30)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v319-originals-batch-03
+          path: v319-output/originals-batch-03/
+          retention-days: 7
+          if-no-files-found: ignore
+      - name: Upload originals batch 4 (companies 31-40)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v319-originals-batch-04
+          path: v319-output/originals-batch-04/
+          retention-days: 7
+          if-no-files-found: ignore
+      - name: Upload originals batch 5 (companies 41-50)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v319-originals-batch-05
+          path: v319-output/originals-batch-05/
+          retention-days: 7
+          if-no-files-found: ignore
