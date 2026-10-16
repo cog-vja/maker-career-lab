@@ -1,0 +1,335 @@
+{
+  "schema_version": "3.16",
+  "purpose": "Company roster only. Never publish pending entries.",
+  "publication_policy": "Existing 10 approved companies are unchanged; newly discovered filings are BLOCKED until full source reconciliation and explicit approval.",
+  "discovery_rules": {
+    "docTypeCode": "120",
+    "require_secCode_match": true,
+    "require_withdrawalStatus": "0",
+    "require_csvFlag": "1",
+    "correction_docTypeCode": "130"
+  },
+  "companies": [
+    {
+      "ticker": "6146",
+      "name": "株式会社ディスコ",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "ディスコ"
+      ],
+      "stage": "PUBLISHED",
+      "source_doc_id": "S100YC6I",
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6506",
+      "name": "株式会社安川電機",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "安川電機"
+      ],
+      "stage": "PUBLISHED",
+      "source_doc_id": "S100Y69H",
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6645",
+      "name": "オムロン株式会社",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "オムロン"
+      ],
+      "stage": "PUBLISHED",
+      "source_doc_id": "S100YG81",
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6841",
+      "name": "横河電機株式会社",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "横河電機"
+      ],
+      "stage": "PUBLISHED",
+      "source_doc_id": "S100YE3H",
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6857",
+      "name": "株式会社アドバンテスト",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "アドバンテスト"
+      ],
+      "stage": "PUBLISHED",
+      "source_doc_id": "S100YKTA",
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6861",
+      "name": "株式会社キーエンス",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "キーエンス"
+      ],
+      "stage": "PUBLISHED",
+      "source_doc_id": "S100YAHE",
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6920",
+      "name": "レーザーテック株式会社",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "レーザーテック"
+      ],
+      "stage": "PUBLISHED",
+      "source_doc_id": "S100Z32V",
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6954",
+      "name": "ファナック株式会社",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "ファナック"
+      ],
+      "stage": "PUBLISHED",
+      "source_doc_id": "S100YG3Q",
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7735",
+      "name": "株式会社ＳＣＲＥＥＮホールディングス",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "SCREENホールディングス",
+        "SCREEN HD"
+      ],
+      "stage": "PUBLISHED",
+      "source_doc_id": "S100YK9N",
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "8035",
+      "name": "東京エレクトロン株式会社",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "東京エレクトロン"
+      ],
+      "stage": "PUBLISHED",
+      "source_doc_id": "S100YEOO",
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7729",
+      "name": "東京精密",
+      "industry": "半導体・製造装置",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6525",
+      "name": "KOKUSAI ELECTRIC",
+      "industry": "半導体・製造装置",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6871",
+      "name": "日本マイクロニクス",
+      "industry": "半導体・製造装置",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6323",
+      "name": "ローツェ",
+      "industry": "半導体・製造装置",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6590",
+      "name": "芝浦メカトロニクス",
+      "industry": "半導体・製造装置",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4063",
+      "name": "信越化学工業",
+      "industry": "電子部品・材料",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "3436",
+      "name": "SUMCO",
+      "industry": "電子部品・材料",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6981",
+      "name": "村田製作所",
+      "industry": "電子部品・材料",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6762",
+      "name": "TDK",
+      "industry": "電子部品・材料",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6988",
+      "name": "日東電工",
+      "industry": "電子部品・材料",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6503",
+      "name": "三菱電機",
+      "industry": "産業機械・総合電機",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6273",
+      "name": "SMC",
+      "industry": "産業機械・総合電機",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6481",
+      "name": "THK",
+      "industry": "産業機械・総合電機",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6367",
+      "name": "ダイキン工業",
+      "industry": "産業機械・総合電機",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6501",
+      "name": "日立製作所",
+      "industry": "産業機械・総合電機",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7203",
+      "name": "トヨタ自動車",
+      "industry": "自動車・輸送機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7267",
+      "name": "本田技研工業",
+      "industry": "自動車・輸送機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6902",
+      "name": "デンソー",
+      "industry": "自動車・輸送機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7269",
+      "name": "スズキ",
+      "industry": "自動車・輸送機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7270",
+      "name": "SUBARU",
+      "industry": "自動車・輸送機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    }
+  ]
+}
