@@ -1,0 +1,66 @@
+{
+  "edinet_v319.py": {
+    "sha256": "ed4089186913725f00f4f7815aa66cf66a1284e9f64fa39bf2d6e2f11611dde2",
+    "bytes": 13800
+  },
+  "test_v319.py": {
+    "sha256": "b0dad19df0ff7557dbddcf87391f26288d2adc2685bfbf311d8fe0c5d1bf1ecd",
+    "bytes": 8924
+  },
+  "company-master-v319.json": {
+    "sha256": "e9d4d3e5dbacc1304c721058f2b1ec0256c6d27f74e7ccf4578268558c050181",
+    "bytes": 37920
+  },
+  "v318-originals-manifest-v319.json": {
+    "sha256": "dc6963c0a1e4165d6260264c115c62c3cf60cb5400ada5226b319b7766286d05",
+    "bytes": 14526
+  },
+  "approved-ten-company-data-v319.js": {
+    "sha256": "94ac0b22156e6c858f20585c2ea4e98f638e45713c72707890b6b366daf83832",
+    "bytes": 6979
+  },
+  "site-update-v319/company-check.html": {
+    "sha256": "3399f412da01b46d037c5f6482c1afdf804f0db1dcecb3cc7949f2e54d677d67",
+    "bytes": 6285
+  },
+  "site-update-v319/company-compare.js": {
+    "sha256": "823c35916c5dc7c0810d241766e3fbc228b0d6337bced29c4038420f434aa7c1",
+    "bytes": 7974
+  },
+  ".github/workflows/edinet-v319-release-and-fifty.yml": {
+    "sha256": "40013cd1402ccf92b52f09174d87cbffa1bfb65c3cd24a01e005b6fe25d8cfd5",
+    "bytes": 5346
+  },
+  "site-ready/company-data.js": {
+    "sha256": "2f4556d38bbb4e14b0d860fe41a84e2de8dee6b39865917aff607c6ccb0b222b",
+    "bytes": 17691
+  },
+  "site-ready/company-check.html": {
+    "sha256": "3399f412da01b46d037c5f6482c1afdf804f0db1dcecb3cc7949f2e54d677d67",
+    "bytes": 6285
+  },
+  "site-ready/company-compare.js": {
+    "sha256": "823c35916c5dc7c0810d241766e3fbc228b0d6337bced29c4038420f434aa7c1",
+    "bytes": 7974
+  },
+  "SETUP-iPHONE-v319.md": {
+    "sha256": "8f50b572a1bce6b4d402977d06d78bd89cc95375ebab0c8a203e23b987601610",
+    "bytes": 4721
+  },
+  "VALIDATION-REPORT-v319.md": {
+    "sha256": "f3427999eb52a416d8ab4e44818d0d0ad88e30ac2f7f20cbf08ee8945ec49807",
+    "bytes": 2556
+  },
+  "NEW-50-TARGETS-v319.csv": {
+    "sha256": "9730403bf8c29a16e8f477d2e78de7461a40fb1dc4cde2f12a9f1c0761f1ac1e",
+    "bytes": 3330
+  },
+  "README-v319.md": {
+    "sha256": "0a506ade0d57267bca61e244a9f823b50ddc649e5b535066a285809ec536e85d",
+    "bytes": 1070
+  },
+  "local-validation-samples/release-summary-v319.json": {
+    "sha256": "4017fe4f9a800be37cddd1913f8853bb0ca24114a27e9a77dbb1efcc59880ba2",
+    "bytes": 512
+  }
+}

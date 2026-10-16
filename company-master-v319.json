@@ -1,0 +1,1208 @@
+{
+  "schema_version": "3.19",
+  "purpose": "110 controlled issuers: 10 baseline + 19 release-ready + 1 blocked + 30 acquired original + 50 discovery pending",
+  "publication_policy": "Only 29 vetted rows may enter staged public company-data.js; 81 others remain unpublished",
+  "companies": [
+    {
+      "ticker": "6146",
+      "name": "株式会社ディスコ",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "ディスコ"
+      ],
+      "stage": "PUBLISHED_BASELINE",
+      "source_doc_id": "S100YC6I",
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6506",
+      "name": "株式会社安川電機",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "安川電機"
+      ],
+      "stage": "PUBLISHED_BASELINE",
+      "source_doc_id": "S100Y69H",
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6645",
+      "name": "オムロン株式会社",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "オムロン"
+      ],
+      "stage": "PUBLISHED_BASELINE",
+      "source_doc_id": "S100YG81",
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6841",
+      "name": "横河電機株式会社",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "横河電機"
+      ],
+      "stage": "PUBLISHED_BASELINE",
+      "source_doc_id": "S100YE3H",
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6857",
+      "name": "株式会社アドバンテスト",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "アドバンテスト"
+      ],
+      "stage": "PUBLISHED_BASELINE",
+      "source_doc_id": "S100YKTA",
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6861",
+      "name": "株式会社キーエンス",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "キーエンス"
+      ],
+      "stage": "PUBLISHED_BASELINE",
+      "source_doc_id": "S100YAHE",
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6920",
+      "name": "レーザーテック株式会社",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "レーザーテック"
+      ],
+      "stage": "PUBLISHED_BASELINE",
+      "source_doc_id": "S100Z32V",
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6954",
+      "name": "ファナック株式会社",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "ファナック"
+      ],
+      "stage": "PUBLISHED_BASELINE",
+      "source_doc_id": "S100YG3Q",
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7735",
+      "name": "株式会社ＳＣＲＥＥＮホールディングス",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "SCREENホールディングス",
+        "SCREEN HD"
+      ],
+      "stage": "PUBLISHED_BASELINE",
+      "source_doc_id": "S100YK9N",
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "8035",
+      "name": "東京エレクトロン株式会社",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "東京エレクトロン"
+      ],
+      "stage": "PUBLISHED_BASELINE",
+      "source_doc_id": "S100YEOO",
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7729",
+      "name": "東京精密",
+      "industry": "半導体・製造装置",
+      "aliases": [],
+      "stage": "RELEASE_READY_29",
+      "source_doc_id": "S100YEOP",
+      "edinet_code": "E02289",
+      "expected_metrics": 6,
+      "source_payload_sha256": "87b9fefe6ec0df63d6fa97b69ce7384c437eca13d9863f07f8b77369cd9b0549"
+    },
+    {
+      "ticker": "6525",
+      "name": "KOKUSAI ELECTRIC",
+      "industry": "半導体・製造装置",
+      "aliases": [],
+      "stage": "RELEASE_READY_29",
+      "source_doc_id": "S100YJUA",
+      "edinet_code": "E37488",
+      "expected_metrics": 6,
+      "source_payload_sha256": "ae962d0a93ee8d75e00de06bcbb0abd989ae4338c4288bb89f32108323ad9c28"
+    },
+    {
+      "ticker": "6871",
+      "name": "日本マイクロニクス",
+      "industry": "半導体・製造装置",
+      "aliases": [],
+      "stage": "RELEASE_READY_29",
+      "source_doc_id": "S100XTD8",
+      "edinet_code": "E02030",
+      "expected_metrics": 6,
+      "source_payload_sha256": "18323cb260d2e9937ccf6d5159e8c2d4af839afdc7f9d13cccaa074602d05480"
+    },
+    {
+      "ticker": "6323",
+      "name": "ローツェ",
+      "industry": "半導体・製造装置",
+      "aliases": [],
+      "stage": "RELEASE_READY_29",
+      "source_doc_id": "S100Y5GM",
+      "edinet_code": "E02328",
+      "expected_metrics": 6,
+      "source_payload_sha256": "75042539f34a5ea6557f3fefdcda2de51a09d1cd357b12da945d7aa51ec53da3"
+    },
+    {
+      "ticker": "6590",
+      "name": "芝浦メカトロニクス",
+      "industry": "半導体・製造装置",
+      "aliases": [],
+      "stage": "RELEASE_READY_29",
+      "source_doc_id": "S100YAST",
+      "edinet_code": "E01757",
+      "expected_metrics": 6,
+      "source_payload_sha256": "d530bd780ada73cbb36791563a8bc7970021d484a2f72677039b0eb827e740c5"
+    },
+    {
+      "ticker": "4063",
+      "name": "信越化学工業",
+      "industry": "電子部品・材料",
+      "aliases": [],
+      "stage": "RELEASE_READY_29",
+      "source_doc_id": "S100YE9I",
+      "edinet_code": "E00776",
+      "expected_metrics": 6,
+      "source_payload_sha256": "360fa55e15a69b1dcd05224dc7181a60a16736738475b53d233276eccf0d3d5e"
+    },
+    {
+      "ticker": "3436",
+      "name": "SUMCO",
+      "industry": "電子部品・材料",
+      "aliases": [],
+      "stage": "RELEASE_READY_29",
+      "source_doc_id": "S100XRR5",
+      "edinet_code": "E02103",
+      "expected_metrics": 6,
+      "source_payload_sha256": "8158412b16113fefb4259188cddc0ca9bcebf05458b5809cec755a11b41d9a88"
+    },
+    {
+      "ticker": "6981",
+      "name": "村田製作所",
+      "industry": "電子部品・材料",
+      "aliases": [],
+      "stage": "RELEASE_READY_29",
+      "source_doc_id": "S100YHPY",
+      "edinet_code": "E01914",
+      "expected_metrics": 6,
+      "source_payload_sha256": "c565bfc8ef48dbd9ef2d49830e153e3e82f12dd6556ad9cf0e475a8e0d4f6f3c"
+    },
+    {
+      "ticker": "6762",
+      "name": "TDK",
+      "industry": "電子部品・材料",
+      "aliases": [],
+      "stage": "RELEASE_READY_29",
+      "source_doc_id": "S100YD2Y",
+      "edinet_code": "E01780",
+      "expected_metrics": 6,
+      "source_payload_sha256": "3f3437f162e0e9670ddadca0b51edf900af9b0401d14f8d707137c47520d39f8"
+    },
+    {
+      "ticker": "6988",
+      "name": "日東電工",
+      "industry": "電子部品・材料",
+      "aliases": [],
+      "stage": "RELEASE_READY_29",
+      "source_doc_id": "S100YCAR",
+      "edinet_code": "E01888",
+      "expected_metrics": 6,
+      "source_payload_sha256": "21b841c42edb741668f982fb925cf29dea2e0c968a68a2301eb3f199027801b1"
+    },
+    {
+      "ticker": "6503",
+      "name": "三菱電機",
+      "industry": "産業機械・総合電機",
+      "aliases": [],
+      "stage": "RELEASE_READY_29",
+      "source_doc_id": "S100YD3V",
+      "edinet_code": "E01739",
+      "expected_metrics": 6,
+      "source_payload_sha256": "02c04849c2aad475e9f7cbbb53abe81e9a83f0b57a193be560e7784d7dc7e6c4"
+    },
+    {
+      "ticker": "6273",
+      "name": "SMC",
+      "industry": "産業機械・総合電機",
+      "aliases": [],
+      "stage": "RELEASE_READY_29",
+      "source_doc_id": "S100YLC6",
+      "edinet_code": "E01673",
+      "expected_metrics": 6,
+      "source_payload_sha256": "1d638b3bbf1a7d159b764a775ca081f71d86cdff1a5e0b514c29516359ea0f1c"
+    },
+    {
+      "ticker": "6481",
+      "name": "THK",
+      "industry": "産業機械・総合電機",
+      "aliases": [],
+      "stage": "RELEASE_READY_29",
+      "source_doc_id": "S100XRWN",
+      "edinet_code": "E01678",
+      "expected_metrics": 6,
+      "source_payload_sha256": "e1ab7cbbe199f5e05c9f52f2c7e61f6955e08bba2d7fc4a86db7b3473cd8851a"
+    },
+    {
+      "ticker": "6367",
+      "name": "ダイキン工業",
+      "industry": "産業機械・総合電機",
+      "aliases": [],
+      "stage": "RELEASE_READY_29",
+      "source_doc_id": "S100YFQL",
+      "edinet_code": "E01570",
+      "expected_metrics": 6,
+      "source_payload_sha256": "b9f2477b43fad3f18493e613b6b70818526d9172750e7cc29d3653760bd4ed29"
+    },
+    {
+      "ticker": "6501",
+      "name": "日立製作所",
+      "industry": "産業機械・総合電機",
+      "aliases": [],
+      "stage": "BLOCKED_METRIC_DEFINITION",
+      "source_doc_id": "S100YGBO",
+      "edinet_code": "E01737",
+      "expected_metrics": 6,
+      "source_payload_sha256": "4e006107913a753ff54182efde1a80cc49990e9cecb16cff3b888e42fea72e04"
+    },
+    {
+      "ticker": "7203",
+      "name": "トヨタ自動車",
+      "industry": "自動車・輸送機器",
+      "aliases": [],
+      "stage": "RELEASE_READY_29",
+      "source_doc_id": "S100Y8NY",
+      "edinet_code": "E02144",
+      "expected_metrics": 6,
+      "source_payload_sha256": "3ecc78720ca6d46f2cca800d3396c31beb5f3d3f1c44bbbee74b346a8f11f454"
+    },
+    {
+      "ticker": "7267",
+      "name": "本田技研工業",
+      "industry": "自動車・輸送機器",
+      "aliases": [],
+      "stage": "RELEASE_READY_29",
+      "source_doc_id": "S100YDD9",
+      "edinet_code": "E02166",
+      "expected_metrics": 6,
+      "source_payload_sha256": "d9c73172589ccd2b33685678e1e4dc0d1e22d8e5892cdeae73f5b6e26b267841"
+    },
+    {
+      "ticker": "6902",
+      "name": "デンソー",
+      "industry": "自動車・輸送機器",
+      "aliases": [],
+      "stage": "RELEASE_READY_29",
+      "source_doc_id": "S100Y9T1",
+      "edinet_code": "E01892",
+      "expected_metrics": 6,
+      "source_payload_sha256": "df864e0e3cc19c55ae51ece75938d70384d4aafa8d3f7010bbbfd291957da06b"
+    },
+    {
+      "ticker": "7269",
+      "name": "スズキ",
+      "industry": "自動車・輸送機器",
+      "aliases": [],
+      "stage": "RELEASE_READY_29",
+      "source_doc_id": "S100YFG2",
+      "edinet_code": "E02167",
+      "expected_metrics": 6,
+      "source_payload_sha256": "d2234c0254b21cc038adff122251af64e4038c38d24b3c48ded3ec23669241ae"
+    },
+    {
+      "ticker": "7270",
+      "name": "SUBARU",
+      "industry": "自動車・輸送機器",
+      "aliases": [],
+      "stage": "RELEASE_READY_29",
+      "source_doc_id": "S100YFKZ",
+      "edinet_code": "E02152",
+      "expected_metrics": 6,
+      "source_payload_sha256": "4258f19d36cfa28ce9ac667ec964bd8cc4472c45446b2ebabd26cd4ab92af015"
+    },
+    {
+      "ticker": "6723",
+      "name": "ルネサスエレクトロニクス",
+      "industry": "半導体・電子部品",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100XR06",
+      "edinet_code": "E02081",
+      "expected_metrics": 6,
+      "source_zip_sha256": "68c531f93de2f1c807895e74734a563f022b923b10f37d6574e6803ca91219cc",
+      "source_payload_fingerprint": "9f057a1d7cec04e4b78134ad652bb02e7cce5012e60d6ba0d5d34feffa162de8"
+    },
+    {
+      "ticker": "6963",
+      "name": "ローム",
+      "industry": "半導体・電子部品",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YF41",
+      "edinet_code": "E01953",
+      "expected_metrics": 6,
+      "source_zip_sha256": "14282329fc534d6dfd1c6e2c3afd8e05516d9d4544c27a36b242583a93fd1816",
+      "source_payload_fingerprint": "f80a3dc17d5cdd766cb3e4fb39165c40f8a5579ff2ff7320251c06dd1b522379"
+    },
+    {
+      "ticker": "6971",
+      "name": "京セラ",
+      "industry": "半導体・電子部品",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YF47",
+      "edinet_code": "E01182",
+      "expected_metrics": 6,
+      "source_zip_sha256": "a39b6ef11c419c5122fd83113bce61eec76bfefda803b34b8fd37cd27bce2827",
+      "source_payload_fingerprint": "0e78768690b43d6fb602465ed2f61a743fa65ea7eb151b914321a32b2831bd68"
+    },
+    {
+      "ticker": "4062",
+      "name": "イビデン",
+      "industry": "半導体・電子部品",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YC4B",
+      "edinet_code": "E00775",
+      "expected_metrics": 6,
+      "source_zip_sha256": "506b43c942afd27dee4d141d1bc5b9565e8022d3cf8468021d95800adeedd937",
+      "source_payload_fingerprint": "d28be04631716a253d15c9915ebc5f4beae1ec7121823a001371a028d0ad27e7"
+    },
+    {
+      "ticker": "6976",
+      "name": "太陽誘電",
+      "industry": "半導体・電子部品",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YHU5",
+      "edinet_code": "E01824",
+      "expected_metrics": 6,
+      "source_zip_sha256": "8ab37380338e2fc3a6062c06d845fd22b027cdaed72bd539b13dd9ef27fbb9aa",
+      "source_payload_fingerprint": "8de0ddbdd99237706932fdf8c6866f858193a3288e164ed51cb2fc7b511d85bd"
+    },
+    {
+      "ticker": "6770",
+      "name": "アルプスアルパイン",
+      "industry": "半導体・電子部品",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YB8V",
+      "edinet_code": "E01793",
+      "expected_metrics": 6,
+      "source_zip_sha256": "277dba75a982414827148467f6002b8c1328537c8dafb5d0b098e2f658f80741",
+      "source_payload_fingerprint": "16f673d60a2cdbe5a028c475f7b9fc2628fc04df46736aab6c0b1693e82b21a2"
+    },
+    {
+      "ticker": "6479",
+      "name": "ミネベアミツミ",
+      "industry": "半導体・電子部品",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YISS",
+      "edinet_code": "E01607",
+      "expected_metrics": 6,
+      "source_zip_sha256": "254bcb66d270d2d7d847f0bedab3cc19d1c0f70126f7ed4fc6c48ffce65bd28c",
+      "source_payload_fingerprint": "b0f36c48e6dc98f1d2524e8fd48d1dce9f64a89d01d925078790c8fada7b2779"
+    },
+    {
+      "ticker": "4186",
+      "name": "東京応化工業",
+      "industry": "半導体・電子部品",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100XT0N",
+      "edinet_code": "E00854",
+      "expected_metrics": 6,
+      "source_zip_sha256": "fdb45d9ca1b337ebea39db7b83a403d923d9bcbac01ffbea398343a21b3cb14b",
+      "source_payload_fingerprint": "582eab2af9d11c4750d2af867f19a6ac011f8d98935cdb3c039025207291bcca"
+    },
+    {
+      "ticker": "6594",
+      "name": "ニデック",
+      "industry": "半導体・電子部品",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100Z5CA",
+      "edinet_code": "E01975",
+      "expected_metrics": 6,
+      "source_zip_sha256": "088c2cec40d63a97b072c4ea4729530f4f239829f4916e05e29a4176473043e1",
+      "source_payload_fingerprint": "664dc375d12eb0a5066df82221a771c5b8e3fe18d3a8fe203ec95e89799a2203"
+    },
+    {
+      "ticker": "7733",
+      "name": "オリンパス",
+      "industry": "半導体・電子部品",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YDN3",
+      "edinet_code": "E02272",
+      "expected_metrics": 6,
+      "source_zip_sha256": "0fd11b01a08ecf82214943fdb422c61dac7263f908307ab063ce8bea46b38a91",
+      "source_payload_fingerprint": "8e3a5f74ba7dbde45fb5c0b0da8f7f44e6627660afd25d6b2f986fb4e3c995f7"
+    },
+    {
+      "ticker": "4004",
+      "name": "レゾナック・ホールディングス",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100XTT8",
+      "edinet_code": "E00751",
+      "expected_metrics": 6,
+      "source_zip_sha256": "0ae9f83be14e74f0fa9d10c0bdcf1d66c99efb32dfc2236ca278111039c68cb6",
+      "source_payload_fingerprint": "acacffe3165ae2d85aef3c9dd568b32215d96156799d4421800cab3d297031d1"
+    },
+    {
+      "ticker": "4401",
+      "name": "ADEKA",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YBCU",
+      "edinet_code": "E00878",
+      "expected_metrics": 6,
+      "source_zip_sha256": "3e4535e2321552e57f584f8c398996aad97d17d43f390725bcf325523f42a324",
+      "source_payload_fingerprint": "93d2e245ce1f90af543a8b48a0dd78958331c8b9d3dbf314a0ae9ff15751c18d"
+    },
+    {
+      "ticker": "4005",
+      "name": "住友化学",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YAUO",
+      "edinet_code": "E00752",
+      "expected_metrics": 6,
+      "source_zip_sha256": "904ae03a3ac029af7cd276f416a8752b7c3797c1f5fe33f3b59c191d3921b786",
+      "source_payload_fingerprint": "9e292df1d973086d7844b5bd41d4f510ecc7dc2d09804fef2fe6ffd8c581399b"
+    },
+    {
+      "ticker": "3402",
+      "name": "東レ",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YFG9",
+      "edinet_code": "E00873",
+      "expected_metrics": 6,
+      "source_zip_sha256": "da49ff3100f9829da03ebeddb5ace61e4eb4953bc2e1a21b7f8b347f1cc9f4f9",
+      "source_payload_fingerprint": "347a52b53bbf4facabd39552d6105e88587fc96d40f3d62baede846462f47dac"
+    },
+    {
+      "ticker": "3407",
+      "name": "旭化成",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YGRD",
+      "edinet_code": "E00877",
+      "expected_metrics": 6,
+      "source_zip_sha256": "d89dbf7f9838483448542119d1219bcd82ad0e39eb739a694404c9c1e8a7d7b7",
+      "source_payload_fingerprint": "b85e184a6d170b631fe3eeb599237347ad2bb672c3289bfd04ae301b7df05a48"
+    },
+    {
+      "ticker": "4188",
+      "name": "三菱ケミカルグループ",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YFSR",
+      "edinet_code": "E00808",
+      "expected_metrics": 6,
+      "source_zip_sha256": "369fb8cce2861370562b80092d54dbb809573def60bb46442dc4548ee89ba667",
+      "source_payload_fingerprint": "0c8c566e6074c2830e999b24f65c1cf69908622831439e1e871a8a2c3c08bcc5"
+    },
+    {
+      "ticker": "4204",
+      "name": "積水化学工業",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YBAY",
+      "edinet_code": "E00820",
+      "expected_metrics": 6,
+      "source_zip_sha256": "cbbf025dc155ec7c5e19656d5965acacc8eb6677dc15e410ffea6307622a26eb",
+      "source_payload_fingerprint": "9d5e1273a8baa621173c1d0fb511828c7642f116f20f54709fa66ac24ca04fbf"
+    },
+    {
+      "ticker": "5333",
+      "name": "日本ガイシ",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YF7M",
+      "edinet_code": "E01137",
+      "expected_metrics": 6,
+      "source_zip_sha256": "475ddfa102a2496c9a872240475536ba237e9126799c619f8aadf76eb7f4602c",
+      "source_payload_fingerprint": "4ecfd52412cae8f8edc074a29179501f5b79a1a7f97a32adf18bcf17d7f8cd4b"
+    },
+    {
+      "ticker": "6301",
+      "name": "小松製作所",
+      "industry": "産業機械・重工",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YD25",
+      "edinet_code": "E01532",
+      "expected_metrics": 6,
+      "source_zip_sha256": "a079deb39aad2adc46cac1dbe59cc65aeaa0beeff4b77c94b6bd756ebb9969f8",
+      "source_payload_fingerprint": "3e643366786d3d8700a1ba9587981c259a384a8758784435de26e9d9efbd5470"
+    },
+    {
+      "ticker": "6326",
+      "name": "クボタ",
+      "industry": "産業機械・重工",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100XR0M",
+      "edinet_code": "E01267",
+      "expected_metrics": 6,
+      "source_zip_sha256": "6b10794c35c525459ea732796606308ec90ed8c68e633be3b4006963b59f8fb1",
+      "source_payload_fingerprint": "efbb186a65409bfbfd436b56d061de64073f57b32cc78e8c7cc84096896c2a71"
+    },
+    {
+      "ticker": "6361",
+      "name": "荏原製作所",
+      "industry": "産業機械・重工",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100XS6E",
+      "edinet_code": "E01542",
+      "expected_metrics": 6,
+      "source_zip_sha256": "bb963ac676a8272ca496f2af2318a76a9ab75cad05b619089b47c9273b3fd03d",
+      "source_payload_fingerprint": "d16afc3842bafd962f08d0849a9b9fbabadca3c1c3b6dbb48e55916a5db837ea"
+    },
+    {
+      "ticker": "7011",
+      "name": "三菱重工業",
+      "industry": "産業機械・重工",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YHZG",
+      "edinet_code": "E02126",
+      "expected_metrics": 6,
+      "source_zip_sha256": "485276536070b8f9671fb945533dda60a1319ef4ce0ec824e61ff2f3803154c3",
+      "source_payload_fingerprint": "eae5ad100aeffab71d26ecf3200a43e138395f55dceabf30246a0a6da63bb8f6"
+    },
+    {
+      "ticker": "7012",
+      "name": "川崎重工業",
+      "industry": "産業機械・重工",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100Y99Z",
+      "edinet_code": "E02127",
+      "expected_metrics": 6,
+      "source_zip_sha256": "480b7dcddea63048faff78a60d33afa6fa96b94e71eebfb9626640ec20e5bf44",
+      "source_payload_fingerprint": "76f9ea8ede9c8c2e42bb30fde8872cc513fb032f51a3749c99388bb7829284ee"
+    },
+    {
+      "ticker": "7013",
+      "name": "IHI",
+      "industry": "産業機械・重工",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YENT",
+      "edinet_code": "E02128",
+      "expected_metrics": 6,
+      "source_zip_sha256": "b2b3bbffb73b51d0cc1174952a17dd16eded7b317e83ea9badbf010cae29479d",
+      "source_payload_fingerprint": "5aca2575899aaacdfe6b510b9a5c1c924a39ff97d0b5c29be67675abeb370369"
+    },
+    {
+      "ticker": "5401",
+      "name": "日本製鉄",
+      "industry": "産業機械・重工",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YF8E",
+      "edinet_code": "E01225",
+      "expected_metrics": 6,
+      "source_zip_sha256": "8e99d8f0687b35876dc7092e540dea0894a7c10295f9078cf7d37ee39af3ed4e",
+      "source_payload_fingerprint": "ceb906c021cc4f0610e37a8746cd2e326310d8d3af17533f7dbc2067b721def8"
+    },
+    {
+      "ticker": "5411",
+      "name": "JFEホールディングス",
+      "industry": "産業機械・重工",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YCUD",
+      "edinet_code": "E01264",
+      "expected_metrics": 6,
+      "source_zip_sha256": "f981847b08a033ea7f903eebf72db4e6928b86e3b9adb62f2b2689a3157d6160",
+      "source_payload_fingerprint": "2863050ef919fdccf92b6b9c799366279f7d488f271a89756ffe145e1743e966"
+    },
+    {
+      "ticker": "7259",
+      "name": "アイシン",
+      "industry": "自動車・精密",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YAWO",
+      "edinet_code": "E01593",
+      "expected_metrics": 6,
+      "source_zip_sha256": "41142cc27c9cf7c796ff56f60d6249ea1f23adcb484cd8bc7d8d263260905493",
+      "source_payload_fingerprint": "00e2879545b03764bc2f79645ee1e45338fa0934d797067abf01b6fc0ef61eaf"
+    },
+    {
+      "ticker": "7272",
+      "name": "ヤマハ発動機",
+      "industry": "自動車・精密",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100XRTH",
+      "edinet_code": "E02168",
+      "expected_metrics": 6,
+      "source_zip_sha256": "73c6b267f690a5611925f75a1b7c4594497816d5a14544f1fdd5db6120d1eb71",
+      "source_payload_fingerprint": "c8b705a7d614e05498dc52498beb902ed6a8f02c814d900ff356a24152da3901"
+    },
+    {
+      "ticker": "4543",
+      "name": "テルモ",
+      "industry": "自動車・精密",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100YGMG",
+      "edinet_code": "E01630",
+      "expected_metrics": 6,
+      "source_zip_sha256": "2727dc1678cd7acd612cb97e00f8b8b777dec069df5c617aea7f53db367e2d26",
+      "source_payload_fingerprint": "f46e93e6a6b49634d48f33365565f6b8d23ee050211f2055868dac10c8645e6b"
+    },
+    {
+      "ticker": "7741",
+      "name": "HOYA",
+      "industry": "自動車・精密",
+      "aliases": [],
+      "stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "source_doc_id": "S100Y90T",
+      "edinet_code": "E01124",
+      "expected_metrics": 6,
+      "source_zip_sha256": "67155e89442fe7f4de9de30762ffa87f0c20f170add41171b9c99aa46b6d3351",
+      "source_payload_fingerprint": "efd63b477b27035e2680da4b781b4a559f9be4ada6d074b87463d1e08073e599"
+    },
+    {
+      "ticker": "6856",
+      "name": "堀場製作所",
+      "industry": "精密・計測・半導体",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7701",
+      "name": "島津製作所",
+      "industry": "精密・計測・半導体",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7731",
+      "name": "ニコン",
+      "industry": "精密・計測・半導体",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7721",
+      "name": "東京計器",
+      "industry": "精密・計測・半導体",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7725",
+      "name": "インターアクション",
+      "industry": "精密・計測・半導体",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6875",
+      "name": "メガチップス",
+      "industry": "精密・計測・半導体",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6965",
+      "name": "浜松ホトニクス",
+      "industry": "精密・計測・半導体",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6869",
+      "name": "シスメックス",
+      "industry": "精密・計測・半導体",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6707",
+      "name": "サンケン電気",
+      "industry": "精密・計測・半導体",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6941",
+      "name": "山一電機",
+      "industry": "精密・計測・半導体",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6752",
+      "name": "パナソニック ホールディングス",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6758",
+      "name": "ソニーグループ",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6701",
+      "name": "日本電気（NEC）",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6702",
+      "name": "富士通",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7751",
+      "name": "キヤノン",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7752",
+      "name": "リコー",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6724",
+      "name": "セイコーエプソン",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6504",
+      "name": "富士電機",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6845",
+      "name": "アズビル",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6754",
+      "name": "アンリツ",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6448",
+      "name": "ブラザー工業",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6508",
+      "name": "明電舎",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6103",
+      "name": "オークマ",
+      "industry": "工作機械・産業機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6141",
+      "name": "DMG森精機",
+      "industry": "工作機械・産業機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6113",
+      "name": "アマダ",
+      "industry": "工作機械・産業機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6305",
+      "name": "日立建機",
+      "industry": "工作機械・産業機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6302",
+      "name": "住友重機械工業",
+      "industry": "工作機械・産業機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6268",
+      "name": "ナブテスコ",
+      "industry": "工作機械・産業機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6432",
+      "name": "竹内製作所",
+      "industry": "工作機械・産業機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6465",
+      "name": "ホシザキ",
+      "industry": "工作機械・産業機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6471",
+      "name": "日本精工",
+      "industry": "工作機械・産業機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6586",
+      "name": "マキタ",
+      "industry": "工作機械・産業機器",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4021",
+      "name": "日産化学",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4042",
+      "name": "東ソー",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4043",
+      "name": "トクヤマ",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4061",
+      "name": "デンカ",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4091",
+      "name": "日本酸素ホールディングス",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4203",
+      "name": "住友ベークライト",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "5201",
+      "name": "AGC",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "5214",
+      "name": "日本電気硝子",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "5713",
+      "name": "住友金属鉱山",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "5802",
+      "name": "住友電気工業",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7201",
+      "name": "日産自動車",
+      "industry": "自動車・自動車部品",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7202",
+      "name": "いすゞ自動車",
+      "industry": "自動車・自動車部品",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7211",
+      "name": "三菱自動車工業",
+      "industry": "自動車・自動車部品",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7261",
+      "name": "マツダ",
+      "industry": "自動車・自動車部品",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7276",
+      "name": "小糸製作所",
+      "industry": "自動車・自動車部品",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7282",
+      "name": "豊田合成",
+      "industry": "自動車・自動車部品",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7283",
+      "name": "愛三工業",
+      "industry": "自動車・自動車部品",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7296",
+      "name": "エフ・シー・シー",
+      "industry": "自動車・自動車部品",
+      "aliases": [],
+      "stage": "DISCOVERY_PENDING",
+      "source_doc_id": null,
+      "edinet_code": null,
+      "expected_metrics": 6
+    }
+  ]
+}
