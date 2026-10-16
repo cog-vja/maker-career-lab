@@ -1,0 +1,20 @@
+{
+  "schema_version": "3.17",
+  "purpose": "Staging policy for contextual affiliate links. No ads are currently installed.",
+  "ads_enabled": false,
+  "campaigns": [],
+  "disclosure_template": "PR：このページにはアフィリエイト広告が含まれる場合があります。",
+  "future_slots": [
+    {"id":"after-insights","context":"比較結果の下に、転職活動や職務経歴書に関する関連サービス","relevance_required":true},
+    {"id":"career-guide-footer","context":"企業選びのガイド末尾に、キャリア相談・学習支援等の広告","relevance_required":true}
+  ],
+  "mandatory_rules": [
+    "Place visible PR disclosure near each actual ad",
+    "Use only advertiser-approved tracking URLs and creative assets",
+    "Only HTTPS destinations",
+    "Use rel=sponsored nofollow noopener noreferrer for outbound sponsored links",
+    "Do not mix paid placement into objective financial scores, ranking or EDINET evidence",
+    "Do not imply financial data or EDINET confirms an advertiser's recommendation",
+    "No real link until advertiser contract and valid destination are provided"
+  ]
+}
