@@ -1,0 +1,130 @@
+
+name: EDINET v3.18 19-company release review and 30-company discovery
+
+on:
+  workflow_dispatch:
+    inputs:
+      lookback_days:
+        description: 'Days of filing lists to scan (1-400); default 220'
+        required: true
+        default: '220'
+        type: string
+      download_originals:
+        description: 'Download original type=1 ZIP files for new 30 candidates'
+        required: true
+        default: true
+        type: boolean
+      delay_seconds:
+        description: 'Seconds between EDINET daily-list calls'
+        required: true
+        default: '1.0'
+        type: string
+      release_mode:
+        description: 'preview never generates a publishable company-data.js'
+        required: true
+        default: preview
+        type: choice
+        options:
+          - preview
+          - publish
+
+permissions:
+  contents: read
+
+jobs:
+  batch-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 85
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fail-fast check of all required files
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          required = [
+            'edinet_v318.py', 'test_v318.py', 'company-master-v318.json',
+            'approved-ten-baseline-v318.json', 'v317-review-v318.zip',
+            'filing-selections-v317.json', 'company-data.js',
+            'discover_edinet_v316.py', 'test_v316.py',
+            'test_v317.py', 'test_advertising_v317.py',
+            'advertising_v317.py'
+          ]
+          missing = [name for name in required if not Path(name).is_file()]
+          if missing:
+              raise SystemExit('Required repository files missing: ' + ', '.join(missing))
+          print('Required-file preflight PASS')
+          PY
+
+      - name: Run integration, source and advertising safety tests
+        run: |
+          python3 -m unittest -v \
+            test_v316.py test_v317.py test_advertising_v317.py test_v318.py
+
+      - name: Gate previously audited 19 eligible companies
+        env:
+          RELEASE_MODE: ${{ inputs.release_mode }}
+        run: |
+          if [ "$RELEASE_MODE" = 'publish' ]; then
+            if [ ! -f release-approval-v318.json ]; then
+              echo 'Publication denied: release-approval-v318.json is missing.'
+              exit 1
+            fi
+            python3 edinet_v318.py review \
+              --review v317-review-v318.zip \
+              --master company-master-v318.json \
+              --approved-js company-data.js \
+              --baseline approved-ten-baseline-v318.json \
+              --selections filing-selections-v317.json \
+              --mode publish \
+              --approval release-approval-v318.json \
+              --output v318-output/release-review
+          else
+            python3 edinet_v318.py review \
+              --review v317-review-v318.zip \
+              --master company-master-v318.json \
+              --approved-js company-data.js \
+              --baseline approved-ten-baseline-v318.json \
+              --selections filing-selections-v317.json \
+              --mode preview \
+              --output v318-output/release-review
+          fi
+
+      - name: Discover 30 new EDINET annual reports and optionally download originals
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          LOOKBACK_DAYS: ${{ inputs.lookback_days }}
+          DOWNLOAD_ORIGINALS: ${{ inputs.download_originals }}
+          DELAY_SECONDS: ${{ inputs.delay_seconds }}
+        run: |
+          if [ "$DOWNLOAD_ORIGINALS" = 'true' ]; then
+            python3 edinet_v318.py discover \
+              --master company-master-v318.json \
+              --approved-js company-data.js \
+              --baseline approved-ten-baseline-v318.json \
+              --lookback-days "$LOOKBACK_DAYS" \
+              --delay "$DELAY_SECONDS" \
+              --download-originals \
+              --output v318-output/discovery
+          else
+            python3 edinet_v318.py discover \
+              --master company-master-v318.json \
+              --approved-js company-data.js \
+              --baseline approved-ten-baseline-v318.json \
+              --lookback-days "$LOOKBACK_DAYS" \
+              --delay "$DELAY_SECONDS" \
+              --output v318-output/discovery
+          fi
+
+      - name: Upload all review outputs (no automatic deployment)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v318-batch-review
+          path: v318-output/
+          retention-days: 7
+          if-no-files-found: warn
