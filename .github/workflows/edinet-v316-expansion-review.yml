@@ -1,0 +1,83 @@
+
+name: EDINET v3.16 thirty-company expansion review
+
+on:
+  workflow_dispatch:
+    inputs:
+      lookback_days:
+        description: 'EDINET daily filing lists to scan (1-400); 220 recommended'
+        required: true
+        default: '220'
+        type: string
+      download_originals:
+        description: 'Download type=1 ZIPs for unambiguous new filing candidates (large artifact)'
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  discovery:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run thirty-company and UI safety tests
+        run: python3 -m unittest -v test_v316.py
+
+      - name: Verify the existing ten-company publication remains unchanged
+        run: |
+          python3 discover_edinet_v316.py \
+            --master company-master-v316.json \
+            --approved-js company-data.js \
+            --dry-run --output v316-output
+
+      - name: Stage improved comparison UI without deploying
+        run: |
+          python3 validate_site_v316.py \
+            --master company-master-v316.json \
+            --approved-js company-data.js \
+            --site-update site-update \
+            --output v316-output \
+            --style style.css
+
+      - name: Discover up to twenty new EDINET filing candidates
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          LOOKBACK_DAYS: ${{ inputs.lookback_days }}
+          DOWNLOAD_ORIGINALS: ${{ inputs.download_originals }}
+        run: |
+          if [ "$DOWNLOAD_ORIGINALS" = "true" ]; then
+            python3 discover_edinet_v316.py \
+              --master company-master-v316.json \
+              --approved-js company-data.js \
+              --lookback-days "$LOOKBACK_DAYS" \
+              --delay 1.0 \
+              --download-originals \
+              --output v316-output
+          else
+            python3 discover_edinet_v316.py \
+              --master company-master-v316.json \
+              --approved-js company-data.js \
+              --lookback-days "$LOOKBACK_DAYS" \
+              --delay 1.0 \
+              --output v316-output
+          fi
+
+      - name: Upload discovery and site-review artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v316-expansion-review
+          path: v316-output/
+          retention-days: 7
+          if-no-files-found: warn
