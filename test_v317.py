@@ -1,5 +1,5 @@
 """Offline and optional real-source test suite for v3.17. No API key required."""
-import copy,io,json,os,unittest,zipfile
+import copy,io,json,os,unittest,zipfile,hashlib
 from decimal import Decimal as D
 from pathlib import Path
 from unittest.mock import patch
@@ -93,5 +93,49 @@ class TestV317(unittest.TestCase):
             self.assertEqual(hit['metrics']['operating_profit_oku']['status'],'BLOCKED')
             self.assertEqual(hit['supplemental']['value_oku'],'11992.75')
             self.assertFalse(result['public_release_approved'])
+
+
+
+class SourcePayloadIntegrityTests(unittest.TestCase):
+    def _archive(self, compression, year=2026, mutated=False):
+        out=io.BytesIO()
+        with zipfile.ZipFile(out,'w',compression=compression) as z:
+            for name,data in (
+                ('XBRL/PublicDoc/main.xbrl',b'<xbrl>trusted</xbrl>' if not mutated else b'<xbrl>changed</xbrl>'),
+                ('XBRL/PublicDoc/page.htm',b'<html>source</html>'),
+                ('XBRL/AuditDoc/notes.txt',b'notes')):
+                meta=zipfile.ZipInfo(name,date_time=(year,1,2,3,4,6))
+                meta.compress_type=compression
+                z.writestr(meta,data)
+        return out.getvalue()
+    def test_repacked_zip_with_same_payload_passes(self):
+        a=self._archive(zipfile.ZIP_STORED,2025)
+        b=self._archive(zipfile.ZIP_DEFLATED,2026)
+        self.assertNotEqual(hashlib.sha256(a).hexdigest(),hashlib.sha256(b).hexdigest())
+        self.assertEqual(x.source_payload_manifest(a)[0],x.source_payload_manifest(b)[0])
+    def test_real_payload_mutation_fails(self):
+        a=self._archive(zipfile.ZIP_STORED)
+        b=self._archive(zipfile.ZIP_STORED,mutated=True)
+        self.assertNotEqual(x.source_payload_manifest(a)[0],x.source_payload_manifest(b)[0])
+    def test_missing_required_payload_anchor_fails(self):
+        buff=io.BytesIO()
+        with zipfile.ZipFile(buff,'w') as z:z.writestr('XBRL/PublicDoc/a.htm','x')
+        with self.assertRaisesRegex(ValueError,'PublicDoc'):
+            x.source_payload_manifest(buff.getvalue())
+    def test_duplicate_member_names_fail(self):
+        buff=io.BytesIO()
+        import warnings
+        with warnings.catch_warnings():
+            warnings.simplefilter('ignore',UserWarning)
+            with zipfile.ZipFile(buff,'w') as z:
+                z.writestr('XBRL/PublicDoc/a.xbrl',b'a')
+                z.writestr('XBRL/PublicDoc/a.xbrl',b'a')
+        with self.assertRaisesRegex(ValueError,'duplicate'):
+            x.source_payload_manifest(buff.getvalue())
+    def test_missing_frozen_content_digest_rejected(self):
+        s=copy.deepcopy(SPEC)
+        del s['companies'][0]['source_payload_sha256']
+        with self.assertRaisesRegex(ValueError,'payload hash'):
+            x.validate_selection(s)
 
 if __name__=='__main__':unittest.main()

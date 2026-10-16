@@ -148,6 +148,49 @@ def adjusted_operating_profit_supplemental(original,facts,result):
     except (ValueError,zipfile.BadZipFile):return
 
 
+
+def source_payload_manifest(original):
+    """Identity of UNCOMPRESSED ZIP member bytes, independent of ZIP packaging.
+
+    Do not weaken the source check to just a matching byte count or ticker.
+    Name, size, and SHA256 are included for every file. Reject duplicate names,
+    unsafe paths, suspicious archive sizes and malformed members.
+    """
+    records = []
+    with zipfile.ZipFile(io.BytesIO(original)) as archive:
+        members = [m for m in archive.infolist() if not m.is_dir()]
+        if not members or len(members) > 1500:
+            raise ValueError('ZIP member count outside permitted range')
+        # ZipFile.read() validates each member CRC; avoid reading every file twice.
+        seen = set()
+        total = 0
+        for member in members:
+            name = member.filename.replace('\\', '/')
+            if (not name or name.startswith('/') or '\x00' in name or
+                any(p in ('', '.', '..') for p in name.split('/')) or
+                re.match(r'^[A-Za-z]:', name)):
+                raise ValueError('invalid ZIP member path')
+            if name in seen:
+                raise ValueError('duplicate ZIP member path')
+            seen.add(name)
+            if member.flag_bits & 1:
+                raise ValueError('encrypted ZIP member')
+            if member.file_size > 45_000_000:
+                raise ValueError('oversized ZIP member')
+            total += member.file_size
+            if total > 350_000_000:
+                raise ValueError('excessive uncompressed ZIP size')
+            raw = archive.read(member)
+            records.append({'name': name, 'size': len(raw),
+                            'sha256': hashlib.sha256(raw).hexdigest()})
+    if not any('/publicdoc/' in ('/' + item['name'].lower()) and
+               item['name'].lower().endswith('.xbrl') for item in records):
+        raise ValueError('original PublicDoc XBRL instance absent')
+    records.sort(key=lambda item: item['name'])
+    canonical = json.dumps(records, ensure_ascii=False, separators=(',', ':'),
+                           sort_keys=True).encode('utf-8')
+    return hashlib.sha256(canonical).hexdigest(), records
+
 def audit_one(original,entry):
     ticker=entry['ticker'];filing=entry['filing'];docid=filing['docID']
     result={'ticker':ticker,'company':entry['name'],'docID':docid,
@@ -157,10 +200,20 @@ def audit_one(original,entry):
       'public_release_approved':False,'source_sha256':hashlib.sha256(original).hexdigest(),
       'source_bytes':len(original),'issues':[]}
     try:
-        if result['source_sha256']!=entry['source_original_sha256']:
-            raise ValueError('v3.16 original SHA256 mismatch')
-        if len(original)!=entry['source_original_bytes']:
-            raise ValueError('v3.16 original length mismatch')
+        payload_digest, payload_files = source_payload_manifest(original)
+        result['source_payload_sha256'] = payload_digest
+        result['source_payload_file_count'] = len(payload_files)
+        result['zip_container_changed'] = (
+            result['source_sha256'] != entry['source_original_sha256'] or
+            len(original) != entry['source_original_bytes'])
+        expected = entry['source_payload_sha256']
+        if payload_digest != expected:
+            # Non-sensitive filename/digest diagnostics make genuine content drift
+            # investigable without uploading original filings to the repository.
+            result['source_payload_members_on_mismatch'] = payload_files
+            raise ValueError('original payload content differs from frozen v3.16 filing')
+        if len(payload_files) != entry['source_payload_file_count']:
+            raise ValueError('original payload member count differs from frozen v3.16 filing')
         if filing['secCode'][:4]!=ticker:raise ValueError('security code mismatch')
         if filing['docTypeCode']!='120' or filing.get('withdrawalStatus')!='0':
             raise ValueError('not original periodic report')
@@ -201,6 +254,10 @@ def validate_selection(data):
         tickers.add(ticker)
         if e.get('publish_approved') is not False:raise ValueError('unexpected publication approval')
         if not re.fullmatch(r'[a-f0-9]{64}',e['source_original_sha256']):raise ValueError('missing source hash')
+        if not re.fullmatch(r'[a-f0-9]{64}',e.get('source_payload_sha256','')):
+            raise ValueError('missing frozen payload hash')
+        if not isinstance(e.get('source_payload_file_count'),int) or e['source_payload_file_count']<1:
+            raise ValueError('missing frozen payload member count')
         if filing['docID'] in ids:raise ValueError('duplicate filing ID')
         ids.add(filing['docID'])
         if filing['secCode'][:4]!=ticker:raise ValueError('ticker and secCode differ')

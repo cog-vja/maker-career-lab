@@ -25,7 +25,9 @@
       },
       "source_original_sha256": "2605b9c17efbca86dbda387a47c767d56981ada09ac0be6cc7d9179c064aa199",
       "source_original_bytes": 872367,
-      "publish_approved": false
+      "publish_approved": false,
+      "source_payload_sha256": "87b9fefe6ec0df63d6fa97b69ce7384c437eca13d9863f07f8b77369cd9b0549",
+      "source_payload_file_count": 47
     },
     {
       "ticker": "6525",
@@ -48,7 +50,9 @@
       },
       "source_original_sha256": "c55c38b11cc96a28b2df74f549b057aea9e5bf06a9357afc04219eca1cba188f",
       "source_original_bytes": 1047067,
-      "publish_approved": false
+      "publish_approved": false,
+      "source_payload_sha256": "ae962d0a93ee8d75e00de06bcbb0abd989ae4338c4288bb89f32108323ad9c28",
+      "source_payload_file_count": 36
     },
     {
       "ticker": "6871",
@@ -71,7 +75,9 @@
       },
       "source_original_sha256": "a9eeffdb24104b80043583506e718b4dba325c25b016bdd39d77e3b5a63c16b3",
       "source_original_bytes": 877592,
-      "publish_approved": false
+      "publish_approved": false,
+      "source_payload_sha256": "18323cb260d2e9937ccf6d5159e8c2d4af839afdc7f9d13cccaa074602d05480",
+      "source_payload_file_count": 36
     },
     {
       "ticker": "6323",
@@ -94,7 +100,9 @@
       },
       "source_original_sha256": "6df1646a4e898429711b53307e28d2f6826e4969e6372ec33831fa074d9cb993",
       "source_original_bytes": 602637,
-      "publish_approved": false
+      "publish_approved": false,
+      "source_payload_sha256": "75042539f34a5ea6557f3fefdcda2de51a09d1cd357b12da945d7aa51ec53da3",
+      "source_payload_file_count": 43
     },
     {
       "ticker": "6590",
@@ -117,7 +125,9 @@
       },
       "source_original_sha256": "bf51a45391c716b3380abbcfd4826cb68bb996838f3f810d667e71d95a6dc33d",
       "source_original_bytes": 1056000,
-      "publish_approved": false
+      "publish_approved": false,
+      "source_payload_sha256": "d530bd780ada73cbb36791563a8bc7970021d484a2f72677039b0eb827e740c5",
+      "source_payload_file_count": 36
     },
     {
       "ticker": "4063",
@@ -140,7 +150,9 @@
       },
       "source_original_sha256": "9a396074e5e1e01fb29c16b65124d0272488684acfaad714a4c76fed6d6fb2dc",
       "source_original_bytes": 859962,
-      "publish_approved": false
+      "publish_approved": false,
+      "source_payload_sha256": "360fa55e15a69b1dcd05224dc7181a60a16736738475b53d233276eccf0d3d5e",
+      "source_payload_file_count": 35
     },
     {
       "ticker": "3436",
@@ -163,7 +175,9 @@
       },
       "source_original_sha256": "e9436da3c07d8b1ef405d532430d1c889e3ff611124e3a42896400bdb73149e3",
       "source_original_bytes": 929704,
-      "publish_approved": false
+      "publish_approved": false,
+      "source_payload_sha256": "8158412b16113fefb4259188cddc0ca9bcebf05458b5809cec755a11b41d9a88",
+      "source_payload_file_count": 52
     },
     {
       "ticker": "6981",
@@ -186,7 +200,9 @@
       },
       "source_original_sha256": "5add728d63a875902a72dc498cc5223a698e71f3c4909f681b66aac1f20dc595",
       "source_original_bytes": 2432705,
-      "publish_approved": false
+      "publish_approved": false,
+      "source_payload_sha256": "c565bfc8ef48dbd9ef2d49830e153e3e82f12dd6556ad9cf0e475a8e0d4f6f3c",
+      "source_payload_file_count": 53
     },
     {
       "ticker": "6762",
@@ -209,7 +225,9 @@
       },
       "source_original_sha256": "4e90e3fd8c75f6ccb7234fa50da83dc9fc2f8a509ff5210771bc82301d15bc7a",
       "source_original_bytes": 1364823,
-      "publish_approved": false
+      "publish_approved": false,
+      "source_payload_sha256": "3f3437f162e0e9670ddadca0b51edf900af9b0401d14f8d707137c47520d39f8",
+      "source_payload_file_count": 50
     },
     {
       "ticker": "6988",
@@ -232,7 +250,9 @@
       },
       "source_original_sha256": "38b41f391bd9de457976969d5a3dea666831542b3a400f28d8b4308afb656f5e",
       "source_original_bytes": 1471216,
-      "publish_approved": false
+      "publish_approved": false,
+      "source_payload_sha256": "21b841c42edb741668f982fb925cf29dea2e0c968a68a2301eb3f199027801b1",
+      "source_payload_file_count": 42
     },
     {
       "ticker": "6503",
@@ -255,7 +275,9 @@
       },
       "source_original_sha256": "d1524ab5d3885fefccab844c240a6adb17fb865a84307e2bd3a152cb686df682",
       "source_original_bytes": 2197159,
-      "publish_approved": false
+      "publish_approved": false,
+      "source_payload_sha256": "02c04849c2aad475e9f7cbbb53abe81e9a83f0b57a193be560e7784d7dc7e6c4",
+      "source_payload_file_count": 49
     },
     {
       "ticker": "6273",
@@ -278,7 +300,9 @@
       },
       "source_original_sha256": "8283c97a092a450330ea387979a22f26020ac870cc8e1181f8506352edc3c4ea",
       "source_original_bytes": 1147053,
-      "publish_approved": false
+      "publish_approved": false,
+      "source_payload_sha256": "1d638b3bbf1a7d159b764a775ca081f71d86cdff1a5e0b514c29516359ea0f1c",
+      "source_payload_file_count": 49
     },
     {
       "ticker": "6481",
@@ -301,7 +325,9 @@
       },
       "source_original_sha256": "982a1b3a34a7ee893b9e3bdb5160744fa7c882588bc42ea37a3202626d4fc7e8",
       "source_original_bytes": 822002,
-      "publish_approved": false
+      "publish_approved": false,
+      "source_payload_sha256": "e1ab7cbbe199f5e05c9f52f2c7e61f6955e08bba2d7fc4a86db7b3473cd8851a",
+      "source_payload_file_count": 31
     },
     {
       "ticker": "6367",
@@ -324,7 +350,9 @@
       },
       "source_original_sha256": "7b601eb9647084ed2ab70c213d755779b8311e21abe13847d5338e4825812a12",
       "source_original_bytes": 1055732,
-      "publish_approved": false
+      "publish_approved": false,
+      "source_payload_sha256": "b9f2477b43fad3f18493e613b6b70818526d9172750e7cc29d3653760bd4ed29",
+      "source_payload_file_count": 49
     },
     {
       "ticker": "6501",
@@ -347,7 +375,9 @@
       },
       "source_original_sha256": "8e0dc4b64fa13d991cdd77b2cf9485feed41cbf320c52204873b54402a9d9a53",
       "source_original_bytes": 3731147,
-      "publish_approved": false
+      "publish_approved": false,
+      "source_payload_sha256": "4e006107913a753ff54182efde1a80cc49990e9cecb16cff3b888e42fea72e04",
+      "source_payload_file_count": 86
     },
     {
       "ticker": "7203",
@@ -370,7 +400,9 @@
       },
       "source_original_sha256": "a857a97824979ae882997de491930a3eadcbd4a02aa61836976913a51c53c566",
       "source_original_bytes": 2410352,
-      "publish_approved": false
+      "publish_approved": false,
+      "source_payload_sha256": "3ecc78720ca6d46f2cca800d3396c31beb5f3d3f1c44bbbee74b346a8f11f454",
+      "source_payload_file_count": 65
     },
     {
       "ticker": "7267",
@@ -393,7 +425,9 @@
       },
       "source_original_sha256": "5376d186cccccd386b43320a9dcf3be9957cd89d977e11b75e426cd7227d40a3",
       "source_original_bytes": 1329600,
-      "publish_approved": false
+      "publish_approved": false,
+      "source_payload_sha256": "d9c73172589ccd2b33685678e1e4dc0d1e22d8e5892cdeae73f5b6e26b267841",
+      "source_payload_file_count": 49
     },
     {
       "ticker": "6902",
@@ -416,7 +450,9 @@
       },
       "source_original_sha256": "c6599a42451ee9c15b78c8caf9d07445d5a54e7517373e4288da29ab07a809c8",
       "source_original_bytes": 1916438,
-      "publish_approved": false
+      "publish_approved": false,
+      "source_payload_sha256": "df864e0e3cc19c55ae51ece75938d70384d4aafa8d3f7010bbbfd291957da06b",
+      "source_payload_file_count": 51
     },
     {
       "ticker": "7269",
@@ -439,7 +475,9 @@
       },
       "source_original_sha256": "7035bdfbc64e5a26aadab448cad439cbde3ff8e6f0646af4dc1c341a555cc3d8",
       "source_original_bytes": 2310025,
-      "publish_approved": false
+      "publish_approved": false,
+      "source_payload_sha256": "d2234c0254b21cc038adff122251af64e4038c38d24b3c48ded3ec23669241ae",
+      "source_payload_file_count": 55
     },
     {
       "ticker": "7270",
@@ -462,7 +500,9 @@
       },
       "source_original_sha256": "356286e678c767a38079fa1346085fd0d0fe26919253e7e0728a8f8b45889daa",
       "source_original_bytes": 1523824,
-      "publish_approved": false
+      "publish_approved": false,
+      "source_payload_sha256": "4258f19d36cfa28ce9ac667ec964bd8cc4472c45446b2ebabd26cd4ab92af015",
+      "source_payload_file_count": 56
     }
   ]
 }
