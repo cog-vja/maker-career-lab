@@ -1,0 +1,96 @@
+
+name: EDINET v3.17 twenty-company original quality review
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Number of frozen candidates to audit (1-20)'
+        required: true
+        default: '20'
+        type: string
+      delay_seconds:
+        description: 'Delay between EDINET requests; default 0.5 seconds'
+        required: true
+        default: '0.5'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  original-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify required files are present
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          needed = [
+              'edinet_v317.py', 'test_v317.py', 'advertising_v317.py',
+              'test_advertising_v317.py', 'ad-placement-plan-v317.json',
+              'filing-selections-v317.json', 'edinet_v313.py',
+              'edinet_v38.py', 'edinet_v310.py', 'edinet_v311.py',
+              'edinet_v32.py', 'edinet_v33.py', 'edinet_v36.py'
+          ]
+          missing = [p for p in needed if not Path(p).is_file()]
+          if missing:
+              raise SystemExit('Missing required repository files: ' + ', '.join(missing))
+          print('v3.17 required-file preflight PASS')
+          PY
+
+      - name: Run safety and extension tests
+        run: python3 -m unittest -v test_v317.py test_advertising_v317.py
+
+      - name: Reconcile twenty companies against original EDINET ZIPs
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          LIMIT: ${{ inputs.limit }}
+          DELAY: ${{ inputs.delay_seconds }}
+        run: |
+          python3 edinet_v317.py \
+            --selections filing-selections-v317.json \
+            --mode live \
+            --limit "$LIMIT" \
+            --delay "$DELAY" \
+            --output v317-output
+
+      - name: Verify expected twenty-company coverage
+        if: success()
+        env:
+          LIMIT: ${{ inputs.limit }}
+        run: |
+          python3 - <<'PY'
+          import json,os
+          from pathlib import Path
+          s=json.loads(Path('v317-output/summary-v317.json').read_text(encoding='utf-8'))
+          requested=int(os.environ['LIMIT'])
+          if s['companies_processed']!=requested or s['public_release_approved'] is not False:
+              raise SystemExit('Invalid company count or unexpected publication approval')
+          if requested==20 and (s['reconciled_metrics']<119 or s['blocked_metrics']>1):
+              raise SystemExit('v3.17 twenty-company coverage regression; see artifact')
+          print('Source reconciliation coverage PASS:',s['reconciled_metrics'],'/',6*requested)
+          PY
+
+      - name: Validate advertising safety staging (disabled by default)
+        if: always()
+        run: |
+          mkdir -p v317-output
+          python3 advertising_v317.py \
+            --config ad-placement-plan-v317.json \
+            --output v317-output/ad-staging-v317.html
+
+      - name: Upload audit artifact (no automatic publication)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v317-source-quality
+          path: v317-output/
+          retention-days: 7
+          if-no-files-found: warn
