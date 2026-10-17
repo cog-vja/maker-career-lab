@@ -1,4 +1,4 @@
-/* Maker Career Lab v3.20. Only source-verified, release-staged companies are displayed.
+/* Maker Career Lab v3.23. Only source-verified, release-staged companies are displayed.
  * Additional discovery and incomplete issuer data are deliberately NOT loaded here.
  */
 (()=>{'use strict';
@@ -85,7 +85,7 @@ function init(){
  $('compare-form').addEventListener('submit',submit);
  const catalog=$('company-catalog'), search=$('catalog-search');
  const renderCatalog=()=>{
-   const term=normalized(search.value), items=actual.filter(c=>!term||normalized(c.name).includes(term)||String(c.id).includes(term)||c.aliases?.some(a=>normalized(a).includes(term))).slice(0,110);
+   const term=normalized(search.value), items=actual.filter(c=>!term||normalized(c.name).includes(term)||String(c.id).includes(term)||c.aliases?.some(a=>normalized(a).includes(term)));
    catalog.replaceChildren();for(const c of items){
      const btn=text('button',c.name+'（'+c.id+'）');btn.type='button';
      btn.addEventListener('click',()=>{$('name-b').value=c.name;$('hint-b').textContent='';$('status').textContent='検討先に'+c.name+'を設定しました。';});
