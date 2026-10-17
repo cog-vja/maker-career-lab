@@ -1,0 +1,110 @@
+
+name: EDINET v3.23 209-company live source release review
+
+on:
+  workflow_dispatch:
+    inputs:
+      delay_seconds:
+        description: 'Seconds between 24 EDINET original ZIP downloads (0 to 10)'
+        required: true
+        default: '0.7'
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: edinet-v323-209-release-source-gate
+  cancel-in-progress: false
+
+jobs:
+  source-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify all dependencies before any EDINET calls
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          required = [
+            'release_v323.py', 'monthly_edinet_v323.py', 'test_v323.py',
+            'baseline-185-v323.js', 'verification-83-live-v323.json',
+            'audit-25-v323.json', 'source-lock-25-v323.json', 'company-master-v323.json',
+            'fixtures/verification-offline-v323.json',
+            'release_v322.py', 'baseline-102-v322.js',
+            'company-master-v322.json', 'audit-87-v322.json',
+            'source-lock-87-v322.json', 'discovery-90-v322.json',
+            'monthly_edinet_v322.py', 'monthly_edinet_v321.py',
+            'edinet_v313.py', 'edinet_v317.py', 'edinet_v320.py',
+            'edinet_v310.py', 'edinet_v311.py', 'edinet_v32.py',
+            'edinet_v33.py', 'edinet_v34.py', 'edinet_v35.py',
+            'edinet_v36.py', 'edinet_v38.py', 'company-data.js',
+            'site-ready/index.html', 'site-ready/company-check.html',
+            'site-ready/company-compare.js', 'site-ready/affiliate-config.js',
+            'site-ready/affiliate-render.js',
+          ]
+          missing = [p for p in required if not Path(p).is_file()]
+          if missing:
+              raise SystemExit('Missing v3.23 prerequisites: ' + ', '.join(missing))
+          print('v3.23 required files PASS')
+          PY
+      - name: Verify frozen 185 live gate and 25 source locks
+        run: python3 release_v323.py check
+      - name: Run 209-company and monthly update safety tests
+        run: |
+          python3 -m unittest -v test_v323.py
+          node --check site-ready/company-compare.js
+          node --check site-ready/affiliate-render.js
+      - name: Re-download original reports for all 24 new companies
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          DELAY_SECONDS: ${{ inputs.delay_seconds }}
+        run: |
+          python3 release_v323.py verify \
+            --live --delay "$DELAY_SECONDS" --output v323-output
+      - name: Generate exactly 209-company manual release after live source gate
+        run: |
+          python3 release_v323.py stage \
+            --verification v323-output/verification-24-v323.json \
+            --current-js company-data.js \
+            --output v323-output
+          node --check v323-output/site-ready/company-data.js
+          node --check v323-output/site-ready/company-compare.js
+          node --check v323-output/site-ready/affiliate-config.js
+          node --check v323-output/site-ready/affiliate-render.js
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path('v323-output')
+          summary=json.loads((root/'release-summary-v323.json').read_text(encoding='utf-8'))
+          assert summary['staged_public_count']==209
+          assert summary['source_verified_new_count']==24
+          assert summary['frozen_prior_count']==185
+          assert summary['new_source_metric_count']==144
+          assert summary['independent_EDINET_CSV_crosscheck'] is False
+          assert summary['requires_manual_publication'] is True
+          assert summary['published_site_modified'] is False
+          assert summary['a8_ads_enabled'] is False
+          assert len(list((root/'site-ready').iterdir()))==6
+          digest=hashlib.sha256((root/'site-ready'/'company-data.js').read_bytes()).hexdigest()
+          assert digest==summary['company_data_sha256']
+          print('209-company staging PASS, no production deployment')
+          PY
+      - name: Upload result and candidate site for manual publication
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v323-209-company-release-review
+          path: v323-output/
+          retention-days: 14
+          if-no-files-found: warn
