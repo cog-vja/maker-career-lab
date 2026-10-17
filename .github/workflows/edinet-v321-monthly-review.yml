@@ -1,0 +1,102 @@
+
+name: EDINET v3.21 monthly source update review (200 targets)
+
+on:
+  schedule:
+    - cron: '17 3 5 * *'
+      timezone: 'Asia/Tokyo'
+  workflow_dispatch:
+    inputs:
+      scan_days:
+        description: 'Lookback days (1-400); 45 is recommended monthly'
+        required: true
+        default: '45'
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: edinet-v321-monthly-source-review
+  cancel-in-progress: false
+
+jobs:
+  monthly-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.MCL_PAGES_PUBLISH_PAT || github.token }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Require source gate and published 102-company data
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          required = [
+            'monthly_edinet_v321.py', 'company-master-v321.json',
+            'test_v321.py', 'company-data.js',
+            'edinet_v313.py', 'edinet_v317.py', 'edinet_v320.py'
+          ]
+          missing=[x for x in required if not Path(x).is_file()]
+          if missing:
+              raise SystemExit('Missing required files: '+', '.join(missing))
+          print('v3.21 preflight PASS')
+          PY
+      - name: Run monthly safety tests
+        run: python3 -m unittest -v test_v321.py
+      - name: Monthly EDINET discovery, original reconciliation, staging only
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          SCAN_DAYS: ${{ github.event.inputs.scan_days || '45' }}
+        run: |
+          python3 monthly_edinet_v321.py \
+            --master company-master-v321.json \
+            --public company-data.js \
+            --days "$SCAN_DAYS" \
+            --delay 0.7 \
+            --output v321-monthly-output
+      - name: Store report and candidate update files; no auto-deploy
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v321-monthly-review
+          path: v321-monthly-output/
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Publish only fully verified existing-issuer updates (explicit opt-in)
+        env:
+          MCL_PAGES_PUBLISH_PAT: ${{ secrets.MCL_PAGES_PUBLISH_PAT }}
+        if: ${{ success() && vars.MCL_MONTHLY_AUTO_PUBLISH == 'true' && github.ref == 'refs/heads/main' }}
+        run: |
+          if [ -z "$MCL_PAGES_PUBLISH_PAT" ]; then
+            echo 'Auto-publication requires MCL_PAGES_PUBLISH_PAT to trigger GitHub Pages build'
+            exit 1
+          fi
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,shutil
+          root=Path('v321-monthly-output')
+          summary=json.loads((root/'monthly-summary-v321.json').read_text())
+          if summary['published_manual_review_required']:
+              raise SystemExit('Auto-publication BLOCKED: some published issuers need manual review')
+          if summary['published_updates_fully_reconciled'] == 0:
+              print('No verified changes, nothing to publish')
+          else:
+              staged=root/'company-data-v321-REVIEW-ONLY.js'
+              if not staged.is_file():raise SystemExit('Staged file missing')
+              before=Path('company-data.js').read_text(encoding='utf-8')
+              after=staged.read_text(encoding='utf-8')
+              if before == after:raise SystemExit('Unexpected unchanged candidate')
+              shutil.copyfile(staged,'company-data.js')
+              print('Verified 102-company file staged for controlled commit')
+          PY
+          if ! git diff --quiet -- company-data.js; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add company-data.js
+            git commit -m 'chore(data): monthly verified EDINET source refresh'
+            git push origin HEAD:main
+          fi
