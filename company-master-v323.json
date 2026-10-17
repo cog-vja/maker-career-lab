@@ -1,0 +1,2282 @@
+{
+  "schema_version": "3.23",
+  "purpose": "102 published base + 83 verified in prior 185 gate + 24 in 209 staging gate + 16 unresolved; publication only via manual review",
+  "verified_public_count": 102,
+  "new_research_only_count": 1,
+  "companies": [
+    {
+      "ticker": "6146",
+      "name": "株式会社ディスコ",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "ディスコ"
+      ],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "PUBLISHED_BASELINE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6506",
+      "name": "株式会社安川電機",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "安川電機"
+      ],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "PUBLISHED_BASELINE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6645",
+      "name": "オムロン株式会社",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "オムロン"
+      ],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "PUBLISHED_BASELINE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6841",
+      "name": "横河電機株式会社",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "横河電機"
+      ],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "PUBLISHED_BASELINE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6857",
+      "name": "株式会社アドバンテスト",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "アドバンテスト"
+      ],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "PUBLISHED_BASELINE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6861",
+      "name": "株式会社キーエンス",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "キーエンス"
+      ],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "PUBLISHED_BASELINE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6920",
+      "name": "レーザーテック株式会社",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "レーザーテック"
+      ],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "PUBLISHED_BASELINE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6954",
+      "name": "ファナック株式会社",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "ファナック"
+      ],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "PUBLISHED_BASELINE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7735",
+      "name": "株式会社ＳＣＲＥＥＮホールディングス",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "SCREENホールディングス",
+        "SCREEN HD"
+      ],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "PUBLISHED_BASELINE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "8035",
+      "name": "東京エレクトロン株式会社",
+      "industry": "公開中（既存10社）",
+      "aliases": [
+        "東京エレクトロン"
+      ],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "PUBLISHED_BASELINE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7729",
+      "name": "東京精密",
+      "industry": "半導体・製造装置",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "RELEASE_READY_29",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6525",
+      "name": "KOKUSAI ELECTRIC",
+      "industry": "半導体・製造装置",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "RELEASE_READY_29",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6871",
+      "name": "日本マイクロニクス",
+      "industry": "半導体・製造装置",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "RELEASE_READY_29",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6323",
+      "name": "ローツェ",
+      "industry": "半導体・製造装置",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "RELEASE_READY_29",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6590",
+      "name": "芝浦メカトロニクス",
+      "industry": "半導体・製造装置",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "RELEASE_READY_29",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4063",
+      "name": "信越化学工業",
+      "industry": "電子部品・材料",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "RELEASE_READY_29",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "3436",
+      "name": "SUMCO",
+      "industry": "電子部品・材料",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "RELEASE_READY_29",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6981",
+      "name": "村田製作所",
+      "industry": "電子部品・材料",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "RELEASE_READY_29",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6762",
+      "name": "TDK",
+      "industry": "電子部品・材料",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "RELEASE_READY_29",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6988",
+      "name": "日東電工",
+      "industry": "電子部品・材料",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "RELEASE_READY_29",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6503",
+      "name": "三菱電機",
+      "industry": "産業機械・総合電機",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "RELEASE_READY_29",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6273",
+      "name": "SMC",
+      "industry": "産業機械・総合電機",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "RELEASE_READY_29",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6481",
+      "name": "THK",
+      "industry": "産業機械・総合電機",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "RELEASE_READY_29",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6367",
+      "name": "ダイキン工業",
+      "industry": "産業機械・総合電機",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "RELEASE_READY_29",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6501",
+      "name": "日立製作所",
+      "industry": "産業機械・総合電機",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "BLOCKED_METRIC_DEFINITION",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7203",
+      "name": "トヨタ自動車",
+      "industry": "自動車・輸送機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "RELEASE_READY_29",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7267",
+      "name": "本田技研工業",
+      "industry": "自動車・輸送機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "RELEASE_READY_29",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6902",
+      "name": "デンソー",
+      "industry": "自動車・輸送機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "RELEASE_READY_29",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7269",
+      "name": "スズキ",
+      "industry": "自動車・輸送機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "RELEASE_READY_29",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7270",
+      "name": "SUBARU",
+      "industry": "自動車・輸送機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "RELEASE_READY_29",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6723",
+      "name": "ルネサスエレクトロニクス",
+      "industry": "半導体・電子部品",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6963",
+      "name": "ローム",
+      "industry": "半導体・電子部品",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6971",
+      "name": "京セラ",
+      "industry": "半導体・電子部品",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4062",
+      "name": "イビデン",
+      "industry": "半導体・電子部品",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6976",
+      "name": "太陽誘電",
+      "industry": "半導体・電子部品",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6770",
+      "name": "アルプスアルパイン",
+      "industry": "半導体・電子部品",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6479",
+      "name": "ミネベアミツミ",
+      "industry": "半導体・電子部品",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4186",
+      "name": "東京応化工業",
+      "industry": "半導体・電子部品",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6594",
+      "name": "ニデック",
+      "industry": "半導体・電子部品",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7733",
+      "name": "オリンパス",
+      "industry": "半導体・電子部品",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4004",
+      "name": "レゾナック・ホールディングス",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4401",
+      "name": "ADEKA",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4005",
+      "name": "住友化学",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "3402",
+      "name": "東レ",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "3407",
+      "name": "旭化成",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4188",
+      "name": "三菱ケミカルグループ",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4204",
+      "name": "積水化学工業",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "5333",
+      "name": "日本ガイシ",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6301",
+      "name": "小松製作所",
+      "industry": "産業機械・重工",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6326",
+      "name": "クボタ",
+      "industry": "産業機械・重工",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6361",
+      "name": "荏原製作所",
+      "industry": "産業機械・重工",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7011",
+      "name": "三菱重工業",
+      "industry": "産業機械・重工",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7012",
+      "name": "川崎重工業",
+      "industry": "産業機械・重工",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7013",
+      "name": "IHI",
+      "industry": "産業機械・重工",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "5401",
+      "name": "日本製鉄",
+      "industry": "産業機械・重工",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "5411",
+      "name": "JFEホールディングス",
+      "industry": "産業機械・重工",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7259",
+      "name": "アイシン",
+      "industry": "自動車・精密",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7272",
+      "name": "ヤマハ発動機",
+      "industry": "自動車・精密",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4543",
+      "name": "テルモ",
+      "industry": "自動車・精密",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7741",
+      "name": "HOYA",
+      "industry": "自動車・精密",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "ORIGINAL_ACQUIRED_UNRECONCILED",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6856",
+      "name": "堀場製作所",
+      "industry": "精密・計測・半導体",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7701",
+      "name": "島津製作所",
+      "industry": "精密・計測・半導体",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7731",
+      "name": "ニコン",
+      "industry": "精密・計測・半導体",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7721",
+      "name": "東京計器",
+      "industry": "精密・計測・半導体",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7725",
+      "name": "インターアクション",
+      "industry": "精密・計測・半導体",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6875",
+      "name": "メガチップス",
+      "industry": "精密・計測・半導体",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6965",
+      "name": "浜松ホトニクス",
+      "industry": "精密・計測・半導体",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6869",
+      "name": "シスメックス",
+      "industry": "精密・計測・半導体",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6707",
+      "name": "サンケン電気",
+      "industry": "精密・計測・半導体",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6941",
+      "name": "山一電機",
+      "industry": "精密・計測・半導体",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6752",
+      "name": "パナソニック ホールディングス",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6758",
+      "name": "ソニーグループ",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6701",
+      "name": "日本電気（NEC）",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6702",
+      "name": "富士通",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7751",
+      "name": "キヤノン",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7752",
+      "name": "リコー",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6724",
+      "name": "セイコーエプソン",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6504",
+      "name": "富士電機",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6845",
+      "name": "アズビル",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6754",
+      "name": "アンリツ",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6448",
+      "name": "ブラザー工業",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6508",
+      "name": "明電舎",
+      "industry": "電機・IT・事務機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6103",
+      "name": "オークマ",
+      "industry": "工作機械・産業機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6141",
+      "name": "DMG森精機",
+      "industry": "工作機械・産業機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6113",
+      "name": "アマダ",
+      "industry": "工作機械・産業機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6305",
+      "name": "日立建機",
+      "industry": "工作機械・産業機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6302",
+      "name": "住友重機械工業",
+      "industry": "工作機械・産業機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6268",
+      "name": "ナブテスコ",
+      "industry": "工作機械・産業機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6432",
+      "name": "竹内製作所",
+      "industry": "工作機械・産業機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6465",
+      "name": "ホシザキ",
+      "industry": "工作機械・産業機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6471",
+      "name": "日本精工",
+      "industry": "工作機械・産業機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "6586",
+      "name": "マキタ",
+      "industry": "工作機械・産業機器",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4021",
+      "name": "日産化学",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4042",
+      "name": "東ソー",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4043",
+      "name": "トクヤマ",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4061",
+      "name": "デンカ",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4091",
+      "name": "日本酸素ホールディングス",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "4203",
+      "name": "住友ベークライト",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "5201",
+      "name": "AGC",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "5214",
+      "name": "日本電気硝子",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "5713",
+      "name": "住友金属鉱山",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "5802",
+      "name": "住友電気工業",
+      "industry": "化学・素材",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7201",
+      "name": "日産自動車",
+      "industry": "自動車・自動車部品",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7202",
+      "name": "いすゞ自動車",
+      "industry": "自動車・自動車部品",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7211",
+      "name": "三菱自動車工業",
+      "industry": "自動車・自動車部品",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7261",
+      "name": "マツダ",
+      "industry": "自動車・自動車部品",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7276",
+      "name": "小糸製作所",
+      "industry": "自動車・自動車部品",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7282",
+      "name": "豊田合成",
+      "industry": "自動車・自動車部品",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7283",
+      "name": "愛三工業",
+      "industry": "自動車・自動車部品",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "7296",
+      "name": "エフ・シー・シー",
+      "industry": "自動車・自動車部品",
+      "aliases": [],
+      "stage": "EXISTING_CONTROLLED",
+      "original_stage": "DISCOVERY_PENDING",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6
+    },
+    {
+      "ticker": "1301",
+      "name": "極洋",
+      "industry": "食品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YE8K"
+    },
+    {
+      "ticker": "1332",
+      "name": "ニッスイ",
+      "industry": "食品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YHOQ"
+    },
+    {
+      "ticker": "1333",
+      "name": "マルハニチロ",
+      "industry": "食品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YCK1"
+    },
+    {
+      "ticker": "2001",
+      "name": "ニップン",
+      "industry": "食品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YIC9"
+    },
+    {
+      "ticker": "2002",
+      "name": "日清製粉グループ本社",
+      "industry": "食品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YE6A"
+    },
+    {
+      "ticker": "2264",
+      "name": "森永乳業",
+      "industry": "食品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YIHY"
+    },
+    {
+      "ticker": "2267",
+      "name": "ヤクルト本社",
+      "industry": "食品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YCBJ"
+    },
+    {
+      "ticker": "2270",
+      "name": "雪印メグミルク",
+      "industry": "食品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YC5I"
+    },
+    {
+      "ticker": "2282",
+      "name": "日本ハム",
+      "industry": "食品",
+      "aliases": [],
+      "stage": "METRIC_DEFINITION_REVIEW",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YEEQ"
+    },
+    {
+      "ticker": "2502",
+      "name": "アサヒグループホールディングス",
+      "industry": "食品・飲料",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YSGA"
+    },
+    {
+      "ticker": "2503",
+      "name": "キリンホールディングス",
+      "industry": "食品・飲料",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100XTVS"
+    },
+    {
+      "ticker": "2579",
+      "name": "コカ・コーラ ボトラーズジャパンホールディングス",
+      "industry": "食品・飲料",
+      "aliases": [],
+      "stage": "METRIC_DEFINITION_REVIEW",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100XR1L"
+    },
+    {
+      "ticker": "2801",
+      "name": "キッコーマン",
+      "industry": "食品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YE5V"
+    },
+    {
+      "ticker": "2802",
+      "name": "味の素",
+      "industry": "食品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100Y992"
+    },
+    {
+      "ticker": "2810",
+      "name": "ハウス食品グループ本社",
+      "industry": "食品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YD7A"
+    },
+    {
+      "ticker": "2914",
+      "name": "日本たばこ産業",
+      "industry": "消費財",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100XSSA"
+    },
+    {
+      "ticker": "3105",
+      "name": "日清紡ホールディングス",
+      "industry": "素材",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100XT05"
+    },
+    {
+      "ticker": "3110",
+      "name": "日東紡績",
+      "industry": "素材",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YDBM"
+    },
+    {
+      "ticker": "3401",
+      "name": "帝人",
+      "industry": "素材",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YCMK"
+    },
+    {
+      "ticker": "3405",
+      "name": "クラレ",
+      "industry": "素材",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100XSSZ"
+    },
+    {
+      "ticker": "4088",
+      "name": "エア・ウォーター",
+      "industry": "化学",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YTII"
+    },
+    {
+      "ticker": "4095",
+      "name": "日本パーカライジング",
+      "industry": "化学",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YJGK"
+    },
+    {
+      "ticker": "4182",
+      "name": "三菱ガス化学",
+      "industry": "化学",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YEUU"
+    },
+    {
+      "ticker": "4183",
+      "name": "三井化学",
+      "industry": "化学",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YGUI"
+    },
+    {
+      "ticker": "4205",
+      "name": "日本ゼオン",
+      "industry": "化学",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YJ12"
+    },
+    {
+      "ticker": "4206",
+      "name": "アイカ工業",
+      "industry": "化学",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YE8Y"
+    },
+    {
+      "ticker": "4208",
+      "name": "UBE",
+      "industry": "化学",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YD42"
+    },
+    {
+      "ticker": "4212",
+      "name": "積水樹脂",
+      "industry": "化学",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YIY2"
+    },
+    {
+      "ticker": "4502",
+      "name": "武田薬品工業",
+      "industry": "医薬品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YB5L"
+    },
+    {
+      "ticker": "4503",
+      "name": "アステラス製薬",
+      "industry": "医薬品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YBPK"
+    },
+    {
+      "ticker": "4519",
+      "name": "中外製薬",
+      "industry": "医薬品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100XTBJ"
+    },
+    {
+      "ticker": "4523",
+      "name": "エーザイ",
+      "industry": "医薬品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YB05"
+    },
+    {
+      "ticker": "4536",
+      "name": "参天製薬",
+      "industry": "医薬品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YDH1"
+    },
+    {
+      "ticker": "4568",
+      "name": "第一三共",
+      "industry": "医薬品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YEY0"
+    },
+    {
+      "ticker": "4578",
+      "name": "大塚ホールディングス",
+      "industry": "医薬品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100XUA7"
+    },
+    {
+      "ticker": "4612",
+      "name": "日本ペイントホールディングス",
+      "industry": "化学",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100XU2S"
+    },
+    {
+      "ticker": "4613",
+      "name": "関西ペイント",
+      "industry": "化学",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YHKQ"
+    },
+    {
+      "ticker": "4626",
+      "name": "太陽ホールディングス",
+      "industry": "化学",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YBLG"
+    },
+    {
+      "ticker": "4901",
+      "name": "富士フイルムホールディングス",
+      "industry": "精密機器",
+      "aliases": [],
+      "stage": "METRIC_DEFINITION_REVIEW",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YIBH"
+    },
+    {
+      "ticker": "4902",
+      "name": "コニカミノルタ",
+      "industry": "精密機器",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YB93"
+    },
+    {
+      "ticker": "4911",
+      "name": "資生堂",
+      "industry": "消費財",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100XSCU"
+    },
+    {
+      "ticker": "4922",
+      "name": "コーセー",
+      "industry": "消費財",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100XSUW"
+    },
+    {
+      "ticker": "5101",
+      "name": "横浜ゴム",
+      "industry": "自動車・タイヤ",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100XSMJ"
+    },
+    {
+      "ticker": "5105",
+      "name": "TOYO TIRE",
+      "industry": "自動車・タイヤ",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100XTYE"
+    },
+    {
+      "ticker": "5202",
+      "name": "日本板硝子",
+      "industry": "素材",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YL06"
+    },
+    {
+      "ticker": "5301",
+      "name": "東海カーボン",
+      "industry": "素材",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100XU85"
+    },
+    {
+      "ticker": "5332",
+      "name": "TOTO",
+      "industry": "住宅設備",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YC72"
+    },
+    {
+      "ticker": "5334",
+      "name": "日本特殊陶業",
+      "industry": "自動車部品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YJTF"
+    },
+    {
+      "ticker": "5406",
+      "name": "神戸製鋼所",
+      "industry": "鉄鋼",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YCDA"
+    },
+    {
+      "ticker": "5444",
+      "name": "大和工業",
+      "industry": "鉄鋼",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YGVD"
+    },
+    {
+      "ticker": "5706",
+      "name": "三井金属",
+      "industry": "素材",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YBQV"
+    },
+    {
+      "ticker": "5801",
+      "name": "古河電気工業",
+      "industry": "非鉄",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YCF0"
+    },
+    {
+      "ticker": "5803",
+      "name": "フジクラ",
+      "industry": "非鉄",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YGP3"
+    },
+    {
+      "ticker": "5901",
+      "name": "東洋製罐グループホールディングス",
+      "industry": "包装",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YGR9"
+    },
+    {
+      "ticker": "5929",
+      "name": "三和ホールディングス",
+      "industry": "建材",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YFHH"
+    },
+    {
+      "ticker": "5938",
+      "name": "LIXIL",
+      "industry": "住宅設備",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YD5L"
+    },
+    {
+      "ticker": "5947",
+      "name": "リンナイ",
+      "industry": "住宅設備",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YJCU"
+    },
+    {
+      "ticker": "6005",
+      "name": "三浦工業",
+      "industry": "産業機械",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YEGC"
+    },
+    {
+      "ticker": "6134",
+      "name": "FUJI",
+      "industry": "産業機械",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YKAW"
+    },
+    {
+      "ticker": "6201",
+      "name": "豊田自動織機",
+      "industry": "産業機械",
+      "aliases": [],
+      "stage": "FILING_NOT_FOUND_REVIEW",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false
+    },
+    {
+      "ticker": "6370",
+      "name": "栗田工業",
+      "industry": "産業機械",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YBAT"
+    },
+    {
+      "ticker": "6407",
+      "name": "CKD",
+      "industry": "産業機械",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YGB2"
+    },
+    {
+      "ticker": "6473",
+      "name": "ジェイテクト",
+      "industry": "自動車部品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YEL3"
+    },
+    {
+      "ticker": "6753",
+      "name": "シャープ",
+      "industry": "電機",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YHZV"
+    },
+    {
+      "ticker": "6806",
+      "name": "ヒロセ電機",
+      "industry": "電子部品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YJDW"
+    },
+    {
+      "ticker": "6905",
+      "name": "コーセル",
+      "industry": "電機",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YUI9"
+    },
+    {
+      "ticker": "6923",
+      "name": "スタンレー電気",
+      "industry": "電子部品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YERJ"
+    },
+    {
+      "ticker": "7003",
+      "name": "三井E&S",
+      "industry": "重工",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YKIO"
+    },
+    {
+      "ticker": "7205",
+      "name": "日野自動車",
+      "industry": "自動車",
+      "aliases": [],
+      "stage": "FILING_NOT_FOUND_REVIEW",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false
+    },
+    {
+      "ticker": "7239",
+      "name": "タチエス",
+      "industry": "自動車部品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YLGY"
+    },
+    {
+      "ticker": "7732",
+      "name": "トプコン",
+      "industry": "精密機器",
+      "aliases": [],
+      "stage": "FILING_NOT_FOUND_REVIEW",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false
+    },
+    {
+      "ticker": "7747",
+      "name": "朝日インテック",
+      "industry": "精密機器",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100Z3SS"
+    },
+    {
+      "ticker": "7762",
+      "name": "シチズン時計",
+      "industry": "精密機器",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YGYK"
+    },
+    {
+      "ticker": "7936",
+      "name": "アシックス",
+      "industry": "消費財",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100XOKI"
+    },
+    {
+      "ticker": "7951",
+      "name": "ヤマハ",
+      "industry": "消費財",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YJE7"
+    },
+    {
+      "ticker": "7974",
+      "name": "任天堂",
+      "industry": "消費財",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100Y9NX"
+    },
+    {
+      "ticker": "8113",
+      "name": "ユニ・チャーム",
+      "industry": "消費財",
+      "aliases": [],
+      "stage": "METRIC_DEFINITION_REVIEW",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100XSEU"
+    },
+    {
+      "ticker": "2206",
+      "name": "江崎グリコ",
+      "industry": "食品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100XRXN"
+    },
+    {
+      "ticker": "2212",
+      "name": "山崎製パン",
+      "industry": "食品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100XQ5C"
+    },
+    {
+      "ticker": "2229",
+      "name": "カルビー",
+      "industry": "食品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YEHI"
+    },
+    {
+      "ticker": "2602",
+      "name": "日清オイリオグループ",
+      "industry": "食品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YB17"
+    },
+    {
+      "ticker": "2607",
+      "name": "不二製油",
+      "industry": "食品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YEWN"
+    },
+    {
+      "ticker": "2809",
+      "name": "キユーピー",
+      "industry": "食品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100XMJE"
+    },
+    {
+      "ticker": "2897",
+      "name": "日清食品ホールディングス",
+      "industry": "食品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YEWB"
+    },
+    {
+      "ticker": "2908",
+      "name": "フジッコ",
+      "industry": "食品",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YF97"
+    },
+    {
+      "ticker": "3591",
+      "name": "ワコールホールディングス",
+      "industry": "消費財",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YKJC"
+    },
+    {
+      "ticker": "3861",
+      "name": "王子ホールディングス",
+      "industry": "素材",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YJ8J"
+    },
+    {
+      "ticker": "3863",
+      "name": "日本製紙",
+      "industry": "素材",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YJ5X"
+    },
+    {
+      "ticker": "3880",
+      "name": "大王製紙",
+      "industry": "素材",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YJ8D"
+    },
+    {
+      "ticker": "4114",
+      "name": "日本触媒",
+      "industry": "化学",
+      "aliases": [],
+      "stage": "V322_SOURCE_RECHECK_PENDING_RELEASE",
+      "expected_metrics": 6,
+      "issuer_identity_verified": false,
+      "audit_doc_id": "S100YBP7"
+    },
+    {
+      "ticker": "5715",
+      "name": "古河機械金属",
+      "industry": "産業機械",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "6472",
+      "name": "NTN",
+      "industry": "産業機械・自動車部品",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "6250",
+      "name": "やまびこ",
+      "industry": "産業機械",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "6317",
+      "name": "北川鉄工所",
+      "industry": "産業機械",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "6266",
+      "name": "タツモ",
+      "industry": "半導体製造装置",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "6338",
+      "name": "タカトリ",
+      "industry": "半導体製造装置",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "6254",
+      "name": "野村マイクロ・サイエンス",
+      "industry": "半導体関連",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "6145",
+      "name": "NITTOKU",
+      "industry": "生産設備",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "6278",
+      "name": "ユニオンツール",
+      "industry": "精密工具",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "6622",
+      "name": "ダイヘン",
+      "industry": "産業機器",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "6925",
+      "name": "ウシオ電機",
+      "industry": "光学・半導体",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "6966",
+      "name": "三井ハイテック",
+      "industry": "電子部品",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "6929",
+      "name": "日本セラミック",
+      "industry": "電子部品",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "7745",
+      "name": "A&Dホロンホールディングス",
+      "industry": "計測・半導体",
+      "aliases": [],
+      "stage": "ADDITIONAL_RESEARCH_UNVERIFIED",
+      "issuer_identity_verified": false,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "6996",
+      "name": "ニチコン",
+      "industry": "電子部品",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "6768",
+      "name": "タムラ製作所",
+      "industry": "電子部品",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "6997",
+      "name": "日本ケミコン",
+      "industry": "電子部品",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "7911",
+      "name": "TOPPANホールディングス",
+      "industry": "素材・製造",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "7912",
+      "name": "大日本印刷",
+      "industry": "素材・製造",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "4980",
+      "name": "デクセリアルズ",
+      "industry": "電子材料",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "4912",
+      "name": "ライオン",
+      "industry": "消費財",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "4452",
+      "name": "花王",
+      "industry": "消費財",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "3101",
+      "name": "東洋紡",
+      "industry": "素材",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "3103",
+      "name": "ユニチカ",
+      "industry": "素材",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    },
+    {
+      "ticker": "7280",
+      "name": "ミツバ",
+      "industry": "自動車部品",
+      "aliases": [],
+      "stage": "V323_XBRL_VERIFIED_RELEASE_CANDIDATE",
+      "issuer_identity_verified": true,
+      "expected_metrics": 6,
+      "approved_for_publication": false
+    }
+  ],
+  "published_base_count": 102,
+  "ready_for_manual_release_count": 83,
+  "extended_research_count": 25,
+  "publication_requires_manual_approval": true,
+  "new_xbrl_verified_release_candidate_count": 24,
+  "reviewed_public_release_candidate_count": 209
+}

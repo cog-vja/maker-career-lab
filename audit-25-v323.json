@@ -1,0 +1,5140 @@
+[
+  {
+    "ticker": "5715",
+    "company": "古河機械金属",
+    "filerName": "古河機械金属株式会社",
+    "docID": "S100YIDC",
+    "edinetCode": "E00032",
+    "periodStart": "2025-04-01",
+    "periodEnd": "2026-03-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E00032-000_2026-03-31_01_2026-06-24.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "2110.81",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "211081000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00032-000_2026-03-31_01_2026-06-24.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00032-000_2026-03-31_01_2026-06-24.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "2012.16",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "201216000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00032-000_2026-03-31_01_2026-06-24.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00032-000_2026-03-31_01_2026-06-24.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "112.99",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "11299000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00032-000_2026-03-31_01_2026-06-24.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00032-000_2026-03-31_01_2026-06-24.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "34.09",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "3409000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00032-000_2026-03-31_01_2026-06-24.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "850.8046",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "8508046",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00032-000_2026-03-31_01_2026-06-24.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "0"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "54.05",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "272376000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00032-000_2026-03-31_01_2026-06-24.xbrl",
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00032-000_2026-03-31_01_2026-06-24.xbrl"
+            ],
+            "duplicate_count": 2,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "111246000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00032-000_2026-03-31_01_2026-06-24.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "35986000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00032-000_2026-03-31_01_2026-06-24.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.541",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00032-000_2026-03-31_01_2026-06-24.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "54.100"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "6472",
+    "company": "NTN",
+    "filerName": "ＮＴＮ株式会社",
+    "docID": "S100Y8YZ",
+    "edinetCode": "E01601",
+    "periodStart": "2025-04-01",
+    "periodEnd": "2026-03-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E01601-000_2026-03-31_01_2026-06-17.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "8263.44",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "826344000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01601-000_2026-03-31_01_2026-06-17.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01601-000_2026-03-31_01_2026-06-17.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "8255.87",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "825587000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01601-000_2026-03-31_01_2026-06-17.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01601-000_2026-03-31_01_2026-06-17.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "310.34",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "31034000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01601-000_2026-03-31_01_2026-06-17.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01601-000_2026-03-31_01_2026-06-17.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "571.79",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "57179000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01601-000_2026-03-31_01_2026-06-17.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "745.6517",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "7456517",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01601-000_2026-03-31_01_2026-06-17.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "0"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "33.79",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "878676000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01601-000_2026-03-31_01_2026-06-17.xbrl",
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01601-000_2026-03-31_01_2026-06-17.xbrl"
+            ],
+            "duplicate_count": 2,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "197760000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01601-000_2026-03-31_01_2026-06-17.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "99135000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01601-000_2026-03-31_01_2026-06-17.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.338",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01601-000_2026-03-31_01_2026-06-17.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "33.800"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "6250",
+    "company": "やまびこ",
+    "filerName": "株式会社やまびこ",
+    "docID": "S100XSYR",
+    "edinetCode": "E21258",
+    "periodStart": "2025-01-01",
+    "periodEnd": "2025-12-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E21258-000_2025-12-31_01_2026-03-24.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "1740.2",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "174020000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E21258-000_2025-12-31_01_2026-03-24.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E21258-000_2025-12-31_01_2026-03-24.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "1648.38",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "164838000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E21258-000_2025-12-31_01_2026-03-24.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E21258-000_2025-12-31_01_2026-03-24.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "197.22",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "19722000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E21258-000_2025-12-31_01_2026-03-24.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E21258-000_2025-12-31_01_2026-03-24.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "89.25",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "8925000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E21258-000_2025-12-31_01_2026-03-24.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "806.0774",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "8060774",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E21258-000_2025-12-31_01_2026-03-24.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "0"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "70.79",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "169475000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E21258-000_2025-12-31_01_2026-03-24.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "97996000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E21258-000_2025-12-31_01_2026-03-24.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "21969000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E21258-000_2025-12-31_01_2026-03-24.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.708",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E21258-000_2025-12-31_01_2026-03-24.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "70.800"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "6317",
+    "company": "北川鉄工所",
+    "filerName": "株式会社北川鉄工所",
+    "docID": "S100YHUP",
+    "edinetCode": "E01584",
+    "periodStart": "2025-04-01",
+    "periodEnd": "2026-03-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E01584-000_2026-03-31_01_2026-06-25.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "584.15",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "58415000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01584-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "572.8",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "57280000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01584-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "26.88",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "2688000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01584-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "20.49",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "2049000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01584-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "579.3",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "5793000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01584-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-3"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "54.12",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "84912000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01584-000_2026-03-31_01_2026-06-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "37363000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01584-000_2026-03-31_01_2026-06-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "8593000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01584-000_2026-03-31_01_2026-06-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.541",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01584-000_2026-03-31_01_2026-06-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "54.100"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "6266",
+    "company": "タツモ",
+    "filerName": "タツモ株式会社",
+    "docID": "S100XS15",
+    "edinetCode": "E02350",
+    "periodStart": "2025-01-01",
+    "periodEnd": "2025-12-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E02350-000_2025-12-31_01_2026-03-23.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "354.28641",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "35428641000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02350-000_2025-12-31_01_2026-03-23.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02350-000_2025-12-31_01_2026-03-23.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-3"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "358.65084",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "35865084000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02350-000_2025-12-31_01_2026-03-23.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02350-000_2025-12-31_01_2026-03-23.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-3"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "47.68771",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "4768771000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02350-000_2025-12-31_01_2026-03-23.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02350-000_2025-12-31_01_2026-03-23.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-3"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "94.25231",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "9425231000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02350-000_2025-12-31_01_2026-03-23.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-3"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "694.9297",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "6949297",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02350-000_2025-12-31_01_2026-03-23.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "0"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "56.60",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "46893210000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E02350-000_2025-12-31_01_2026-03-23.xbrl",
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E02350-000_2025-12-31_01_2026-03-23.xbrl"
+            ],
+            "duplicate_count": 2,
+            "decimals": [
+              "-3"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "25390763000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E02350-000_2025-12-31_01_2026-03-23.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-3"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "1151892000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E02350-000_2025-12-31_01_2026-03-23.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-3"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.566",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E02350-000_2025-12-31_01_2026-03-23.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "56.600"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "6338",
+    "company": "タカトリ",
+    "filerName": "株式会社タカトリ",
+    "docID": "S100XBFK",
+    "edinetCode": "E01715",
+    "periodStart": "2024-10-01",
+    "periodEnd": "2025-09-30",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E01715-000_2025-09-30_01_2025-12-18.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "73.30581",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "7330581000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01715-000_2025-09-30_01_2025-12-18.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01715-000_2025-09-30_01_2025-12-18.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-3"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "160.8227",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "16082270000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01715-000_2025-09-30_01_2025-12-18.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01715-000_2025-09-30_01_2025-12-18.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-3"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "8.20447",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "820447000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01715-000_2025-09-30_01_2025-12-18.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01715-000_2025-09-30_01_2025-12-18.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-3"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "-9.16993",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "-916993000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01715-000_2025-09-30_01_2025-12-18.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-3"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "675.1685",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "6751685",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01715-000_2025-09-30_01_2025-12-18.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "0"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "64.52",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "15911921000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01715-000_2025-09-30_01_2025-12-18.xbrl",
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01715-000_2025-09-30_01_2025-12-18.xbrl"
+            ],
+            "duplicate_count": 2,
+            "decimals": [
+              "-3"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "10177386000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01715-000_2025-09-30_01_2025-12-18.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-3"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "89208000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01715-000_2025-09-30_01_2025-12-18.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-3"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.645",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01715-000_2025-09-30_01_2025-12-18.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "64.500"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "6254",
+    "company": "野村マイクロ・サイエンス",
+    "filerName": "野村マイクロ・サイエンス株式会社",
+    "docID": "S100YG4U",
+    "edinetCode": "E01735",
+    "periodStart": "2025-04-01",
+    "periodEnd": "2026-03-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E01735-000_2026-03-31_01_2026-06-23.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "562.4586",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "56245860000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01735-000_2026-03-31_01_2026-06-23.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01735-000_2026-03-31_01_2026-06-23.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-3"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "963.59952",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "96359952000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01735-000_2026-03-31_01_2026-06-23.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01735-000_2026-03-31_01_2026-06-23.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-3"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "66.67477",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "6667477000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01735-000_2026-03-31_01_2026-06-23.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01735-000_2026-03-31_01_2026-06-23.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-3"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "43.63668",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "4363668000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01735-000_2026-03-31_01_2026-06-23.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-3"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "890.2711",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "8902711",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01735-000_2026-03-31_01_2026-06-23.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "0"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "35.64",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "110290164000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01735-000_2026-03-31_01_2026-06-23.xbrl",
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01735-000_2026-03-31_01_2026-06-23.xbrl"
+            ],
+            "duplicate_count": 2,
+            "decimals": [
+              "-3"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "36716908000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01735-000_2026-03-31_01_2026-06-23.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-3"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "2592271000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01735-000_2026-03-31_01_2026-06-23.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-3"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.356",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01735-000_2026-03-31_01_2026-06-23.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "35.600"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "6145",
+    "company": "NITTOKU",
+    "filerName": "ＮＩＴＴＯＫＵ株式会社",
+    "docID": "S100YKQX",
+    "edinetCode": "E01981",
+    "periodStart": "2025-04-01",
+    "periodEnd": "2026-03-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E01981-000_2026-03-31_01_2026-06-25.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "424.12",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "42412000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01981-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "332.68",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "33268000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01981-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "54.39",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "5439000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01981-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "41.03",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "4103000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01981-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "657.6375",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "6576375",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01981-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "0"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "63.96",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "62940000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01981-000_2026-03-31_01_2026-06-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "35040000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01981-000_2026-03-31_01_2026-06-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "5217000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01981-000_2026-03-31_01_2026-06-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.640",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01981-000_2026-03-31_01_2026-06-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "64.000"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "6278",
+    "company": "ユニオンツール",
+    "filerName": "ユニオンツール株式会社",
+    "docID": "S100XSU7",
+    "edinetCode": "E01505",
+    "periodStart": "2025-01-01",
+    "periodEnd": "2025-12-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E01505-000_2025-12-31_01_2026-03-24.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "401.65",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "40165000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01505-000_2025-12-31_01_2026-03-24.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01505-000_2025-12-31_01_2026-03-24.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "326.06",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "32606000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01505-000_2025-12-31_01_2026-03-24.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01505-000_2025-12-31_01_2026-03-24.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "87.28",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "8728000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01505-000_2025-12-31_01_2026-03-24.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01505-000_2025-12-31_01_2026-03-24.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "75.07",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "7507000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01505-000_2025-12-31_01_2026-03-24.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "714.4882",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "7144882",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01505-000_2025-12-31_01_2026-03-24.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "0"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "90.70",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "88202000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01505-000_2025-12-31_01_2026-03-24.xbrl",
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01505-000_2025-12-31_01_2026-03-24.xbrl"
+            ],
+            "duplicate_count": 2,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "69870000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01505-000_2025-12-31_01_2026-03-24.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "10127000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01505-000_2025-12-31_01_2026-03-24.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.907",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01505-000_2025-12-31_01_2026-03-24.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "90.700"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "6622",
+    "company": "ダイヘン",
+    "filerName": "株式会社ダイヘン",
+    "docID": "S100YEET",
+    "edinetCode": "E01750",
+    "periodStart": "2025-04-01",
+    "periodEnd": "2026-03-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E01750-000_2026-03-31_01_2026-06-19.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "2377.35",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "237735000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01750-000_2026-03-31_01_2026-06-19.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "2263.75",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "226375000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01750-000_2026-03-31_01_2026-06-19.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "187.78",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "18778000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01750-000_2026-03-31_01_2026-06-19.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "49.44",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "4944000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01750-000_2026-03-31_01_2026-06-19.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "973.2",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "9732000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01750-000_2026-03-31_01_2026-06-19.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-3"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "48.11",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "320175000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01750-000_2026-03-31_01_2026-06-19.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "124286000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01750-000_2026-03-31_01_2026-06-19.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "29743000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01750-000_2026-03-31_01_2026-06-19.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.481",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01750-000_2026-03-31_01_2026-06-19.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "48.100"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "6925",
+    "company": "ウシオ電機",
+    "filerName": "ウシオ電機株式会社",
+    "docID": "S100YKRT",
+    "edinetCode": "E01929",
+    "periodStart": "2025-04-01",
+    "periodEnd": "2026-03-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E01929-000_2026-03-31_01_2026-06-25.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "1792.11",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "179211000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01929-000_2026-03-31_01_2026-06-25.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01929-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "1776.16",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "177616000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01929-000_2026-03-31_01_2026-06-25.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01929-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "119.59",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "11959000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01929-000_2026-03-31_01_2026-06-25.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01929-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "181.44",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "18144000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01929-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "799.3595",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "7993595",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01929-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "0"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "59.90",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "331078000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01929-000_2026-03-31_01_2026-06-25.xbrl",
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01929-000_2026-03-31_01_2026-06-25.xbrl"
+            ],
+            "duplicate_count": 2,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "133728000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01929-000_2026-03-31_01_2026-06-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "64595000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01929-000_2026-03-31_01_2026-06-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.599",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01929-000_2026-03-31_01_2026-06-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "59.900"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "6966",
+    "company": "三井ハイテック",
+    "filerName": "株式会社三井ハイテック",
+    "docID": "S100XZDC",
+    "edinetCode": "E02293",
+    "periodStart": "2025-02-01",
+    "periodEnd": "2026-01-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E02293-000_2026-01-31_01_2026-04-17.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "2183.29",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "218329000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02293-000_2026-01-31_01_2026-04-17.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02293-000_2026-01-31_01_2026-04-17.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "2148.9",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "214890000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02293-000_2026-01-31_01_2026-04-17.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02293-000_2026-01-31_01_2026-04-17.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "126.51",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "12651000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02293-000_2026-01-31_01_2026-04-17.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02293-000_2026-01-31_01_2026-04-17.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "241.35",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "24135000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02293-000_2026-01-31_01_2026-04-17.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "712.2727",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "7122727",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02293-000_2026-01-31_01_2026-04-17.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "0"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "46.99",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "240994000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E02293-000_2026-01-31_01_2026-04-17.xbrl",
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E02293-000_2026-01-31_01_2026-04-17.xbrl"
+            ],
+            "duplicate_count": 2,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "97923000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E02293-000_2026-01-31_01_2026-04-17.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "15328000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E02293-000_2026-01-31_01_2026-04-17.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.470",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E02293-000_2026-01-31_01_2026-04-17.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "47.000"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "6929",
+    "company": "日本セラミック",
+    "filerName": "日本セラミック株式会社",
+    "docID": "S100XTCV",
+    "edinetCode": "E01988",
+    "periodStart": "2025-01-01",
+    "periodEnd": "2025-12-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E01988-000_2025-12-31_01_2026-03-25.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "273.25",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "27325000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01988-000_2025-12-31_01_2026-03-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "250.37",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "25037000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01988-000_2025-12-31_01_2026-03-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "62.28",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "6228000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01988-000_2025-12-31_01_2026-03-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "48.88",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "4888000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01988-000_2025-12-31_01_2026-03-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "421.4016",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "4214016",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01988-000_2025-12-31_01_2026-03-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "0"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "84.45",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "56359000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01988-000_2025-12-31_01_2026-03-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "45470000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01988-000_2025-12-31_01_2026-03-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "2123000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01988-000_2025-12-31_01_2026-03-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.844",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01988-000_2025-12-31_01_2026-03-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "84.400"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "7745",
+    "company": "A&Dホロンホールディングス",
+    "filerName": "株式会社Ａ＆Ｄホロンホールディングス",
+    "docID": "S100YHHI",
+    "edinetCode": "E02344",
+    "periodStart": "2025-04-01",
+    "periodEnd": "2026-03-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E02344-000_2026-03-31_01_2026-06-23.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 5,
+    "blocked_count": 1,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "693.26",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "69326000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02344-000_2026-03-31_01_2026-06-23.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02344-000_2026-03-31_01_2026-06-23.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "670.83",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "67083000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02344-000_2026-03-31_01_2026-06-23.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02344-000_2026-03-31_01_2026-06-23.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "92.09",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "9209000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02344-000_2026-03-31_01_2026-06-23.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02344-000_2026-03-31_01_2026-06-23.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "64.69",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "6469000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02344-000_2026-03-31_01_2026-06-23.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "BLOCKED",
+        "value": null,
+        "reason": "missing permitted fact ('AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees',) @ CurrentYearInstant_NonConsolidatedMember iso4217:JPY",
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "65.73",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "75277000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E02344-000_2026-03-31_01_2026-06-23.xbrl",
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E02344-000_2026-03-31_01_2026-06-23.xbrl"
+            ],
+            "duplicate_count": 2,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "47809000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E02344-000_2026-03-31_01_2026-06-23.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "1671000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E02344-000_2026-03-31_01_2026-06-23.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.657",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E02344-000_2026-03-31_01_2026-06-23.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "65.700"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "6996",
+    "company": "ニチコン",
+    "filerName": "ニチコン株式会社",
+    "docID": "S100YLMG",
+    "edinetCode": "E01904",
+    "periodStart": "2025-04-01",
+    "periodEnd": "2026-03-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E01904-000_2026-03-31_01_2026-06-26.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "1697.24",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "169724000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01904-000_2026-03-31_01_2026-06-26.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01904-000_2026-03-31_01_2026-06-26.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "1757.51",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "175751000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01904-000_2026-03-31_01_2026-06-26.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01904-000_2026-03-31_01_2026-06-26.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "64.56",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "6456000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01904-000_2026-03-31_01_2026-06-26.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01904-000_2026-03-31_01_2026-06-26.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "81.63",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "8163000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01904-000_2026-03-31_01_2026-06-26.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "691.3636",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "6913636",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01904-000_2026-03-31_01_2026-06-26.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "0"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "61.16",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "195570000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01904-000_2026-03-31_01_2026-06-26.xbrl",
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01904-000_2026-03-31_01_2026-06-26.xbrl"
+            ],
+            "duplicate_count": 2,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "92364000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01904-000_2026-03-31_01_2026-06-26.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "27239000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01904-000_2026-03-31_01_2026-06-26.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.612",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01904-000_2026-03-31_01_2026-06-26.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "61.200"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "6768",
+    "company": "タムラ製作所",
+    "filerName": "株式会社タムラ製作所",
+    "docID": "S100YIQG",
+    "edinetCode": "E01786",
+    "periodStart": "2025-04-01",
+    "periodEnd": "2026-03-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E01786-000_2026-03-31_01_2026-06-24.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "1235.59",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "123559000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01786-000_2026-03-31_01_2026-06-24.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01786-000_2026-03-31_01_2026-06-24.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "1140.51",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "114051000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01786-000_2026-03-31_01_2026-06-24.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01786-000_2026-03-31_01_2026-06-24.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "52.87",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "5287000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01786-000_2026-03-31_01_2026-06-24.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01786-000_2026-03-31_01_2026-06-24.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "28.51",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "2851000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01786-000_2026-03-31_01_2026-06-24.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "758",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "7580000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01786-000_2026-03-31_01_2026-06-24.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-3"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "47.40",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "132381000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01786-000_2026-03-31_01_2026-06-24.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "48064000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01786-000_2026-03-31_01_2026-06-24.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "14686000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01786-000_2026-03-31_01_2026-06-24.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.4740",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01786-000_2026-03-31_01_2026-06-24.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "4"
+            ]
+          },
+          "disclosed_pct": "47.4000"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "6997",
+    "company": "日本ケミコン",
+    "filerName": "日本ケミコン株式会社",
+    "docID": "S100YL3Z",
+    "edinetCode": "E01926",
+    "periodStart": "2025-04-01",
+    "periodEnd": "2026-03-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E01926-000_2026-03-31_01_2026-06-25.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "1368.21",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "136821000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01926-000_2026-03-31_01_2026-06-25.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01926-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "1226.84",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "122684000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01926-000_2026-03-31_01_2026-06-25.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01926-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "33.69",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "3369000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01926-000_2026-03-31_01_2026-06-25.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01926-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "76.22",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "7622000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01926-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "618.6",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "6186000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E01926-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-3"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "37.64",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "165985000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01926-000_2026-03-31_01_2026-06-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "36954000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01926-000_2026-03-31_01_2026-06-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "25524000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01926-000_2026-03-31_01_2026-06-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.376",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E01926-000_2026-03-31_01_2026-06-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "37.600"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "7911",
+    "company": "TOPPANホールディングス",
+    "filerName": "ＴＯＰＰＡＮホールディングス株式会社",
+    "docID": "S100YIAY",
+    "edinetCode": "E00692",
+    "periodStart": "2025-04-01",
+    "periodEnd": "2026-03-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E00692-000_2026-03-31_01_2026-06-24.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "18050.33",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "1805033000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00692-000_2026-03-31_01_2026-06-24.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00692-000_2026-03-31_01_2026-06-24.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "17195.12",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "1719512000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00692-000_2026-03-31_01_2026-06-24.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00692-000_2026-03-31_01_2026-06-24.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "671.08",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "67108000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00692-000_2026-03-31_01_2026-06-24.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00692-000_2026-03-31_01_2026-06-24.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "861.22",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "86122000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00692-000_2026-03-31_01_2026-06-24.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "868.2435",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "8682435",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00692-000_2026-03-31_01_2026-06-24.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "0"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "52.27",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "2558184000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00692-000_2026-03-31_01_2026-06-24.xbrl",
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00692-000_2026-03-31_01_2026-06-24.xbrl"
+            ],
+            "duplicate_count": 2,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "1169735000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00692-000_2026-03-31_01_2026-06-24.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "167457000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00692-000_2026-03-31_01_2026-06-24.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.523",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00692-000_2026-03-31_01_2026-06-24.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "52.300"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "7912",
+    "company": "大日本印刷",
+    "filerName": "大日本印刷株式会社",
+    "docID": "S100YF74",
+    "edinetCode": "E00693",
+    "periodStart": "2025-04-01",
+    "periodEnd": "2026-03-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E00693-000_2026-03-31_01_2026-06-23.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "15125.71",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "1512571000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00693-000_2026-03-31_01_2026-06-23.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00693-000_2026-03-31_01_2026-06-23.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "14576.09",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "1457609000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00693-000_2026-03-31_01_2026-06-23.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00693-000_2026-03-31_01_2026-06-23.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "1010.39",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "101039000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00693-000_2026-03-31_01_2026-06-23.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00693-000_2026-03-31_01_2026-06-23.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "403.67",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "40367000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00693-000_2026-03-31_01_2026-06-23.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "861.0246",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "8610246",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00693-000_2026-03-31_01_2026-06-23.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "0"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "58.53",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "2034110000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00693-000_2026-03-31_01_2026-06-23.xbrl",
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00693-000_2026-03-31_01_2026-06-23.xbrl"
+            ],
+            "duplicate_count": 2,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "983970000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00693-000_2026-03-31_01_2026-06-23.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "206534000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00693-000_2026-03-31_01_2026-06-23.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.5853",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00693-000_2026-03-31_01_2026-06-23.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "4"
+            ]
+          },
+          "disclosed_pct": "58.5300"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "4980",
+    "company": "デクセリアルズ",
+    "filerName": "デクセリアルズ株式会社",
+    "docID": "S100YGAR",
+    "edinetCode": "E31633",
+    "periodStart": "2025-04-01",
+    "periodEnd": "2026-03-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E31633-000_2026-03-31_01_2026-06-22.xbrl",
+    "gaap": "IFRS",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "1138.32",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSalesIFRS"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpigp_cor",
+          "value": "113832000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E31633-000_2026-03-31_01_2026-06-22.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E31633-000_2026-03-31_01_2026-06-22.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "1103.9",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSalesIFRS"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpigp_cor",
+          "value": "110390000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E31633-000_2026-03-31_01_2026-06-22.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E31633-000_2026-03-31_01_2026-06-22.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "380.97",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingProfitLossIFRS"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpigp_cor",
+          "value": "38097000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E31633-000_2026-03-31_01_2026-06-22.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E31633-000_2026-03-31_01_2026-06-22.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "275.44",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivitiesIFRS"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpigp_cor",
+          "value": "27544000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E31633-000_2026-03-31_01_2026-06-22.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "769.3479",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "7693479",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E31633-000_2026-03-31_01_2026-06-22.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "0"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "66.24",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "AssetsIFRS"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jpigp_cor",
+            "value": "165104000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E31633-000_2026-03-31_01_2026-06-22.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "EquityAttributableToOwnersOfParentIFRS"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jpigp_cor",
+            "value": "109363000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E31633-000_2026-03-31_01_2026-06-22.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "EquityAttributableToOwnersOfParentIFRS / AssetsIFRS * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "RatioOfOwnersEquityToGrossAssetsIFRSSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.6624",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E31633-000_2026-03-31_01_2026-06-22.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "4"
+            ]
+          },
+          "disclosed_pct": "66.2400"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "4912",
+    "company": "ライオン",
+    "filerName": "ライオン株式会社",
+    "docID": "S100XU1E",
+    "edinetCode": "E00991",
+    "periodStart": "2025-01-01",
+    "periodEnd": "2025-12-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E00991-000_2025-12-31_01_2026-03-26.xbrl",
+    "gaap": "IFRS",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "4220.92",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSalesIFRS"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpigp_cor",
+          "value": "422092000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00991-000_2025-12-31_01_2026-03-26.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00991-000_2025-12-31_01_2026-03-26.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "4129.43",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSalesIFRS"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpigp_cor",
+          "value": "412943000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00991-000_2025-12-31_01_2026-03-26.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00991-000_2025-12-31_01_2026-03-26.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "363.68",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingProfitLossIFRS"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpigp_cor",
+          "value": "36368000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00991-000_2025-12-31_01_2026-03-26.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00991-000_2025-12-31_01_2026-03-26.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "406.48",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivitiesIFRS"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpigp_cor",
+          "value": "40648000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00991-000_2025-12-31_01_2026-03-26.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "711.3275",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "7113275",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00991-000_2025-12-31_01_2026-03-26.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "0"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "61.05",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "AssetsIFRS"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jpigp_cor",
+            "value": "528596000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00991-000_2025-12-31_01_2026-03-26.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "EquityAttributableToOwnersOfParentIFRS"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jpigp_cor",
+            "value": "322726000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00991-000_2025-12-31_01_2026-03-26.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "EquityAttributableToOwnersOfParentIFRS / AssetsIFRS * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "RatioOfOwnersEquityToGrossAssetsIFRSSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.611",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00991-000_2025-12-31_01_2026-03-26.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "61.100"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "4452",
+    "company": "花王",
+    "filerName": "花王株式会社",
+    "docID": "S100XT6G",
+    "edinetCode": "E00883",
+    "periodStart": "2025-01-01",
+    "periodEnd": "2025-12-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E00883-000_2025-12-31_01_2026-03-25.xbrl",
+    "gaap": "IFRS",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "16886.33",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSalesIFRS"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpigp_cor",
+          "value": "1688633000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00883-000_2025-12-31_01_2026-03-25.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00883-000_2025-12-31_01_2026-03-25.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "16284.48",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSalesIFRS"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpigp_cor",
+          "value": "1628448000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00883-000_2025-12-31_01_2026-03-25.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00883-000_2025-12-31_01_2026-03-25.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "1640.69",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingProfitLossIFRS"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpigp_cor",
+          "value": "164069000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00883-000_2025-12-31_01_2026-03-25.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00883-000_2025-12-31_01_2026-03-25.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "1996.8",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivitiesIFRS"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpigp_cor",
+          "value": "199680000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00883-000_2025-12-31_01_2026-03-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "865.4",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "8654000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00883-000_2025-12-31_01_2026-03-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-3"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "56.75",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "AssetsIFRS"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jpigp_cor",
+            "value": "1875054000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00883-000_2025-12-31_01_2026-03-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "EquityAttributableToOwnersOfParentIFRS"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jpigp_cor",
+            "value": "1064077000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00883-000_2025-12-31_01_2026-03-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "EquityAttributableToOwnersOfParentIFRS / AssetsIFRS * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "RatioOfOwnersEquityToGrossAssetsIFRSSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.567",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00883-000_2025-12-31_01_2026-03-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "56.700"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "3101",
+    "company": "東洋紡",
+    "filerName": "東洋紡株式会社",
+    "docID": "S100YGRC",
+    "edinetCode": "E00525",
+    "periodStart": "2025-04-01",
+    "periodEnd": "2026-03-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E00525-000_2026-03-31_01_2026-06-23.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "4215.63",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "421563000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00525-000_2026-03-31_01_2026-06-23.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00525-000_2026-03-31_01_2026-06-23.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "4220.32",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "422032000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00525-000_2026-03-31_01_2026-06-23.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00525-000_2026-03-31_01_2026-06-23.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "279.06",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "27906000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00525-000_2026-03-31_01_2026-06-23.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00525-000_2026-03-31_01_2026-06-23.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "450.32",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "45032000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00525-000_2026-03-31_01_2026-06-23.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "685.3737",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "6853737",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00525-000_2026-03-31_01_2026-06-23.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "0"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "33.99",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "627667000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00525-000_2026-03-31_01_2026-06-23.xbrl",
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00525-000_2026-03-31_01_2026-06-23.xbrl"
+            ],
+            "duplicate_count": 2,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "159737000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00525-000_2026-03-31_01_2026-06-23.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "53577000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00525-000_2026-03-31_01_2026-06-23.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.340",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00525-000_2026-03-31_01_2026-06-23.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "34.000"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "3103",
+    "company": "ユニチカ",
+    "filerName": "ユニチカ株式会社",
+    "docID": "S100YJHA",
+    "edinetCode": "E00527",
+    "periodStart": "2025-04-01",
+    "periodEnd": "2026-03-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E00527-000_2026-03-31_01_2026-06-25.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "1185.63",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "118563000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00527-000_2026-03-31_01_2026-06-25.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00527-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "1264.11",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "126411000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00527-000_2026-03-31_01_2026-06-25.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00527-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "105.49",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "10549000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00527-000_2026-03-31_01_2026-06-25.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00527-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "56.14",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "5614000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00527-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "585.7875",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "5857875",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E00527-000_2026-03-31_01_2026-06-25.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "0"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "35.69",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "150704000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00527-000_2026-03-31_01_2026-06-25.xbrl",
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00527-000_2026-03-31_01_2026-06-25.xbrl"
+            ],
+            "duplicate_count": 2,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "51482000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00527-000_2026-03-31_01_2026-06-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "2302000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00527-000_2026-03-31_01_2026-06-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.357",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E00527-000_2026-03-31_01_2026-06-25.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "35.700"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  },
+  {
+    "ticker": "7280",
+    "company": "ミツバ",
+    "filerName": "株式会社ミツバ",
+    "docID": "S100Y9OD",
+    "edinetCode": "E02205",
+    "periodStart": "2025-04-01",
+    "periodEnd": "2026-03-31",
+    "original_present": true,
+    "original_sha256_matches": true,
+    "source_instance": "XBRL/PublicDoc/jpcrp030000-asr-001_E02205-000_2026-03-31_01_2026-06-24.xbrl",
+    "gaap": "JP_GAAP",
+    "reconciled_count": 6,
+    "blocked_count": 0,
+    "issues": [],
+    "metrics": {
+      "revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "3485.99",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "348599000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02205-000_2026-03-31_01_2026-06-24.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02205-000_2026-03-31_01_2026-06-24.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "prior_revenue_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "3493.53",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetSales"
+          ],
+          "context": "Prior1YearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "349353000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02205-000_2026-03-31_01_2026-06-24.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02205-000_2026-03-31_01_2026-06-24.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_profit_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "239.08",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "OperatingIncome"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "23908000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02205-000_2026-03-31_01_2026-06-24.xbrl",
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02205-000_2026-03-31_01_2026-06-24.xbrl"
+          ],
+          "duplicate_count": 2,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "operating_cf_oku": {
+        "status": "SOURCE_RECONCILED",
+        "value": "286.1",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "NetCashProvidedByUsedInOperatingActivities"
+          ],
+          "context": "CurrentYearDuration",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jppfs_cor",
+          "value": "28610000000",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02205-000_2026-03-31_01_2026-06-24.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "-6"
+          ]
+        },
+        "approved_for_publication": false
+      },
+      "average_salary_man": {
+        "status": "SOURCE_RECONCILED",
+        "value": "596.459",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "element_names": [
+            "AverageAnnualSalaryInformationAboutReportingCompanyInformationAboutEmployees"
+          ],
+          "context": "CurrentYearInstant_NonConsolidatedMember",
+          "unit": "iso4217:JPY",
+          "taxonomy": "jpcrp_cor",
+          "value": "5964590",
+          "instances": [
+            "XBRL/PublicDoc/jpcrp030000-asr-001_E02205-000_2026-03-31_01_2026-06-24.xbrl"
+          ],
+          "duplicate_count": 1,
+          "decimals": [
+            "0"
+          ],
+          "scope": "nonconsolidated reporting company"
+        },
+        "approved_for_publication": false
+      },
+      "equity_ratio_pct": {
+        "status": "SOURCE_RECONCILED",
+        "value": "34.37",
+        "method": "standard_taxonomy",
+        "evidence": {
+          "assets": {
+            "element_names": [
+              "Assets"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "348669000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E02205-000_2026-03-31_01_2026-06-24.xbrl",
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E02205-000_2026-03-31_01_2026-06-24.xbrl"
+            ],
+            "duplicate_count": 2,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "parent_equity": {
+            "element_names": [
+              "ShareholdersEquity"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "86896000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E02205-000_2026-03-31_01_2026-06-24.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "valuation_and_translation": {
+            "element_names": [
+              "ValuationAndTranslationAdjustments"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "iso4217:JPY",
+            "taxonomy": "jppfs_cor",
+            "value": "32931000000",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E02205-000_2026-03-31_01_2026-06-24.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "-6"
+            ]
+          },
+          "formula": "(ShareholdersEquity + ValuationAndTranslationAdjustments) / Assets * 100",
+          "disclosed_ratio": {
+            "element_names": [
+              "EquityToAssetRatioSummaryOfBusinessResults"
+            ],
+            "context": "CurrentYearInstant",
+            "unit": "xbrli:pure",
+            "taxonomy": "jpcrp_cor",
+            "value": "0.344",
+            "instances": [
+              "XBRL/PublicDoc/jpcrp030000-asr-001_E02205-000_2026-03-31_01_2026-06-24.xbrl"
+            ],
+            "duplicate_count": 1,
+            "decimals": [
+              "3"
+            ]
+          },
+          "disclosed_pct": "34.400"
+        },
+        "approved_for_publication": false
+      }
+    },
+    "publication_approved": false,
+    "identity_verified": true
+  }
+]
