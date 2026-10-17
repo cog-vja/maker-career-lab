@@ -1,0 +1,65 @@
+
+name: EDINET v3.22 monthly source monitoring for 102 or 185 public companies
+
+on:
+  schedule:
+    - cron: '17 3 5 * *'
+      timezone: 'Asia/Tokyo'
+  workflow_dispatch:
+    inputs:
+      scan_days:
+        description: 'Days to check (1-400; default 45)'
+        required: true
+        default: '45'
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: edinet-v322-monthly-review
+  cancel-in-progress: false
+
+jobs:
+  monthly-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate update dependencies
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          required=['monthly_edinet_v322.py','monthly_edinet_v321.py','company-master-v322.json',
+                    'company-data.js','edinet_v313.py','edinet_v317.py','edinet_v320.py',
+                    'test_v322.py', 'fixtures/verification-offline-v322.json','discover_25_v322.py',
+                    'baseline-102-v322.js','audit-87-v322.json','source-lock-87-v322.json',
+                    'discovery-90-v322.json','release_v322.py',
+                    'edinet_v310.py','edinet_v311.py','edinet_v32.py','edinet_v33.py',
+                    'edinet_v34.py','edinet_v35.py','edinet_v36.py','edinet_v38.py']
+          missing=[x for x in required if not Path(x).is_file()]
+          if missing:raise SystemExit('Missing files: '+', '.join(missing))
+          PY
+          python3 -m unittest -v test_v322.py
+      - name: Scan new and revised EDINET annual reports and prepare review-only update
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          SCAN_DAYS: ${{ inputs.scan_days || '45' }}
+        run: |
+          python3 monthly_edinet_v322.py \
+            --master company-master-v322.json \
+            --public company-data.js \
+            --days "$SCAN_DAYS" \
+            --delay 0.7 \
+            --output v322-monthly-output
+      - name: Upload report (never modify GitHub Pages automatically)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v322-monthly-review
+          path: v322-monthly-output/
+          retention-days: 30
+          if-no-files-found: warn
