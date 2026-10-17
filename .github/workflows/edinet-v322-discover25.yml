@@ -1,0 +1,89 @@
+
+name: EDINET v3.22 25 backup manufacturing company discovery
+
+on:
+  workflow_dispatch:
+    inputs:
+      days:
+        description: 'Days to scan EDINET filing lists (1-400)'
+        required: true
+        default: '400'
+        type: string
+      download_originals:
+        description: 'Download original XBRL ZIPs (research only)'
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  discover-25:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 110
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate prerequisites
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          required=['discover_25_v322.py','company-master-v322.json','monthly_edinet_v321.py',
+                    'edinet_v313.py','test_v322.py', 'fixtures/verification-offline-v322.json','release_v322.py',
+                    'monthly_edinet_v322.py','baseline-102-v322.js','audit-87-v322.json',
+                    'source-lock-87-v322.json','discovery-90-v322.json',
+                    'edinet_v317.py','edinet_v320.py','edinet_v310.py','edinet_v311.py',
+                    'edinet_v32.py','edinet_v33.py','edinet_v34.py','edinet_v35.py',
+                    'edinet_v36.py','edinet_v38.py']
+          missing=[p for p in required if not Path(p).is_file()]
+          if missing:raise SystemExit('Missing prerequisites: '+', '.join(missing))
+          PY
+          python3 -m unittest -v test_v322.py
+      - name: Discover 25 candidate filings without publishing
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          DAYS: ${{ inputs.days }}
+          DOWNLOAD: ${{ inputs.download_originals }}
+        run: |
+          if [ "$DOWNLOAD" = 'true' ]; then
+            python3 discover_25_v322.py --days "$DAYS" --output v322-discovery-output
+          else
+            python3 discover_25_v322.py --days "$DAYS" --no-download --output v322-discovery-output
+          fi
+      - name: Upload research-only report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v322-discovery25-report
+          path: |
+            v322-discovery-output/discovery-summary-v322.json
+            v322-discovery-output/discovery-details-v322.json
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Upload candidate original batch 1
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v322-originals-01
+          path: v322-discovery-output/originals-batch-01/
+          retention-days: 7
+          if-no-files-found: ignore
+      - name: Upload candidate original batch 2
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v322-originals-02
+          path: v322-discovery-output/originals-batch-02/
+          retention-days: 7
+          if-no-files-found: ignore
+      - name: Upload candidate original batch 3
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v322-originals-03
+          path: v322-discovery-output/originals-batch-03/
+          retention-days: 7
+          if-no-files-found: ignore
