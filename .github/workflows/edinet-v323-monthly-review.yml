@@ -1,0 +1,73 @@
+
+name: EDINET v3.23 monthly review for 102 185 or 209 companies
+
+on:
+  schedule:
+    - cron: '17 3 5 * *'
+      timezone: 'Asia/Tokyo'
+  workflow_dispatch:
+    inputs:
+      scan_days:
+        description: 'Number of calendar days to scan, 1 to 400'
+        required: true
+        default: '45'
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: edinet-v323-monthly-reviewed-update
+  cancel-in-progress: false
+
+jobs:
+  monthly-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 100
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify required files
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          needed = ['monthly_edinet_v323.py','monthly_edinet_v322.py',
+                    'release_v323.py','release_v322.py','test_v323.py',
+                    'company-master-v323.json','company-data.js',
+                    'baseline-185-v323.js','baseline-102-v322.js',
+                    'verification-83-live-v323.json','audit-25-v323.json',
+                    'source-lock-25-v323.json','audit-87-v322.json',
+                    'source-lock-87-v322.json','discovery-90-v322.json',
+                    'fixtures/verification-offline-v323.json',
+                    'edinet_v313.py','edinet_v317.py','edinet_v320.py',
+                    'monthly_edinet_v321.py',
+                    'edinet_v310.py','edinet_v311.py','edinet_v32.py',
+                    'edinet_v33.py','edinet_v34.py','edinet_v35.py',
+                    'edinet_v36.py','edinet_v38.py']
+          missing=[p for p in needed if not Path(p).is_file()]
+          if missing:raise SystemExit('Missing prerequisites: '+', '.join(missing))
+          PY
+      - name: Test monitoring against 102 185 and 209 company inputs
+        run: python3 -m unittest -v test_v323.py
+      - name: Scan annual reports and stage source-verified changes only
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          SCAN_DAYS: ${{ inputs.scan_days || '45' }}
+        run: |
+          python3 monthly_edinet_v323.py \
+            --master company-master-v323.json \
+            --public company-data.js \
+            --days "$SCAN_DAYS" --delay 0.7 \
+            --output v323-monthly-output
+      - name: Upload diagnostic report (no automatic publication)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v323-monthly-review
+          path: v323-monthly-output/
+          retention-days: 30
+          if-no-files-found: warn
