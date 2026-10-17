@@ -1,0 +1,88 @@
+
+name: EDINET v3.22 185-company original source release review
+
+on:
+  workflow_dispatch:
+    inputs:
+      delay_seconds:
+        description: 'Delay between EDINET original ZIP downloads (0-10 seconds)'
+        required: true
+        default: '0.7'
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: v322-source-quality-stage
+  cancel-in-progress: false
+
+jobs:
+  source-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 100
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check all dependencies (stop before EDINET API calls)
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          required = [
+            'release_v322.py', 'test_v322.py', 'fixtures/verification-offline-v322.json', 'discover_25_v322.py',
+            'monthly_edinet_v322.py',
+            'company-master-v322.json', 'baseline-102-v322.js',
+            'audit-87-v322.json', 'source-lock-87-v322.json',
+            'discovery-90-v322.json', 'company-data.js',
+            'site-ready/index.html',
+            'site-ready/company-check.html',
+            'site-ready/company-compare.js',
+            'site-ready/affiliate-config.js',
+            'site-ready/affiliate-render.js',
+            'edinet_v313.py','edinet_v317.py','edinet_v320.py',
+            'monthly_edinet_v321.py',
+            'edinet_v310.py','edinet_v311.py','edinet_v32.py',
+            'edinet_v33.py','edinet_v34.py','edinet_v35.py',
+            'edinet_v36.py','edinet_v38.py'
+          ]
+          missing=[f for f in required if not Path(f).is_file()]
+          if missing:raise SystemExit('Missing required files: '+', '.join(missing))
+          print('Required-file gate PASS')
+          PY
+      - name: Run security / baseline / publication tests
+        run: |
+          python3 -m unittest -v test_v322.py
+          python3 release_v322.py check
+      - name: Download 83 frozen EDINET originals and recompute all 498 metrics
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          DELAY: ${{ inputs.delay_seconds }}
+        run: |
+          python3 release_v322.py verify \
+            --live --delay "$DELAY" --output v322-output
+      - name: Stage 185-company dataset (manual review only, never deploy)
+        run: |
+          python3 release_v322.py stage \
+            --verification v322-output/verification-v322.json \
+            --current-js company-data.js \
+            --output v322-output
+          node --check v322-output/site-ready/company-data.js
+          node --check v322-output/site-ready/company-compare.js
+          node --check v322-output/site-ready/affiliate-config.js
+          node --check v322-output/site-ready/affiliate-render.js
+      - name: Upload verification and manual release candidate
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v322-release185-review
+          path: v322-output/
+          retention-days: 14
+          if-no-files-found: warn
