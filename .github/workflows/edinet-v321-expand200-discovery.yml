@@ -1,0 +1,121 @@
+
+name: EDINET v3.21 - discover 90 research candidates (200-target master)
+on:
+  workflow_dispatch:
+    inputs:
+      days:
+        description: 'EDINET lookback days (max 400)'
+        required: true
+        default: '400'
+        type: string
+      download_originals:
+        description: 'Download type-1 originals for unambiguous reports'
+        required: true
+        default: true
+        type: boolean
+permissions:
+  contents: read
+jobs:
+  discover-90:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 105
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Safety tests
+        run: python3 -m unittest -v test_v321.py
+      - name: Discover research-only issuers
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          DAYS: ${{ inputs.days }}
+          DOWNLOAD: ${{ inputs.download_originals }}
+        run: |
+          if [ "$DOWNLOAD" = 'true' ]; then
+            python3 discover_90_v321.py --master company-master-v321.json --days "$DAYS" --output v321-discovery-90
+          else
+            python3 discover_90_v321.py --master company-master-v321.json --days "$DAYS" --no-download --output v321-discovery-90
+          fi
+      - name: Upload summary (not a publication file)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v321-discovery-report
+          path: |
+            v321-discovery-90/discovery-90-summary-v321.json
+            v321-discovery-90/discovery-90-details-v321.json
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Upload original ZIP batch 01
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v321-originals-batch-01
+          path: v321-discovery-90/originals-batch-01/
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Upload original ZIP batch 02
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v321-originals-batch-02
+          path: v321-discovery-90/originals-batch-02/
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Upload original ZIP batch 03
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v321-originals-batch-03
+          path: v321-discovery-90/originals-batch-03/
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Upload original ZIP batch 04
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v321-originals-batch-04
+          path: v321-discovery-90/originals-batch-04/
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Upload original ZIP batch 05
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v321-originals-batch-05
+          path: v321-discovery-90/originals-batch-05/
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Upload original ZIP batch 06
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v321-originals-batch-06
+          path: v321-discovery-90/originals-batch-06/
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Upload original ZIP batch 07
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v321-originals-batch-07
+          path: v321-discovery-90/originals-batch-07/
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Upload original ZIP batch 08
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v321-originals-batch-08
+          path: v321-discovery-90/originals-batch-08/
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Upload original ZIP batch 09
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v321-originals-batch-09
+          path: v321-discovery-90/originals-batch-09/
+          if-no-files-found: ignore
+          retention-days: 7
