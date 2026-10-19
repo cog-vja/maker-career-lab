@@ -1,6 +1,14 @@
 /* ワンキャリア転職 / A8.net: 公式提供コードはこの文字列内で無改変 */
 (()=>{
   'use strict';
+  // 固定広告は転職アクションに直結する記事だけに表示する。
+  // GitHub Pagesのベースパス（/maker-career-lab/）にも対応。
+  const pathname=decodeURI(window.location.pathname).replace(/\/+$/,'');
+  const allowedPages=[
+    /(?:^|\/)articles\/it-scm-career\.html$/,
+    /(?:^|\/)articles\/agent-guide\.html$/
+  ];
+  if(!allowedPages.some((pattern)=>pattern.test(pathname)))return;
   const KEY='mcl-onecareer-floating-dismissed';
   let closed=false;
   try{closed=sessionStorage.getItem(KEY)==='yes';}catch(_e){}
