@@ -1,0 +1,52 @@
+/* ワンキャリア転職広告：A8.net公式のバナーサイズ・リンクコードを変更せず表示 */
+.mcl-onecareer-end {
+  box-sizing:border-box; max-width:720px; margin:38px auto 36px; padding:20px 18px;
+  border:1px solid #cbdad8; border-radius:14px; background:#f7faf9; color:#243841;
+}
+.mcl-onecareer-end .mcl-onecareer-pr {
+  display:inline-block; color:#285a56; font-size:13px; font-weight:700;
+  border:1px solid #8cb5ae; border-radius:5px; padding:2px 7px; margin-bottom:8px;
+}
+.mcl-onecareer-end h2 { margin:8px 0 10px; font-size:clamp(18px,2.5vw,21px); line-height:1.5; }
+.mcl-onecareer-end p { margin:8px 0 14px; font-size:15px; line-height:1.8; }
+.mcl-onecareer-large-container {
+  display:flex; justify-content:flex-start; align-items:flex-start;
+  overflow-x:auto; max-width:100%; padding:8px 0 4px;
+}
+@media(min-width:420px){.mcl-onecareer-large-container{justify-content:center;}}
+/* バナー本体の寸法はA8提供の300x250のまま。狭い画面では枠内スクロール。 */
+.mcl-onecareer-large-container > a { display:block; width:300px; height:250px; flex:0 0 300px; }
+.mcl-onecareer-large-container > a img { display:block; }
+.mcl-onecareer-large-container > img[width="1"] { width:1px; height:1px; }
+.mcl-onecareer-floating {
+  position:fixed; z-index:800; right:14px;
+  bottom:calc(14px + env(safe-area-inset-bottom, 0px));
+  box-sizing:border-box; width:152px;
+  padding:8px 10px 10px; background:#fff; border:1px solid #bacfca;
+  border-radius:14px; box-shadow:0 6px 24px rgba(19,48,48,.19);
+  color:#183c39;
+}
+.mcl-onecareer-floating[hidden] { display:none !important; }
+.mcl-onecareer-floating__header {
+  display:flex; align-items:center; justify-content:space-between; min-height:38px;
+  margin-bottom:4px;
+}
+.mcl-onecareer-floating__label {font-size:12px; font-weight:800; letter-spacing:.04em;}
+.mcl-onecareer-floating__close {
+  border:1px solid #bdc9c9; background:#f6f8f8; color:#253d3b;
+  border-radius:9px; width:38px; height:38px; cursor:pointer;
+  display:flex; justify-content:center; align-items:center;
+  font:700 25px/1 system-ui,sans-serif;
+}
+.mcl-onecareer-floating__close:focus-visible { outline:3px solid #087c72; outline-offset:2px; }
+.mcl-onecareer-floating__ad {display:flex; justify-content:center; align-items:center; min-height:60px;}
+.mcl-onecareer-floating__ad a {display:block; width:100px; height:60px; flex:0 0 100px;}
+.mcl-onecareer-floating__ad a img {display:block;}
+.mcl-onecareer-floating__ad img[width="1"] {width:1px;height:1px;}
+.mcl-onecareer-floating.is-keyboard-active {display:none !important;}
+@media(max-width:480px){
+ .mcl-onecareer-end {padding:16px 12px; margin:30px 0;}
+ .mcl-onecareer-floating {right:10px; bottom:calc(10px + env(safe-area-inset-bottom, 0px));}
+}
+@media(max-height:430px){.mcl-onecareer-floating {display:none !important;}}
+@media print {.mcl-onecareer-floating {display:none !important;}}
