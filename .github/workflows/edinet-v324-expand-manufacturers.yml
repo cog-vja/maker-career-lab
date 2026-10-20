@@ -1,0 +1,94 @@
+
+name: EDINET v3.24 manufacturing expansion REVIEW ONLY
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'universe, index, audit-batch, stage'
+        type: choice
+        options: [universe, index, audit-batch, stage]
+        required: true
+      offset:
+        description: 'Only audit-batch: zero-based candidate start (0, 50, 100, ...)'
+        type: number
+        default: 0
+      limit:
+        description: 'Only audit-batch: candidates in batch (1-80)'
+        type: number
+        default: 50
+      days:
+        description: 'Only index: lookback days (1-450)'
+        type: number
+        default: 400
+
+permissions:
+  contents: read
+
+concurrency:
+  group: edinet-v324-research-review
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Unit tests (no API calls)
+        run: python3 -m unittest -v test_expand_v324.py
+      - name: Validate input availability
+        env:
+          MODE: ${{ inputs.mode }}
+        run: |
+          test -f company-data.js
+          if [ "$MODE" = universe ]; then
+            test -f inputs/jpx-issues.csv
+          else
+            test -f inputs/manufacturing-universe-v324.json
+          fi
+          if [ "$MODE" = audit-batch ]; then test -f inputs/edinet-index-v324.json; fi
+          if [ "$MODE" = stage ]; then test -f inputs/approved-v324.csv && test -d inputs/review-v324; fi
+      - name: Build manufacturing target universe (no EDINET key required)
+        if: inputs.mode == 'universe'
+        run: |
+          python3 expand_manufacturers_v324.py universe \
+            --jpx inputs/jpx-issues.csv --public company-data.js --output out/manufacturing-universe-v324.json
+      - name: Retrieve annual report index; checkpointed, never deploys
+        if: inputs.mode == 'index'
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+        run: |
+          mkdir -p out
+          python3 expand_manufacturers_v324.py index \
+            --universe inputs/manufacturing-universe-v324.json \
+            --days '${{ inputs.days }}' --delay 1.0 --output out/edinet-index-v324.json
+      - name: Audit new issuers against original XBRL (6 of 6 required)
+        if: inputs.mode == 'audit-batch'
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+        run: |
+          python3 expand_manufacturers_v324.py audit \
+            --universe inputs/manufacturing-universe-v324.json \
+            --index inputs/edinet-index-v324.json \
+            --public company-data.js --offset '${{ inputs.offset }}' \
+            --limit '${{ inputs.limit }}' --delay 1.0 --output out/review-v324
+      - name: Prepare manual release only if >=1001 verified approved issuers
+        if: inputs.mode == 'stage'
+        run: |
+          python3 expand_manufacturers_v324.py stage \
+            --public company-data.js --audit-dir inputs/review-v324 \
+            --approvals inputs/approved-v324.csv --require-count 1001 \
+            --output out/staged-v324
+          node --check out/staged-v324/company-data.js
+      - name: Upload review-only outputs; nothing published
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edinet-v324-${{ inputs.mode }}-${{ inputs.offset }}
+          path: out/
+          if-no-files-found: ignore
+          retention-days: 30
