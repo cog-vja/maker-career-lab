@@ -34,6 +34,24 @@ class CheckExpansion(unittest.TestCase):
    return {'docID':docid,'docTypeCode':typ,'withdrawalStatus':'0','xbrlFlag':'1','csvFlag':'1',
            'periodStart':'2025-04-01','periodEnd':'2026-03-31','submitDateTime':'2026-06-01 14:00:00'}
   self.assertEqual(choose([doc('S100AAAA','120'),doc('S100BBBB','130')],__import__('datetime').date(2026,10,20))[0],'CORRECTED_FILING_REVIEW')
+ def test_edinet_correction_without_period_is_not_silently_ignored(self):
+  from datetime import date
+  original={'docID':'S100AAAA','docTypeCode':'120','withdrawalStatus':'0',
+   'xbrlFlag':'1','csvFlag':'1','periodStart':'2025-04-01',
+   'periodEnd':'2026-03-31','submitDateTime':'2026-06-20 13:00'}
+  corrected={'docID':'S100BBBB','docTypeCode':'130','withdrawalStatus':'0',
+   'periodStart':None,'periodEnd':None,'submitDateTime':'2026-06-22 15:00'}
+  self.assertEqual(choose([original,corrected],date(2026,10,20))[0],
+   'CORRECTED_FILING_REVIEW')
+ def test_earlier_correction_does_not_block_newer_annual_report(self):
+  from datetime import date
+  original={'docID':'S100AAAA','docTypeCode':'120','withdrawalStatus':'0',
+   'xbrlFlag':'1','csvFlag':'1','periodStart':'2025-04-01',
+   'periodEnd':'2026-03-31','submitDateTime':'2026-06-20 13:00'}
+  corrected_old={'docID':'S100BBBB','docTypeCode':'130','withdrawalStatus':'0',
+   'periodStart':None,'periodEnd':None,'submitDateTime':'2026-05-22 15:00'}
+  state,selected=choose([original,corrected_old],date(2026,10,20))
+  self.assertEqual(state,'SELECTED');self.assertEqual(selected['docID'],'S100AAAA')
  def test_manual_release_requires_threshold_and_six_metrics(self):
   data=self.base/'review';data.mkdir()
   record={'ticker':'7777','name':'新製造会社','status':'SOURCE_RECONCILED_6_OF_6_REQUIRES_REVIEW',

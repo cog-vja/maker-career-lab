@@ -203,11 +203,28 @@ def choose(rows,asof):
     valid=[r for r in rows if proper(r)]
     if not valid:return 'NO_VALID_ANNUAL_REPORT',None
     latest=max(r['periodEnd'] for r in valid)
-    if any(str(x.get('docTypeCode'))=='130' and x.get('periodEnd')==latest for x in rows):
-        return 'CORRECTED_FILING_REVIEW',None
     recent={r['docID']:r for r in valid if r['periodEnd']==latest}
     if len(recent)!=1:return 'MULTIPLE_ANNUAL_REPORTS_REVIEW',None
-    return 'SELECTED',next(iter(recent.values()))
+    original=next(iter(recent.values()))
+    # EDINET's daily index can omit periodStart/periodEnd for docTypeCode 130
+    # (correction of a previously filed annual report). Previously these were
+    # silently ignored because None != latest. Never publish the uncorrected
+    # original when a subsequent correction could refer to it. Until the
+    # correction's parent doc ID can be independently verified, HOLD for review.
+    original_submitted=str(original.get('submitDateTime') or '')
+    for x in rows:
+        if str(x.get('docTypeCode'))!='130' or str(x.get('withdrawalStatus','0'))!='0':
+            continue
+        correction_period=x.get('periodEnd')
+        correction_submitted=str(x.get('submitDateTime') or '')
+        if correction_period==latest or (
+            not correction_period and (
+                not original_submitted or not correction_submitted or
+                correction_submitted>=original_submitted
+            )
+        ):
+            return 'CORRECTED_FILING_REVIEW',None
+    return 'SELECTED',original
 
 def _audit_one(filing,name,sector,raw):
     import edinet_v313 as v313
