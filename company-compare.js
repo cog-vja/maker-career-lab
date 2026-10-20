@@ -16,7 +16,7 @@ function text(tag,value){const el=document.createElement(tag);el.textContent=val
 function addWarning(el,message){el.append(text('p',message));}
 function show(a,b){
  const demo=!!(a.demo||b.demo);a=calc(a);b=calc(b);
- $('results').hidden=false;$('result-label').textContent=demo?'架空データ・操作デモ':'原本照合・公開承認済み';
+ $('results').hidden=false;$('result-label').textContent=demo?'架空データ・操作デモ':'公開財務データによる参考比較';
  $('compare-title').textContent=a.name+' と '+b.name;
  $('result-context').textContent='現職：'+(a.period||'不明')+'／'+(a.scope||'不明')+'　検討先：'+(b.period||'不明')+'／'+(b.scope||'不明');
  const warnings=[];
@@ -53,7 +53,7 @@ function show(a,b){
    block.append(text('strong',c.name),
      text('p','対象：'+(c.period||'不明')+' ／ '+(c.scope||'不明')+' ／ 給与：'+(c.salaryScope||'不明')),
      text('p','会計基準：'+(c.accountingStandard||'不明')+' ／ 出典：'+(c.sourceLabel||'架空デモ')));
-   block.append(text('p','原本照合日：'+(c.verifiedAt||'実施日未記録（照合済み）')));
+   block.append(text('p','原本照合の記録日：'+(c.verifiedAt||'記録なし（照合日の特定不可）')));
    if(c.sourceDocId&&/^S[A-Z0-9]{7,15}$/.test(c.sourceDocId)){
      const docline=document.createElement('p');docline.className='mcl-source-doc';docline.append(text('span','EDINET書類ID：'+c.sourceDocId+' '));
      const button=text('button','IDをコピー');button.type='button';button.className='mcl-copy-doc';
@@ -68,7 +68,7 @@ function show(a,b){
    }else if(demo){block.append(text('p','架空データにはEDINET原本はありません。'));}
    $('sources').append(block);
  }
- $('status').textContent=demo?'架空データの操作デモを表示しています。':'公開承認済みの財務データを表示しています。';
+ $('status').textContent=demo?'架空データの操作デモを表示しています。':'掲載データによる参考比較です。出典の報告書と対象期間をご確認ください。';
  $('results').scrollIntoView({behavior:'smooth',block:'start'});
 }
 function submit(e){
