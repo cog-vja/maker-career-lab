@@ -1,0 +1,165 @@
+name: EDINET v3.25 expansion REVIEW ONLY
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'bootstrap → audit-batch → stage-review (manual publication separately)'
+        required: true
+        type: choice
+        options: [bootstrap, audit-batch, stage-review]
+      bootstrap_run_id:
+        description: 'audit-batch/stage-review: bootstrap run ID in its URL (not required for bootstrap)'
+        required: false
+        type: string
+        default: ''
+      offset:
+        description: 'audit-batch only: 0, 50, 100, ...'
+        required: false
+        type: number
+        default: 0
+      require_count:
+        description: 'stage-review only: minimum published+new (1001 for full goal)'
+        required: false
+        type: choice
+        options: ['1001', '800', '600', '400', '300']
+        default: '1001'
+      acknowledgement:
+        description: 'stage-review only: type REVIEWED_REPORTS after checking source review results'
+        required: false
+        type: string
+        default: ''
+
+# NO WRITE PERMISSIONS. Actions cannot commit files, edit workflows, or deploy Pages.
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: mcl-v325-source-review
+  cancel-in-progress: false
+
+jobs:
+  verify-and-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run offline tests and check prerequisites
+        run: |
+          set -euo pipefail
+          test -f company-data.js
+          test -f edinet_v313.py && test -f edinet_v317.py && test -f edinet_v320.py
+          python3 -m unittest -v test_v325.py
+          node --check company-data.js
+      - name: Download and classify official EDINET filer list
+        if: inputs.mode == 'bootstrap'
+        run: |
+          set -euo pipefail
+          mkdir -p out/bootstrap
+          python3 edinet_universe_v325.py \
+            --output out/bootstrap/edinet-issues.csv \
+            --meta out/bootstrap/edinet-source.json
+          python3 expand_manufacturers_v325.py universe \
+            --jpx out/bootstrap/edinet-issues.csv --public company-data.js \
+            --output out/bootstrap/universe.json
+      - name: Index filed annual reports (bootstrap only)
+        if: inputs.mode == 'bootstrap'
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "$EDINET_API_KEY" || { echo 'Set EDINET_API_KEY secret first'; exit 1; }
+          python3 expand_manufacturers_v325.py index \
+            --universe out/bootstrap/universe.json --days 400 \
+            --delay 0.7 --output out/bootstrap/index.json
+      - name: Save bootstrap checkpoint (no git change)
+        if: inputs.mode == 'bootstrap' && success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcl-v325-bootstrap-${{ github.run_id }}
+          path: out/bootstrap/
+          retention-days: 90
+          if-no-files-found: error
+      - name: Validate audit batch inputs
+        if: inputs.mode == 'audit-batch'
+        env:
+          BOOTSTRAP: ${{ inputs.bootstrap_run_id }}
+          OFFSET: ${{ inputs.offset }}
+        run: |
+          set -euo pipefail
+          [[ "$BOOTSTRAP" =~ ^[0-9]+$ ]] || { echo 'bootstrap_run_id must be numerical'; exit 1; }
+          test $((OFFSET % 50)) -eq 0 || { echo 'Offset must be 0, 50, 100, ...'; exit 1; }
+          mkdir -p out/bootstrap out/audit
+      - name: Download original bootstrap artifact
+        if: inputs.mode == 'audit-batch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BOOTSTRAP: ${{ inputs.bootstrap_run_id }}
+        run: |
+          gh run download "$BOOTSTRAP" \
+            -n "mcl-v325-bootstrap-$BOOTSTRAP" -D out/bootstrap
+          test -f out/bootstrap/universe.json && test -f out/bootstrap/index.json
+      - name: Audit next 50 issuers (source XBRL only)
+        if: inputs.mode == 'audit-batch'
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          BOOTSTRAP: ${{ inputs.bootstrap_run_id }}
+          OFFSET: ${{ inputs.offset }}
+        run: |
+          set -euo pipefail
+          test -n "$EDINET_API_KEY" || { echo 'Set EDINET_API_KEY secret first'; exit 1; }
+          python3 expand_manufacturers_v325.py audit \
+            --public company-data.js --universe out/bootstrap/universe.json \
+            --index out/bootstrap/index.json --offset "$OFFSET" --limit 50 \
+            --bootstrap-run-id "$BOOTSTRAP" --delay 0.7 --output out/audit
+      - name: Save 50-company audit output (not published)
+        if: inputs.mode == 'audit-batch' && success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcl-v325-audit-b${{ inputs.offset }}-root${{ inputs.bootstrap_run_id }}
+          path: out/audit/
+          retention-days: 90
+          if-no-files-found: error
+      - name: Explicit manual stage acknowledgement
+        if: inputs.mode == 'stage-review'
+        env:
+          BOOTSTRAP: ${{ inputs.bootstrap_run_id }}
+          ACK: ${{ inputs.acknowledgement }}
+        run: |
+          [[ "$BOOTSTRAP" =~ ^[0-9]+$ ]] || { echo 'bootstrap_run_id is required'; exit 1; }
+          test "$ACK" = 'REVIEWED_REPORTS' || { echo 'Review reports first and enter REVIEWED_REPORTS'; exit 1; }
+      - name: Gather verified evidence from selected bootstrap's audit artifacts
+        if: inputs.mode == 'stage-review'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BOOTSTRAP: ${{ inputs.bootstrap_run_id }}
+        run: |
+          python3 v325_artifacts.py --bootstrap-run "$BOOTSTRAP" \
+            --audit-dir out/reviews --proposed-csv out/proposed-approvals.csv
+      - name: Generate staged website data for manual review only
+        if: inputs.mode == 'stage-review'
+        env:
+          REQUIRED: ${{ inputs.require_count }}
+        run: |
+          set -euo pipefail
+          python3 expand_manufacturers_v325.py stage \
+            --public company-data.js --audit-dir out/reviews \
+            --approvals out/proposed-approvals.csv \
+            --require-count "$REQUIRED" --output out/staged
+          node --check out/staged/company-data.js
+          echo 'REVIEW COMPLETE. NOT DEPLOYED. Download artifact and manually publish only after inspecting all reports.'
+      - name: Save staged public candidate, without changing the repository
+        if: inputs.mode == 'stage-review' && success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcl-v325-staged-${{ github.run_id }}
+          path: |
+            out/staged/
+            out/REVIEW-BATCHES.json
+            out/proposed-approvals.csv
+          retention-days: 90
+          if-no-files-found: error

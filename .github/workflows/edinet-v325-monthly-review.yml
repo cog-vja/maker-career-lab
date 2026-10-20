@@ -1,0 +1,51 @@
+name: EDINET v3.25 monthly REVIEW ONLY (manual until rollout)
+
+# Intentional: only manual trigger while v3.23 remains scheduled.
+# After a validated 1000+ release, explicitly disable v3.23 and opt in to
+# scheduling this file in a separate, reviewed change.
+on:
+  workflow_dispatch:
+    inputs:
+      scan_days:
+        description: 'Calendar days of EDINET submissions (1-90)'
+        required: true
+        type: number
+        default: 55
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mcl-v325-monthly-readonly
+  cancel-in-progress: false
+
+jobs:
+  review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Offline regression suite
+        run: |
+          python3 -m unittest -v test_v325.py
+          node --check company-data.js
+      - name: Source-check published firms from EDINET; never publish
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          DAYS: ${{ inputs.scan_days }}
+        run: |
+          test -n "$EDINET_API_KEY" || { echo 'EDINET_API_KEY secret not set'; exit 1; }
+          python3 monthly_edinet_v325.py \
+            --public company-data.js --days "$DAYS" --delay 0.7 \
+            --output out/monthly
+      - name: Download review-only report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcl-v325-monthly-${{ github.run_id }}
+          path: out/monthly/
+          retention-days: 90
+          if-no-files-found: ignore
