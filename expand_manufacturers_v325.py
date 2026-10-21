@@ -226,19 +226,189 @@ def choose(rows,asof):
             return 'CORRECTED_FILING_REVIEW',None
     return 'SELECTED',original
 
+# v3.25.1: strictly opt-in solo statements. Never infer standalone from
+# missing consolidated facts alone; require the filing's DEI = false.
+def _original_root(raw, filing):
+    import edinet_v313 as v313
+    v313.check_zip(raw)
+    with zipfile.ZipFile(io.BytesIO(raw)) as z:
+        files=[m for m in z.infolist() if not m.is_dir() and
+               '/publicdoc/' in ('/'+m.filename.lower()) and m.filename.lower().endswith('.xbrl')]
+        if len(files)!=1:raise GateError('not exactly one original PublicDoc XBRL instance')
+        item=files[0]
+        if (not filing.get('edinetCode') or filing['edinetCode'] not in item.filename or
+            filing['periodEnd'] not in item.filename):
+            raise GateError('standalone source identity/period mismatch')
+        root=ET.fromstring(z.read(item))
+        return root,item.filename
+
+def _is_nonconsolidated(root):
+    from edinet_v313 import local
+    claims=[(e.text or '').strip().lower() for e in root
+            if local(e.tag)=='WhetherConsolidatedFinancialStatementsArePreparedDEI' and
+            e.tag.startswith('{') and e.tag.split('}',1)[0][1:].endswith('/jpdei_cor')]
+    if not claims:return False  # legacy consolidated path, no permissive fallback
+    if len(claims)!=1 or claims[0] not in ('true','false','1','0'):
+        raise GateError('invalid or conflicting consolidated-statements DEI')
+    return claims[0] in ('false','0')
+
+def _standalone_instance(root,filing,instance):
+    # Do not weaken edinet_v313.original_instance, which continues to verify
+    # ALL consolidated filings. This narrowly covers issuer-declared solo filers.
+    import edinet_v313 as v313
+    from collections import defaultdict
+    contexts={};units={};facts=defaultdict(list)
+    for el in root:
+        tag=v313.local(el.tag)
+        if tag=='context':
+            ident=el.get('id'); entity=el.find('{%s}entity'%v313.XBRLI)
+            period=el.find('{%s}period'%v313.XBRLI)
+            if not ident or entity is None or period is None:continue
+            ident_el=entity.find('{%s}identifier'%v313.XBRLI)
+            contexts[ident]={
+                'entity':ident_el.text if ident_el is not None else None,
+                'start':period.findtext('{%s}startDate'%v313.XBRLI),
+                'end':period.findtext('{%s}endDate'%v313.XBRLI),
+                'instant':period.findtext('{%s}instant'%v313.XBRLI),
+                'dimensions':[x.text for x in el.iter()
+                               if v313.local(x.tag) in ('explicitMember','typedMember')],
+            }
+        elif tag=='unit':
+            measures=[(x.text or '').strip() for x in el.iter() if v313.local(x.tag)=='measure']
+            units[el.get('id')]=measures if len(measures)==1 else []
+        elif el.get('contextRef') and el.get('unitRef'):
+            val=v313.dec(el.text)
+            if val is None or el.get('{http://www.w3.org/2001/XMLSchema-instance}nil')=='true':continue
+            facts[(tag,el.get('contextRef'))].append({
+                'element':tag,'namespace':el.tag.split('}',1)[0][1:] if el.tag.startswith('{') else '',
+                'contextRef':el.get('contextRef'),'unitRef':el.get('unitRef'),
+                'value':str(val),'decimals':el.get('decimals'),'file':instance,
+            })
+    for es in facts.values():
+        for e in es:e['unit']=units.get(e['unitRef'],[])
+    dur='CurrentYearDuration_NonConsolidatedMember'
+    prev='Prior1YearDuration_NonConsolidatedMember'
+    ins='CurrentYearInstant_NonConsolidatedMember'
+    for c in (dur,prev,ins):
+        if c not in contexts:raise GateError('standalone context missing: '+c)
+        d=contexts[c]['dimensions']
+        if len(d)!=1 or not isinstance(d[0],str) or d[0].split(':')[-1]!='NonConsolidatedMember':
+            raise GateError('standalone context dimension not an exact NonConsolidatedMember')
+        if filing['edinetCode'] not in (contexts[c]['entity'] or ''):
+            raise GateError('standalone context does not match issuer identity')
+    cur=contexts[dur];prior=contexts[prev];instant=contexts[ins]
+    if cur['start']!=filing['periodStart'] or cur['end']!=filing['periodEnd'] or instant['instant']!=filing['periodEnd']:
+        raise GateError('standalone current period or instant mismatch')
+    try:
+        if date.fromisoformat(prior['end'])+timedelta(days=1)!=date.fromisoformat(cur['start']):
+            raise GateError('standalone prior period not contiguous')
+        n=(date.fromisoformat(prior['end'])-date.fromisoformat(prior['start'])).days
+        if not 350<=n<=380:raise GateError('standalone prior period not approximately 12 months')
+    except (TypeError,ValueError,KeyError) as e:
+        if isinstance(e,GateError):raise
+        raise GateError('standalone prior fiscal dates invalid') from e
+    return facts
+
+def _reconciled_jp_equity(facts,ctx):
+    """Never impute absent valuation adjustments as zero.
+
+    The issuer-disclosed ratio is accepted only if it can independently be
+    reproduced from shareholders' equity and assets within reported rounding.
+    Otherwise retain BLOCKED. The result always carries the proof method.
+    """
+    import edinet_v313 as v313
+    cfg=v313.DEFINITIONS['JP_GAAP']
+    asset,ae=v313.pick(facts,cfg['assets'],ctx,'iso4217:JPY','jppfs_cor')
+    equity,ee=v313.pick(facts,cfg['parent_equity'],ctx,'iso4217:JPY','jppfs_cor')
+    proof={'assets':ae,'shareholders_equity':ee,'valuation_assumed_zero':False}
+    try:
+        valuation,ve=v313.pick(facts,cfg['valuation'],ctx,'iso4217:JPY','jppfs_cor')
+        total=equity+valuation
+        proof['valuation_and_translation']=ve
+        method='standard_taxonomy'
+    except ValueError as exc:
+        if not str(exc).startswith('missing permitted fact'):
+            raise  # conflicting/invalid is never treated as absent
+        total=equity
+        method='direct_disclosure_corroborated_without_valuation_fact'
+        proof['valuation_and_translation']='not tagged; no zero assumption; issuer disclosure must corroborate'
+    computed=v313.percent(total,asset)
+    if computed is None:raise GateError('non-positive assets or invalid parent equity ratio')
+    # Ratios in company-summary sections use NonConsolidatedMember for solo.
+    disclosed,de=v313.pick(facts,cfg['disclosed_ratio'],ctx,'xbrli:pure','jpcrp_cor')
+    if abs(disclosed*100-computed)>Decimal('.051'):
+        raise GateError('issuer-disclosed equity ratio conflicts with independent recomputation')
+    value=computed if method=='standard_taxonomy' else disclosed*100
+    proof.update({'disclosed_ratio':de,'disclosed_pct':str(disclosed*100),
+                  'computed_shareholder_or_total_pct':str(computed),
+                  'formula':cfg['equity_formula'] if method=='standard_taxonomy'
+                     else 'published equity ratio independently corroborated by shareholders equity / assets'})
+    return value,proof,method
+
+def _solo_numeric(facts,filing,result):
+    import edinet_v313 as v313
+    from edinet_v317 import record_success,record_failure
+    cfg=v313.DEFINITIONS['JP_GAAP']
+    for metric,tag,ctx in (
+        ('revenue_oku','revenue','CurrentYearDuration_NonConsolidatedMember'),
+        ('prior_revenue_oku','revenue','Prior1YearDuration_NonConsolidatedMember'),
+        ('operating_profit_oku','operating_profit','CurrentYearDuration_NonConsolidatedMember'),
+        ('operating_cf_oku','operating_cf','CurrentYearDuration_NonConsolidatedMember'),
+    ):
+        try:
+            value,e=v313.pick(facts,cfg[tag],ctx,'iso4217:JPY','jppfs_cor')
+            if tag=='revenue' and value<0:raise GateError('negative revenue')
+            record_success(result,metric,value/v313.MONEY,
+                {**e,'scope':'issuer standalone, DEI no consolidated financial statements'},
+                'dei_declared_standalone_taxonomy')
+        except Exception as exc:record_failure(result,metric,exc)
+    try:
+        val,e=v313.pick(facts,(v313.SALARY_ELEMENT,),
+            'CurrentYearInstant_NonConsolidatedMember','iso4217:JPY','jpcrp_cor')
+        if val<0:raise GateError('negative average salary')
+        record_success(result,'average_salary_man',val/v313.SALARY,
+                       {**e,'scope':'nonconsolidated reporting company'},
+                       'dei_declared_standalone_taxonomy')
+    except Exception as exc:record_failure(result,'average_salary_man',exc)
+    try:
+        val,e,method=_reconciled_jp_equity(facts,'CurrentYearInstant_NonConsolidatedMember')
+        record_success(result,'equity_ratio_pct',val,e,method)
+    except Exception as exc:record_failure(result,'equity_ratio_pct',exc)
+
 def _audit_one(filing,name,sector,raw):
     import edinet_v313 as v313
     import edinet_v317 as v317
     from edinet_v320 import fingerprint_zip
     code=edinet_ticker(filing['secCode'])
     if not code or not DOC_CODE.fullmatch(filing['docID']):raise GateError('invalid filing identity')
-    facts,contexts,instance=v313.original_instance(raw,filing)
-    with zipfile.ZipFile(io.BytesIO(raw)) as z:root=ET.fromstring(z.read(instance))
+    root,instance=_original_root(raw,filing)
+    is_standalone=_is_nonconsolidated(root)
+    if is_standalone:
+        facts=_standalone_instance(root,filing,instance)
+    else:
+        facts,contexts,validated_instance=v313.original_instance(raw,filing)
+        if validated_instance!=instance:raise GateError('instance identity changed between parsers')
     vals={(x.text or '').strip() for x in root if v313.local(x.tag)=='AccountingStandardsDEI'}
     if len(vals)!=1:raise GateError('AccountingStandardsDEI missing or conflicting')
     gaap={'IFRS':'IFRS','Japan GAAP':'JP_GAAP','JapanGAAP':'JP_GAAP','Japanese GAAP':'JP_GAAP'}.get(next(iter(vals)))
     if gaap is None:raise GateError('unrecognized / not-yet-supported GAAP')
-    o={'metrics':{}};v317.common_numeric(facts,filing,gaap,o)
+    o={'metrics':{}}
+    if is_standalone:
+        if gaap!='JP_GAAP':raise GateError('solo IFRS / US GAAP not supported without a dedicated contract')
+        _solo_numeric(facts,filing,o)
+    else:
+        v317.common_numeric(facts,filing,gaap,o)
+        # Conservative fallback for JP GAAP missing *only* valuation component.
+        # All other six-metric logic remains unchanged.
+        ratio_o=o['metrics']['equity_ratio_pct']
+        if (gaap=='JP_GAAP' and ratio_o['status']=='BLOCKED' and
+            str(ratio_o.get('reason','')).startswith('missing permitted fact') and
+            'ValuationAndTranslationAdjustments' in str(ratio_o.get('reason',''))):
+            try:
+                val,e,method=_reconciled_jp_equity(facts,'CurrentYearInstant')
+                v317.record_success(o,'equity_ratio_pct',val,e,method)
+            except Exception:
+                pass  # Preserve original BLOCKED with no guessed values.
     verified=sum(o['metrics'][m]['status']=='SOURCE_RECONCILED' for m in METRICS)
     eligible=verified==6 and all(Decimal(str(o['metrics'][m]['value'])).is_finite() for m in METRICS)
     raw_xbrl=None
@@ -246,7 +416,8 @@ def _audit_one(filing,name,sector,raw):
     record={'ticker':code,'name':str(filing.get('filerName') or name),'jpx_name':name,'industry':sector,
        'docID':filing['docID'],'edinetCode':filing['edinetCode'],
        'periodStart':filing['periodStart'],'periodEnd':filing['periodEnd'],
-       'gaap':gaap,'verifiedAt':now_jst().date().isoformat(),
+       'gaap':gaap,'financialScope':'提出会社単体' if is_standalone else '連結',
+       'verifiedAt':now_jst().date().isoformat(),
        'sourceOriginalSha256':safe_sha(raw),'sourceXbrlSha256':raw_xbrl,
        'sourcePayloadFingerprint':fingerprint_zip(raw),'sourceInstance':instance,
        'metrics':o['metrics'],'verifiedMetricCount':verified,
@@ -311,6 +482,13 @@ def stage(args):
         if audit.get('ticker')!=c or audit.get('status')!='SOURCE_RECONCILED_6_OF_6_REQUIRES_REVIEW':
             raise GateError('six-metric approval gate failed: '+c)
         if len(audit['metrics'])!=6 or audit['verifiedMetricCount']!=6:raise GateError('audit metadata incomplete: '+c)
+        if audit.get('financialScope','連結') not in ('連結','提出会社単体'):
+            raise GateError('unknown audited financial scope: '+c)
+        if audit.get('financialScope')=='提出会社単体':
+            if audit.get('gaap')!='JP_GAAP' or any(
+               audit['metrics'][x].get('method')!='dei_declared_standalone_taxonomy'
+               for x in ('revenue_oku','prior_revenue_oku','operating_profit_oku','operating_cf_oku')):
+                raise GateError('standalone audit scope evidence invalid: '+c)
         if not DOC_CODE.fullmatch(audit['docID']):raise GateError('EDINET document ID invalid: '+c)
         if not all(re.fullmatch('[a-f0-9]{64}',str(audit.get(k,''))) for k in ('sourceOriginalSha256','sourceXbrlSha256','sourcePayloadFingerprint')):
             raise GateError('source fingerprints missing: '+c)
@@ -318,7 +496,8 @@ def stage(args):
         seen_ids.add(c)
         record={'id':c,'name':audit['name'],'aliases':[],'industry':audit['industry'],'market':audit.get('market',''),
           'period':audit['periodStart']+'〜'+audit['periodEnd'],
-          'scope':'連結（給与のみ提出会社）','salaryScope':'提出会社単体',
+          'scope':'提出会社単体（給与も同一法人）' if audit.get('financialScope')=='提出会社単体' else '連結（給与のみ提出会社）',
+          'salaryScope':'提出会社単体',
           'accountingStandard':audit['gaap'],'sourceLabel':'EDINET 有価証券報告書（書類ID: '+audit['docID']+'）',
           'sourceUrl':'https://disclosure2.edinet-fsa.go.jp/','sourceDocId':audit['docID'],
           'sourceSha256':audit['sourceOriginalSha256'],'sourcePayloadFingerprint':audit['sourcePayloadFingerprint'],

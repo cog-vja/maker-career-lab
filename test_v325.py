@@ -6,7 +6,7 @@ import tempfile
 import unittest
 import zipfile
 
-from test_expand_v325 import CheckExpansion  # v3.24 regression cases carried forward
+from test_expand_v325 import CheckExpansion, VerifyV3251Standalone  # full v3.25.1 regression suite
 from edinet_universe_v325 import parse as parse_edinet,FilerListError
 from expand_manufacturers_v325 import parse_public,GateError,METRICS
 from monthly_edinet_v325 import six_metric_update,proposed
