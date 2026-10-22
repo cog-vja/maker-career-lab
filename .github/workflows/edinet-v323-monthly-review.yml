@@ -1,10 +1,8 @@
+# LEGACY: Manual run only. Scheduling moved to edinet-v325-monthly-review.yml (v3.26).
 
 name: EDINET v3.23 monthly review for 102 185 or 209 companies
 
 on:
-  schedule:
-    - cron: '17 3 5 * *'
-      timezone: 'Asia/Tokyo'
   workflow_dispatch:
     inputs:
       scan_days:

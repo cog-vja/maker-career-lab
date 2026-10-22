@@ -1,10 +1,8 @@
+# LEGACY: Manual run only. Scheduling moved to edinet-v325-monthly-review.yml (v3.26).
 
 name: EDINET v3.21 monthly source update review (200 targets)
 
 on:
-  schedule:
-    - cron: '17 3 5 * *'
-      timezone: 'Asia/Tokyo'
   workflow_dispatch:
     inputs:
       scan_days:

@@ -1,51 +1,107 @@
-name: EDINET v3.25 monthly REVIEW ONLY (manual until rollout)
+name: EDINET v3.26 monthly verified-only refresh (1000+)
 
-# Intentional: only manual trigger while v3.23 remains scheduled.
-# After a validated 1000+ release, explicitly disable v3.23 and opt in to
-# scheduling this file in a separate, reviewed change.
 on:
+  schedule:
+    # Every month on the 5th at 12:23 JST (non-peak scheduling minute).
+    - cron: '23 12 5 * *'
+      timezone: 'Asia/Tokyo'
   workflow_dispatch:
     inputs:
       scan_days:
-        description: 'Calendar days of EDINET submissions (1-90)'
+        description: 'EDINET filing days to scan (1-90; recommended 55)'
         required: true
         type: number
         default: 55
 
+# Reads the repository, writes ONLY company-data.js via a scoped PAT when safe.
+# GitHub's built-in GITHUB_TOKEN commits do not trigger branch-source Pages builds.
 permissions:
   contents: read
 
 concurrency:
-  group: mcl-v325-monthly-readonly
+  group: mcl-monthly-v326-company-data
   cancel-in-progress: false
 
 jobs:
-  review:
+  verified-refresh:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     timeout-minutes: 120
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout, using Pages-publishing token if configured
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.MCL_PAGES_PUBLISH_PAT || github.token }}
+          persist-credentials: true
+      - name: Python 3.12
+        uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Offline regression suite
+      - name: Verify current 1000+ release and offline regression tests
         run: |
-          python3 -m unittest -v test_v325.py
+          set -euo pipefail
+          test -f company-data.js && test -f monthly_edinet_v325.py
+          python3 -m unittest -v test_v325.py test_v326_monthly.py
+          python3 - <<'PY'
+          from expand_manufacturers_v325 import parse_public, GateError
+          _,_,rows,meta=parse_public('company-data.js')
+          if len(rows)<1000 or meta.get('count')!=len(rows):
+              raise GateError('Release at least 1000 companies first, with matching metadata')
+          if any(str(r['id'])=='6390' for r in rows):
+              raise GateError('Known anomalous source ticker 6390 must remain withheld')
+          print('Current release:',len(rows),'companies')
+          PY
           node --check company-data.js
-      - name: Source-check published firms from EDINET; never publish
+      - name: Fetch EDINET filings and verify source XBRL (existing firms only)
         env:
           EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
-          DAYS: ${{ inputs.scan_days }}
+          DAYS: ${{ inputs.scan_days || '55' }}
         run: |
-          test -n "$EDINET_API_KEY" || { echo 'EDINET_API_KEY secret not set'; exit 1; }
+          set -euo pipefail
+          test -n "$EDINET_API_KEY" || { echo 'Missing EDINET_API_KEY secret'; exit 1; }
           python3 monthly_edinet_v325.py \
             --public company-data.js --days "$DAYS" --delay 0.7 \
             --output out/monthly
-      - name: Download review-only report
+      - name: Fail-closed validation of all changes (no new/deleted tickers)
+        id: validate
+        run: |
+          set -euo pipefail
+          python3 monthly_publish_v326.py \
+            --baseline company-data.js \
+            --candidate out/monthly/company-data-VERIFIED-REVIEW.js \
+            --summary out/monthly/monthly-summary-v325.json \
+            --details out/monthly/monthly-details-v325.json \
+            --plan out/monthly/publish-plan-v326.json --minimum-count 1000
+          python3 - <<'PY'
+          import json,os
+          plan=json.load(open('out/monthly/publish-plan-v326.json',encoding='utf-8'))
+          val='true' if plan['release']=='READY_FOR_AUTOMATED_COMMIT' else 'false'
+          with open(os.environ['GITHUB_OUTPUT'],'a',encoding='utf-8') as f:f.write('publish='+val+'\n')
+          PY
+      - name: Store monthly evidence, including held-for-review cases
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: mcl-v325-monthly-${{ github.run_id }}
+          name: mcl-v326-monthly-${{ github.run_id }}
           path: out/monthly/
           retention-days: 90
           if-no-files-found: ignore
+      - name: Commit verified changes and trigger branch-source Pages rebuild
+        if: steps.validate.outputs.publish == 'true'
+        env:
+          MCL_PAGES_PUBLISH_PAT: ${{ secrets.MCL_PAGES_PUBLISH_PAT }}
+        run: |
+          set -euo pipefail
+          if [ -z "$MCL_PAGES_PUBLISH_PAT" ]; then
+            echo 'Verified update was prepared but not published: set MCL_PAGES_PUBLISH_PAT (Contents: Read and write)'
+            exit 1
+          fi
+          cp out/monthly/company-data-VERIFIED-REVIEW.js company-data.js
+          node --check company-data.js
+          test "$(git diff --name-only | wc -l | tr -d ' ')" = '1'
+          test "$(git diff --name-only)" = 'company-data.js'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- company-data.js
+          git commit -m 'chore(data): refresh source-verified monthly EDINET financials'
+          git push origin HEAD:main
