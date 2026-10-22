@@ -19,11 +19,11 @@ on:
         type: number
         default: 0
       require_count:
-        description: 'stage-review only: minimum published+new (1001 for full goal)'
+        description: 'stage-review only: minimum published+new (1000 target; no deployment)'
         required: false
         type: choice
-        options: ['1001', '800', '600', '400', '300']
-        default: '1001'
+        options: ['1000', '1001', '900', '800', '700', '600', '400', '300']
+        default: '1000'
       acknowledgement:
         description: 'stage-review only: type REVIEWED_REPORTS after checking source review results'
         required: false
@@ -53,7 +53,7 @@ jobs:
           set -euo pipefail
           test -f company-data.js
           test -f edinet_v313.py && test -f edinet_v317.py && test -f edinet_v320.py
-          python3 -m unittest -v test_v325.py
+          python3 -m unittest -v test_v325.py test_v3251_scale.py
           node --check company-data.js
       - name: Download and classify official EDINET filer list
         if: inputs.mode == 'bootstrap'
@@ -92,7 +92,7 @@ jobs:
         run: |
           set -euo pipefail
           [[ "$BOOTSTRAP" =~ ^[0-9]+$ ]] || { echo 'bootstrap_run_id must be numerical'; exit 1; }
-          test $((OFFSET % 50)) -eq 0 || { echo 'Offset must be 0, 50, 100, ...'; exit 1; }
+          test "$OFFSET" -ge 0 && test $((OFFSET % 50)) -eq 0 || { echo 'Offset must be 0, 50, 100, ...'; exit 1; }
           mkdir -p out/bootstrap out/audit
       - name: Download original bootstrap artifact
         if: inputs.mode == 'audit-batch'
@@ -139,7 +139,7 @@ jobs:
           BOOTSTRAP: ${{ inputs.bootstrap_run_id }}
         run: |
           python3 v325_artifacts.py --bootstrap-run "$BOOTSTRAP" \
-            --audit-dir out/reviews --proposed-csv out/proposed-approvals.csv
+            --audit-dir out/reviews --candidate-csv out/staging-candidates.csv
       - name: Generate staged website data for manual review only
         if: inputs.mode == 'stage-review'
         env:
@@ -148,10 +148,10 @@ jobs:
           set -euo pipefail
           python3 expand_manufacturers_v325.py stage \
             --public company-data.js --audit-dir out/reviews \
-            --approvals out/proposed-approvals.csv \
+            --candidates out/staging-candidates.csv \
             --require-count "$REQUIRED" --output out/staged
           node --check out/staged/company-data.js
-          echo 'REVIEW COMPLETE. NOT DEPLOYED. Download artifact and manually publish only after inspecting all reports.'
+          echo 'STAGING COMPLETE. NOT APPROVED OR DEPLOYED. Validate staged rows and manually release later.'
       - name: Save staged public candidate, without changing the repository
         if: inputs.mode == 'stage-review' && success()
         uses: actions/upload-artifact@v4
@@ -160,6 +160,6 @@ jobs:
           path: |
             out/staged/
             out/REVIEW-BATCHES.json
-            out/proposed-approvals.csv
+            out/staging-candidates.csv
           retention-days: 90
           if-no-files-found: error
