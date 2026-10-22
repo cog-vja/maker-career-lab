@@ -3,7 +3,8 @@
 
 Inputs: public company-data.js (209 verified), FSA EDINET company code-list CSV, EDINET API key.
 Outputs are never deployed or written to the public site automatically.
-All new published rows require live original XBRL 6/6 and manual approval.
+Staging requires original XBRL 6/6 evidence; manual publication remains separate.
+An automatically generated candidate CSV is NOT evidence of human approval.
 """
 from __future__ import annotations
 import argparse
@@ -468,13 +469,29 @@ def audit(args):
 def stage(args):
     raw,m,existing,meta=parse_public(args.public)
     previously={str(r['id']) for r in existing}
-    with open(args.approvals,encoding='utf-8-sig',newline='') as f:
-        rows=list(csv.DictReader(f))
-    approved=[normalize_ticker(r['ticker']) for r in rows if str(r.get('approved','')).strip().upper()=='YES']
-    if len(approved)!=len(set(approved)):raise GateError('duplicated human approval')
-    if not approved:raise GateError('no human-approved tickers; publishing prohibited')
+    candidate_path = getattr(args, 'candidates', None)
+    approval_path = getattr(args, 'approvals', None)
+    if bool(candidate_path) == bool(approval_path):
+        raise GateError('Pass exactly one of --candidates (staging) or --approvals (legacy)')
+    file_path = candidate_path or approval_path
+    column = 'include' if candidate_path else 'approved'
+    with open(file_path,encoding='utf-8-sig',newline='') as f:
+        reader = csv.DictReader(f)
+        if not reader.fieldnames or not {'ticker',column}.issubset(reader.fieldnames):
+            raise GateError('candidate/approval CSV must include ticker and '+column)
+        rows=list(reader)
+    candidates=[]
+    for r in rows:
+        flag=str(r.get(column,'')).strip().upper()
+        if flag not in ('YES','NO'):
+            raise GateError('staging flag must be YES or NO')
+        ticker=normalize_ticker(r['ticker'])
+        if flag=='YES': candidates.append(ticker)
+    if len(candidates)!=len(set(candidates)):
+        raise GateError('duplicated staging tickers')
+    if not candidates:raise GateError('no eligible tickers; staging stopped')
     additional=[];seen_ids=set()
-    for c in approved:
+    for c in candidates:
         if c in previously:raise GateError('existing company cannot be replaced: '+c)
         p=Path(args.audit_dir)/(c+'.json')
         if not p.is_file():raise GateError('audit proof absent: '+c)
@@ -505,20 +522,23 @@ def stage(args):
         for metric,field in METRICS.items():
             obj=audit['metrics'][metric]
             if obj['status']!='SOURCE_RECONCILED':raise GateError('non-reconciled metric '+metric+'/'+c)
-            record[field]=float(Decimal(str(obj['value'])))
+            value=Decimal(str(obj['value']))
+            if not value.is_finite():raise GateError('non-finite metric '+metric+'/'+c)
+            record[field]=float(value)
         additional.append(record)
     total=len(existing)+len(additional)
-    if total<args.require_count:raise GateError(f'only {total} verified / human-approved companies; require {args.require_count}; no release')
+    if total<args.require_count:raise GateError(f'only {total} source-verified staging candidates; require {args.require_count}; no release')
     data=existing+sorted(additional,key=lambda x:x['id'])
-    meta.update({'version':'3.25','status':'STAGED_NOT_DEPLOYED','count':total,
+    meta.update({'version':'3.25.1','status':'STAGED_NOT_DEPLOYED','count':total,
      'priorApprovedCount':len(existing),'newSourceAuditedCount':len(additional),
      'independent_EDINET_CSV_crosscheck':False,
-     'publication':'manual review only; never auto-deployed'})
+     'stageInput':'six-metric-candidates' if candidate_path else 'legacy-approvals',
+     'publication':'manual review required before release; never auto-deployed'})
     result=raw[:m.start(2)]+json.dumps(data,ensure_ascii=False,separators=(',',':'))+raw[m.end(2):m.start(4)]+json.dumps(meta,ensure_ascii=False,separators=(',',':'))+raw[m.end(4):]
     out=Path(args.output);out.mkdir(parents=True,exist_ok=True)
     (out/'company-data.js').write_text(result,encoding='utf-8')
-    emit(out/'MANUAL-RELEASE-SUMMARY.json',{'version':'3.25','prior':len(existing),'additional':len(additional),
-     'staged_total':total,'manual_approval_required':True,'deployed':False,
+    emit(out/'MANUAL-RELEASE-SUMMARY.json',{'version':'3.25.1','prior':len(existing),'additional':len(additional),
+     'staged_total':total,'source_audit_6_of_6':True,'manual_publication_required':True,'deployed':False,
      'source_sha256':safe_sha(result.encode('utf-8'))})
     print('Staged '+str(total)+' companies. NOT DEPLOYED.')
 
@@ -528,7 +548,7 @@ def main():
     p=sub.add_parser('universe');p.add_argument('--jpx',required=True);p.add_argument('--public',default='company-data.js');p.add_argument('--output',default='manufacturing-universe-v325.json');p.set_defaults(func=universe)
     p=sub.add_parser('index');p.add_argument('--universe',default='manufacturing-universe-v325.json');p.add_argument('--days',type=int,default=400);p.add_argument('--end');p.add_argument('--delay',type=float,default=1.0);p.add_argument('--output',default='edinet-index-v325.json');p.set_defaults(func=index)
     p=sub.add_parser('audit');p.add_argument('--universe',default='manufacturing-universe-v325.json');p.add_argument('--index',default='edinet-index-v325.json');p.add_argument('--public',default='company-data.js');p.add_argument('--offset',type=int,default=0);p.add_argument('--limit',type=int,default=50);p.add_argument('--delay',type=float,default=1.0);p.add_argument('--output',default='review-v325');p.add_argument('--bootstrap-run-id',type=int,default=0);p.set_defaults(func=audit)
-    p=sub.add_parser('stage');p.add_argument('--public',default='company-data.js');p.add_argument('--audit-dir',default='review-v325');p.add_argument('--approvals',default='approved-v325.csv');p.add_argument('--require-count',type=int,default=1001);p.add_argument('--output',default='staged-v325');p.set_defaults(func=stage)
+    p=sub.add_parser('stage');p.add_argument('--public',default='company-data.js');p.add_argument('--audit-dir',default='review-v325');group=p.add_mutually_exclusive_group(required=True);group.add_argument('--approvals');group.add_argument('--candidates');p.add_argument('--require-count',type=int,default=1000);p.add_argument('--output',default='staged-v325');p.set_defaults(func=stage)
     args=parser.parse_args();args.func(args)
 
 if __name__=='__main__':main()
