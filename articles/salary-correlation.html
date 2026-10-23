@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>メーカーの平均年収は売上高・利益・業種と関係する？｜メーカーキャリアラボ</title>
+<meta name="description" content="メーカーキャリアラボ収録企業の有価証券報告書データを使い、売上高・営業利益・営業利益率・業種と平均年間給与の関係を検証。対象数、計算方法、注意点を示します。">
+<link rel="canonical" href="https://cog-vja.github.io/maker-career-lab/articles/salary-correlation.html">
+<style>
+:root{--navy:#10293b;--ink:#173042;--light:#f4f7f8;--lime:#d6ef66;--blue:#20778e;--gray:#5b6d75}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);background:white;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif;line-height:1.8}a{color:#156d8a}
+header{background:var(--navy);color:white;padding:15px max(18px,calc((100vw - 900px)/2))}
+header a{color:white;text-decoration:none;font-weight:800}.container{width:min(900px,calc(100% - 34px));margin:auto}
+.hero{background:linear-gradient(135deg,#10293b 0%,#204458 100%);padding:58px 0 65px;color:white}
+.kicker{letter-spacing:.13em;color:var(--lime);font-size:.8rem;font-weight:800}.hero h1{font-size:clamp(1.8rem,4.4vw,2.9rem);line-height:1.5;margin:12px 0}
+.hero p{color:#e3ebed;max-width:700px}main{padding:40px 0 55px}section{margin-bottom:44px}h2{font-size:1.5rem;border-left:5px solid var(--lime);padding-left:14px;line-height:1.4}h3{font-size:1.08rem}
+.lead{font-weight:600;font-size:1.05rem}.muted{color:var(--gray);font-size:.9rem}.note{background:var(--light);padding:18px;border-radius:10px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}.stat{border:1px solid #dce5e8;border-radius:12px;padding:17px}.stat strong{display:block;font-size:1.8rem;color:var(--navy);line-height:1.4}.stat span{color:var(--gray);font-size:.83rem}
+table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{padding:11px;border-bottom:1px solid #dfe5e8;text-align:left}th{background:var(--light)}.table-scroll{overflow-x:auto}
+.score{font-weight:800;white-space:nowrap}.chart{width:100%;background:#f7fafb;border:1px solid #e2e8eb;border-radius:10px;overflow:hidden}
+.chart svg{width:100%;height:auto;display:block}
+.warning{border-left:4px solid #d18b35;background:#fff8ec;padding:14px 17px}
+.cta{background:var(--navy);border-radius:12px;padding:26px;color:white}.cta a{color:var(--lime);font-weight:bold}
+footer{padding:30px;background:var(--light);font-size:.85rem;color:var(--gray)}
+@media(max-width:600px){.stats{grid-template-columns:1fr}.hero{padding:36px 0 42px}th,td{padding:9px 7px}}
+</style>
+</head>
+<body>
+<header><a href="../index.html">メーカーキャリアラボ</a>　<small>／企業データで考えるキャリア</small></header>
+<div class="hero"><div class="container"><div class="kicker">DATA REPORT / 公開企業財務から検証</div>
+<h1>メーカーの平均年収は<br>売上高・利益・業種で変わるのか？</h1>
+<p>「会社が大きいほど給料が高い」「利益率が高いほど給料も高い」は本当なのか。収録した有価証券報告書データを使い、企業単位の統計的な関係を調べます。</p></div></div>
+<main class="container">
+<section><p class="lead">会社の業績や市場は給与とどの程度結びついているのか。数字で確かめる。</p>
+<p>売上高、営業利益額、営業利益率と平均年間給与の関係を、可能な限り同じ企業サンプルで比較します。給与は原則として提出会社の従業員平均、売上高・利益は主に連結数値です。対象の違いを前提に読む必要があります。</p>
+<div id="status" class="note" role="status">公開企業データを読み込んでいます…</div>
+<div class="stats">
+ <div class="stat"><strong id="all-count">—</strong><span>収録企業数</span></div>
+ <div class="stat"><strong id="sample-count">—</strong><span>売上・営業利益・年収が揃う分析対象企業</span></div>
+ <div class="stat"><strong id="industry-count">—</strong><span>業種を確認できた分析対象企業</span></div>
+</div></section>
+<section><h2>1. 売上・利益・利益率と平均年収の相関</h2>
+<p>企業規模には大きな差があるため、売上高は対数変換したピアソン相関を採用します。同時に、外れ値の影響を受けにくい順位相関（スピアマン相関）も表示します。相関は因果関係を意味しません。</p>
+<div class="table-scroll"><table><thead><tr><th>比較する指標</th><th>相関係数</th><th>順位相関</th><th>対象社数</th></tr></thead><tbody id="correlation-body"><tr><td colspan="4">計算中…</td></tr></tbody></table></div>
+<p class="muted">ピアソン相関：売上高のみ log10(売上高) を使用。利益額・営業利益率は原数値。順位相関：原数値に基づくスピアマンのρ。係数は -1〜1、0付近は線形・単調な関係が弱いことを示します。</p>
+<div id="interpretation" class="note" aria-live="polite">分析結果の要点を計算中…</div><h3>売上高と平均年収の分布</h3><div class="chart" id="scatter"></div><p class="muted">散布図の横軸：売上高（対数目盛・億円）。縦軸：平均年間給与（万円）。これは個人の給与分布ではなく、企業単位の分布です。</p></section>
+<section><h2>2. 製造業の領域によって給与水準は変わるか</h2>
+<p>業種は連続的な数値ではないため、「相関係数」ではなく、業種ごとの平均年間給与の中央値と、業種間で説明される分散の比率（η²）を示します。業種分類の出典が確認できない企業を、社名から推測して分類することはしません。</p>
+<div id="industry-status" class="note">業種データを確認中…</div>
+<div class="table-scroll"><table><thead><tr><th>業種</th><th>企業数</th><th>平均年収の中央値</th></tr></thead><tbody id="industry-body"><tr><td colspan="3">計算中…</td></tr></tbody></table></div>
+<p class="muted">5社以上の業種のみ表示。業種は収録データ内の業種フィールド、または同時に配置された業種対応表を使用します。分類率が低い場合、比較可能な一部企業に限定した参考値となります。</p></section>
+<section><h2>3. この分析から何が分かり、何が分からないのか</h2>
+<div class="warning"><strong>重要：平均年収の違いは個人の能力差を示しません。</strong> 平均年齢・職種構成・持株会社と事業会社の違い・決算期・事業領域・連結と単体の範囲が影響します。複数の相関が観察されても、売上や利益を増やせば個人の給与が上がると断定できません。</div>
+<p>企業比較の意義は、誰かの仕事の価値を数値で決めることではありません。同じスキルが異なる企業環境でどう扱われるか、考える材料を増やすことです。</p>
+<p>高い給与水準を求める合理性はあります。一方、家族、勤務地、仕事内容、働き方も重要です。数字を知ったうえで、残留・異動・転職を選べばよいと考えます。</p></section>
+<section><h2>4. 集計方法・再現条件</h2>
+<ul>
+<li>対象：このサイトの <code>company-data.js</code> に収録された企業。操作デモは対象外。</li>
+<li>同一サンプルで比較：売上高 ＞ 0、営業利益額が有限、平均年間給与 ＞ 0 の企業を使用。</li>
+<li>営業利益率＝営業利益額 ÷ 売上高 × 100。赤字企業も対象に含めます。</li>
+<li>数値の単位：売上高・営業利益は億円、平均年間給与は万円。</li>
+<li>相関：ピアソン積率相関係数（売上高は常用対数）、スピアマン順位相関係数（同順位は平均順位）。</li>
+<li>業種：東証33業種など、出典の明示できる分類。業種不明は比較から除外。業種別分散比η²を算出。</li>
+<li>各社で決算期・会計基準が異なります。時系列の因果分析や年齢・職種を統制した分析ではありません。</li>
+</ul>
+<p class="muted">資料：各社の有価証券報告書（金融庁EDINET）／業種分類に用いる場合は日本取引所グループ（JPX）。画面の数値はページ読込時点の収録データから計算します。</p>
+</section>
+<section class="cta"><h2>気になるメーカーを自分で比べる</h2><p>会社の違いを知ることが、キャリア選択の第一歩。財務情報はあくまでも判断材料の一つです。</p><a href="../company-check.html">メーカーの財務データを比較する →</a></section>
+</main>
+<footer><div class="container">メーカーキャリアラボ｜統計的な関係は個別の給与・転職成功・将来業績を保証しません。</div></footer>
+<script src="../company-data.js"></script>
+<script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+const num=v=>typeof v==="number"&&Number.isFinite(v)?v:(typeof v==="string"&&v.trim()!==""&&Number.isFinite(Number(v))?Number(v):null);
+const mean=a=>a.reduce((s,v)=>s+v,0)/a.length;
+function pearson(a,b){if(a.length<3||a.length!==b.length)return null;const ma=mean(a),mb=mean(b);let x=0,y=0,z=0;for(let i=0;i<a.length;i++){const dx=a[i]-ma,dy=b[i]-mb;x+=dx*dy;y+=dx*dx;z+=dy*dy}return y&&z?x/Math.sqrt(y*z):null}
+function ranks(a){const sorted=a.map((v,i)=>({v,i})).sort((x,y)=>x.v-y.v),ret=new Array(a.length);let i=0;while(i<sorted.length){let j=i+1;while(j<sorted.length&&sorted[j].v===sorted[i].v)j++;const r=(i+j+1)/2;for(let k=i;k<j;k++)ret[sorted[k].i]=r;i=j}return ret}
+function spearman(a,b){return pearson(ranks(a),ranks(b))}
+function median(a){if(!a.length)return null;const s=[...a].sort((x,y)=>x-y),m=s.length>>1;return s.length%2?s[m]:(s[m-1]+s[m])/2}
+const fmt=(n,d=2)=>n===null?"—":n.toLocaleString("ja-JP",{minimumFractionDigits:d,maximumFractionDigits:d});
+function el(tag,attrs={},text){const n=document.createElement(tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);if(text!==undefined)n.textContent=String(text);return n}
+function scatter(rows){
+const w=840,h=400,ml=72,mr=25,mt=20,mb=53;
+const x=rows.map(r=>Math.log10(r.revenue)), y=rows.map(r=>r.salary);
+const xmin=Math.floor(Math.min(...x)),xmax=Math.ceil(Math.max(...x));
+let sy=[...y].sort((a,b)=>a-b), ymin=Math.max(0,sy[Math.floor(.01*(sy.length-1))]*.9),ymax=sy[Math.floor(.99*(sy.length-1))]*1.1;
+if(!(xmax>xmin&&ymax>ymin)){$("scatter").textContent="描画する値が不足しています。";return}
+const svg=el("svg",{viewBox:`0 0 ${w} ${h}`,role:"img","aria-label":"売上高（対数目盛）と平均年間給与の散布図"});
+for(let i=0;i<=4;i++){let yy=mt+(h-mt-mb)*i/4;svg.append(el("line",{x1:ml,x2:w-mr,y1:yy,y2:yy,stroke:"#d8e5e9"}));svg.append(el("text",{x:ml-10,y:yy+4,"text-anchor":"end",fill:"#627985","font-size":12},fmt(ymax-(ymax-ymin)*i/4,0)))}
+for(let i=xmin;i<=xmax;i++){const xx=ml+(i-xmin)/(xmax-xmin)*(w-ml-mr);svg.append(el("line",{x1:xx,x2:xx,y1:mt,y2:h-mb,stroke:"#e3ebee"}));svg.append(el("text",{x:xx,y:h-mb+21,"text-anchor":"middle",fill:"#627985","font-size":12},`10^${i}`))}
+for(const r of rows){let xx=ml+(Math.log10(r.revenue)-xmin)/(xmax-xmin)*(w-ml-mr),yy=mt+(ymax-r.salary)/(ymax-ymin)*(h-mt-mb);if(yy<mt||yy>h-mb)continue;svg.append(el("circle",{cx:xx,cy:yy,r:3.3,fill:"#17748a","fill-opacity":".34"}))}
+svg.append(el("text",{x:w/2,y:h-8,"text-anchor":"middle",fill:"#526b77","font-size":13},"売上高（億円・対数軸）"));
+svg.append(el("text",{x:18,y:h/2,transform:`rotate(-90 18 ${h/2})`,"text-anchor":"middle",fill:"#526b77","font-size":13},"平均年間給与（万円）"));
+$("scatter").replaceChildren(svg)}
+async function industryMap(){
+try{const r=await fetch("../data/industry-map.json",{cache:"no-store"});if(r.ok)return await r.json()}catch(e){}
+return {}}
+async function run(){
+const data=window.MCL_COMPANIES;
+if(!Array.isArray(data)||data.length===0){$("status").textContent="収録データが読み込めませんでした。company-data.js の配置を確認してください。";return}
+$("all-count").textContent=data.length.toLocaleString("ja-JP")+"社";
+const rows=data.filter(c=>!c.demo).map(c=>({id:String(c.id??""), name:String(c.name??""), revenue:num(c.revenue), profit:num(c.operatingProfit),salary:num(c.averageSalary),raw:c}))
+.filter(c=>c.revenue!==null&&c.revenue>0&&c.profit!==null&&c.salary!==null&&c.salary>0)
+.map(c=>({...c,margin:c.profit/c.revenue*100}));
+$("sample-count").textContent=rows.length.toLocaleString("ja-JP")+"社";
+$("status").textContent="収録"+data.length.toLocaleString("ja-JP")+"社のうち、売上高・営業利益・平均年間給与の3指標が揃った"+rows.length.toLocaleString("ja-JP")+"社を集計しました。決算期・会計基準・連結と単体の違いにはご注意ください。";
+if(rows.length<3){$("correlation-body").textContent="分析に必要なデータが不足しています。";$("industry-status").textContent="分析不可";return}
+const defs=[["売上高（対数変換）",r=>Math.log10(r.revenue),r=>r.revenue],["営業利益額",r=>r.profit,r=>r.profit],["営業利益率",r=>r.margin,r=>r.margin]];
+$("correlation-body").replaceChildren(...defs.map(([name,xp,sp])=>{const tr=el("tr"),x=rows.map(xp),s=rows.map(sp),y=rows.map(r=>r.salary);for(const v of [name,fmt(pearson(x,y)),fmt(spearman(s,y)),rows.length.toLocaleString("ja-JP")+"社"])tr.append(el("td",{},v));tr.children[1].className="score";return tr}));
+const ranked=defs.map(([name,xp,sp])=>({name,r:spearman(rows.map(sp),rows.map(r=>r.salary))})).filter(x=>x.r!==null).sort((a,b)=>Math.abs(b.r)-Math.abs(a.r));
+if(ranked.length){const best=ranked[0];$("interpretation").textContent=`【分析結果の読み方】3指標の中で、平均年収との順位相関の絶対値が最も大きかったのは「${best.name}」（ρ=${fmt(best.r)}）でした。ただし、この比較は単年度の企業間相関です。会社の平均年収を左右する原因が判明したわけではなく、個々の社員の報酬を予測できるものでもありません。`;}
+scatter(rows);
+const map=await industryMap();const groups=new Map();
+for(const r of rows){let cat=r.raw.industry33||r.raw.industry||r.raw.sector33||r.raw.sector||r.raw.category||(map[r.id]&& (typeof map[r.id]==="string"?map[r.id]:map[r.id].industry33));if(typeof cat!=="string"||!cat.trim())continue;cat=cat.trim();if(!groups.has(cat))groups.set(cat,[]);groups.get(cat).push(r.salary)}
+const covered=[...groups.values()].reduce((n,v)=>n+v.length,0);$("industry-count").textContent=covered.toLocaleString("ja-JP")+"社";
+const valid=[...groups].filter(([g,v])=>v.length>=5).sort((a,b)=>median(b[1])-median(a[1]));
+if(valid.length<2){$("industry-status").textContent="業種分類を確認できる企業が不足しているため、業種別の比較は表示していません。公開前にJPXの東証33業種と証券コードを対応付けた data/industry-map.json を設置してください。未分類企業を推定で割り振ることはしません。";$("industry-body").replaceChildren(el("tr",{}, ""));$("industry-body").children[0].append(el("td",{colspan:3},"業種データ未整備"));return}
+const usable=valid.flatMap(([g,vs])=>vs),mu=mean(usable);let sb=0,st=usable.reduce((s,v)=>s+(v-mu)**2,0);for(const [g,vs] of valid)sb+=vs.length*(mean(vs)-mu)**2;
+$("industry-status").textContent=`業種情報のある${covered}社のうち、5社以上の業種${valid.length}分類を対象に比較。業種間分散比 η² = ${fmt(st?sb/st:null,3)}（この業種分類で説明される企業平均年収の変動の割合）。残りは未分類または件数不足のため比較から除外。`;
+$("industry-body").replaceChildren(...valid.map(([g,vs])=>{const tr=el("tr");[g,vs.length+"社",fmt(median(vs),1)+"万円"].forEach(v=>tr.append(el("td",{},v)));return tr}));
+}
+run().catch(e=>{$("status").textContent="集計時に問題が発生しました。データの形式を確認してください。"});
+})();
+</script>
+</body></html>
