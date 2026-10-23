@@ -6,6 +6,10 @@
 <title>メーカーの平均年収は売上高・利益・業種と関係する？｜メーカーキャリアラボ</title>
 <meta name="description" content="メーカーキャリアラボ収録企業の有価証券報告書データを使い、売上高・営業利益・営業利益率・業種と平均年間給与の関係を検証。対象数、計算方法、注意点を示します。">
 <link rel="canonical" href="https://cog-vja.github.io/maker-career-lab/articles/salary-correlation.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="メーカーの平均年収は売上高・利益・業種と関係する？｜メーカーキャリアラボ">
+<meta property="og:description" content="メーカー1,000社以上の財務データから売上・営業利益・利益率と給与水準の関係を検証。業種別の比較と分析の限界も紹介。">
+<meta property="og:url" content="https://cog-vja.github.io/maker-career-lab/articles/salary-correlation.html">
 <style>
 :root{--navy:#10293b;--ink:#173042;--light:#f4f7f8;--lime:#d6ef66;--blue:#20778e;--gray:#5b6d75}
 *{box-sizing:border-box}body{margin:0;color:var(--ink);background:white;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif;line-height:1.8}a{color:#156d8a}
@@ -48,7 +52,7 @@ footer{padding:30px;background:var(--light);font-size:.85rem;color:var(--gray)}
 <p>業種は連続的な数値ではないため、「相関係数」ではなく、業種ごとの平均年間給与の中央値と、業種間で説明される分散の比率（η²）を示します。業種分類の出典が確認できない企業を、社名から推測して分類することはしません。</p>
 <div id="industry-status" class="note">業種データを確認中…</div>
 <div class="table-scroll"><table><thead><tr><th>業種</th><th>企業数</th><th>平均年収の中央値</th></tr></thead><tbody id="industry-body"><tr><td colspan="3">計算中…</td></tr></tbody></table></div>
-<p class="muted">5社以上の業種のみ表示。業種は収録データ内の業種フィールド、または同時に配置された業種対応表を使用します。分類率が低い場合、比較可能な一部企業に限定した参考値となります。</p></section>
+<p class="muted">5社以上の業種のみ表示。業種は収録データの業種フィールドを使用します。分類率が低い場合、比較可能な一部企業に限定した参考値となります。</p></section>
 <section><h2>3. この分析から何が分かり、何が分からないのか</h2>
 <div class="warning"><strong>重要：平均年収の違いは個人の能力差を示しません。</strong> 平均年齢・職種構成・持株会社と事業会社の違い・決算期・事業領域・連結と単体の範囲が影響します。複数の相関が観察されても、売上や利益を増やせば個人の給与が上がると断定できません。</div>
 <p>企業比較の意義は、誰かの仕事の価値を数値で決めることではありません。同じスキルが異なる企業環境でどう扱われるか、考える材料を増やすことです。</p>
@@ -60,10 +64,10 @@ footer{padding:30px;background:var(--light);font-size:.85rem;color:var(--gray)}
 <li>営業利益率＝営業利益額 ÷ 売上高 × 100。赤字企業も対象に含めます。</li>
 <li>数値の単位：売上高・営業利益は億円、平均年間給与は万円。</li>
 <li>相関：ピアソン積率相関係数（売上高は常用対数）、スピアマン順位相関係数（同順位は平均順位）。</li>
-<li>業種：東証33業種など、出典の明示できる分類。業種不明は比較から除外。業種別分散比η²を算出。</li>
+<li>業種：収録データの業種フィールドを使用。分類のない企業は業種別比較から除外し、業種別分散比η²を算出。</li>
 <li>各社で決算期・会計基準が異なります。時系列の因果分析や年齢・職種を統制した分析ではありません。</li>
 </ul>
-<p class="muted">資料：各社の有価証券報告書（金融庁EDINET）／業種分類に用いる場合は日本取引所グループ（JPX）。画面の数値はページ読込時点の収録データから計算します。</p>
+<p class="muted">資料：各社の有価証券報告書（金融庁EDINET）。業種区分は本サイト収録データ。画面の数値はページ読込時点の収録データから計算します。</p>
 </section>
 <section class="cta"><h2>気になるメーカーを自分で比べる</h2><p>会社の違いを知ることが、キャリア選択の第一歩。財務情報はあくまでも判断材料の一つです。</p><a href="../company-check.html">メーカーの財務データを比較する →</a></section>
 </main>
@@ -94,29 +98,30 @@ for(const r of rows){let xx=ml+(Math.log10(r.revenue)-xmin)/(xmax-xmin)*(w-ml-mr
 svg.append(el("text",{x:w/2,y:h-8,"text-anchor":"middle",fill:"#526b77","font-size":13},"売上高（億円・対数軸）"));
 svg.append(el("text",{x:18,y:h/2,transform:`rotate(-90 18 ${h/2})`,"text-anchor":"middle",fill:"#526b77","font-size":13},"平均年間給与（万円）"));
 $("scatter").replaceChildren(svg)}
-async function industryMap(){
-try{const r=await fetch("../data/industry-map.json",{cache:"no-store"});if(r.ok)return await r.json()}catch(e){}
-return {}}
+function industryMap(){
+// 収録企業データの業種フィールドのみを利用する。未検証の外部分類は補完しない。
+return {}; }
 async function run(){
 const data=window.MCL_COMPANIES;
 if(!Array.isArray(data)||data.length===0){$("status").textContent="収録データが読み込めませんでした。company-data.js の配置を確認してください。";return}
-$("all-count").textContent=data.length.toLocaleString("ja-JP")+"社";
-const rows=data.filter(c=>!c.demo).map(c=>({id:String(c.id??""), name:String(c.name??""), revenue:num(c.revenue), profit:num(c.operatingProfit),salary:num(c.averageSalary),raw:c}))
+const realCompanies=data.filter(c=>!c.demo);
+$("all-count").textContent=realCompanies.length.toLocaleString("ja-JP")+"社";
+const rows=realCompanies.map(c=>({id:String(c.id??""), name:String(c.name??""), revenue:num(c.revenue), profit:num(c.operatingProfit),salary:num(c.averageSalary),raw:c}))
 .filter(c=>c.revenue!==null&&c.revenue>0&&c.profit!==null&&c.salary!==null&&c.salary>0)
 .map(c=>({...c,margin:c.profit/c.revenue*100}));
 $("sample-count").textContent=rows.length.toLocaleString("ja-JP")+"社";
-$("status").textContent="収録"+data.length.toLocaleString("ja-JP")+"社のうち、売上高・営業利益・平均年間給与の3指標が揃った"+rows.length.toLocaleString("ja-JP")+"社を集計しました。決算期・会計基準・連結と単体の違いにはご注意ください。";
+$("status").textContent="収録"+realCompanies.length.toLocaleString("ja-JP")+"社のうち、売上高・営業利益・平均年間給与の3指標が揃った"+rows.length.toLocaleString("ja-JP")+"社を集計しました。決算期・会計基準・連結と単体の違いにはご注意ください。";
 if(rows.length<3){$("correlation-body").textContent="分析に必要なデータが不足しています。";$("industry-status").textContent="分析不可";return}
 const defs=[["売上高（対数変換）",r=>Math.log10(r.revenue),r=>r.revenue],["営業利益額",r=>r.profit,r=>r.profit],["営業利益率",r=>r.margin,r=>r.margin]];
 $("correlation-body").replaceChildren(...defs.map(([name,xp,sp])=>{const tr=el("tr"),x=rows.map(xp),s=rows.map(sp),y=rows.map(r=>r.salary);for(const v of [name,fmt(pearson(x,y)),fmt(spearman(s,y)),rows.length.toLocaleString("ja-JP")+"社"])tr.append(el("td",{},v));tr.children[1].className="score";return tr}));
 const ranked=defs.map(([name,xp,sp])=>({name,r:spearman(rows.map(sp),rows.map(r=>r.salary))})).filter(x=>x.r!==null).sort((a,b)=>Math.abs(b.r)-Math.abs(a.r));
 if(ranked.length){const best=ranked[0];$("interpretation").textContent=`【分析結果の読み方】3指標の中で、平均年収との順位相関の絶対値が最も大きかったのは「${best.name}」（ρ=${fmt(best.r)}）でした。ただし、この比較は単年度の企業間相関です。会社の平均年収を左右する原因が判明したわけではなく、個々の社員の報酬を予測できるものでもありません。`;}
 scatter(rows);
-const map=await industryMap();const groups=new Map();
+const map=industryMap();const groups=new Map();
 for(const r of rows){let cat=r.raw.industry33||r.raw.industry||r.raw.sector33||r.raw.sector||r.raw.category||(map[r.id]&& (typeof map[r.id]==="string"?map[r.id]:map[r.id].industry33));if(typeof cat!=="string"||!cat.trim())continue;cat=cat.trim();if(!groups.has(cat))groups.set(cat,[]);groups.get(cat).push(r.salary)}
 const covered=[...groups.values()].reduce((n,v)=>n+v.length,0);$("industry-count").textContent=covered.toLocaleString("ja-JP")+"社";
 const valid=[...groups].filter(([g,v])=>v.length>=5).sort((a,b)=>median(b[1])-median(a[1]));
-if(valid.length<2){$("industry-status").textContent="業種分類を確認できる企業が不足しているため、業種別の比較は表示していません。公開前にJPXの東証33業種と証券コードを対応付けた data/industry-map.json を設置してください。未分類企業を推定で割り振ることはしません。";$("industry-body").replaceChildren(el("tr",{}, ""));$("industry-body").children[0].append(el("td",{colspan:3},"業種データ未整備"));return}
+if(valid.length<2){$("industry-status").textContent="業種分類を確認できる企業が不足しているため、業種別の比較は表示していません。既存データの業種分類を確認してください。未分類企業を推定で割り振ることはしません。";$("industry-body").replaceChildren(el("tr",{}, ""));$("industry-body").children[0].append(el("td",{colspan:3},"業種データ未整備"));return}
 const usable=valid.flatMap(([g,vs])=>vs),mu=mean(usable);let sb=0,st=usable.reduce((s,v)=>s+(v-mu)**2,0);for(const [g,vs] of valid)sb+=vs.length*(mean(vs)-mu)**2;
 $("industry-status").textContent=`業種情報のある${covered}社のうち、5社以上の業種${valid.length}分類を対象に比較。業種間分散比 η² = ${fmt(st?sb/st:null,3)}（この業種分類で説明される企業平均年収の変動の割合）。残りは未分類または件数不足のため比較から除外。`;
 $("industry-body").replaceChildren(...valid.map(([g,vs])=>{const tr=el("tr");[g,vs.length+"社",fmt(median(vs),1)+"万円"].forEach(v=>tr.append(el("td",{},v)));return tr}));
