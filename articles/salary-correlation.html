@@ -1,6 +1,5 @@
-<!doctype html>
-<html lang="ja">
-<head>
+<!DOCTYPE html>
+<html lang="ja"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>メーカーの平均年収は売上高・利益・業種と関係する？｜メーカーキャリアラボ</title>
@@ -10,51 +9,58 @@
 <meta property="og:title" content="メーカーの平均年収は売上高・利益・業種と関係する？｜メーカーキャリアラボ">
 <meta property="og:description" content="メーカー1,000社以上の財務データから売上・営業利益・利益率と給与水準の関係を検証。業種別の比較と分析の限界も紹介。">
 <meta property="og:url" content="https://cog-vja.github.io/maker-career-lab/articles/salary-correlation.html">
+
+
+<meta name="theme-color" content="#087c72">
+<link href="../style.css" rel="stylesheet">
 <style>
-:root{--navy:#10293b;--ink:#173042;--light:#f4f7f8;--lime:#d6ef66;--blue:#20778e;--gray:#5b6d75}
-*{box-sizing:border-box}body{margin:0;color:var(--ink);background:white;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif;line-height:1.8}a{color:#156d8a}
-header{background:var(--navy);color:white;padding:15px max(18px,calc((100vw - 900px)/2))}
-header a{color:white;text-decoration:none;font-weight:800}.container{width:min(900px,calc(100% - 34px));margin:auto}
-.hero{background:linear-gradient(135deg,#10293b 0%,#204458 100%);padding:58px 0 65px;color:white}
-.kicker{letter-spacing:.13em;color:var(--lime);font-size:.8rem;font-weight:800}.hero h1{font-size:clamp(1.8rem,4.4vw,2.9rem);line-height:1.5;margin:12px 0}
-.hero p{color:#e3ebed;max-width:700px}main{padding:40px 0 55px}section{margin-bottom:44px}h2{font-size:1.5rem;border-left:5px solid var(--lime);padding-left:14px;line-height:1.4}h3{font-size:1.08rem}
-.lead{font-weight:600;font-size:1.05rem}.muted{color:var(--gray);font-size:.9rem}.note{background:var(--light);padding:18px;border-radius:10px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}.stat{border:1px solid #dce5e8;border-radius:12px;padding:17px}.stat strong{display:block;font-size:1.8rem;color:var(--navy);line-height:1.4}.stat span{color:var(--gray);font-size:.83rem}
-table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{padding:11px;border-bottom:1px solid #dfe5e8;text-align:left}th{background:var(--light)}.table-scroll{overflow-x:auto}
-.score{font-weight:800;white-space:nowrap}.chart{width:100%;background:#f7fafb;border:1px solid #e2e8eb;border-radius:10px;overflow:hidden}
-.chart svg{width:100%;height:auto;display:block}
-.warning{border-left:4px solid #d18b35;background:#fff8ec;padding:14px 17px}
-.cta{background:var(--navy);border-radius:12px;padding:26px;color:white}.cta a{color:var(--lime);font-weight:bold}
-footer{padding:30px;background:var(--light);font-size:.85rem;color:var(--gray)}
-@media(max-width:600px){.stats{grid-template-columns:1fr}.hero{padding:36px 0 42px}th,td{padding:9px 7px}}
+/* Data report only. All main UI design derives from ../style.css. */
+.mcl-report{min-width:0}
+.mcl-report section{margin-bottom:44px}
+.mcl-report .mcl-report-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:24px 0}
+.mcl-report .mcl-report-stat{border:1px solid var(--line);border-radius:15px;padding:18px;background:#fff;min-width:0}
+.mcl-report .mcl-report-stat strong{display:block;font-size:clamp(1.45rem,2.6vw,1.9rem);color:var(--green);line-height:1.4;overflow-wrap:anywhere}
+.mcl-report .mcl-report-stat span{display:block;color:var(--sub);font-size:.84rem;line-height:1.65;margin-top:6px}
+.mcl-report .mcl-report-note{background:var(--soft);padding:17px 20px;border-left:4px solid var(--green);border-radius:12px;margin:18px 0;overflow-wrap:anywhere}
+.mcl-report .mcl-report-warning{background:#fff8ec;border-left:4px solid #d18b35;border-radius:8px;padding:16px 18px;margin:22px 0}
+.mcl-report .mcl-report-score{font-weight:800;white-space:nowrap}
+.mcl-report .table-scroll{margin:20px 0;border:1px solid var(--line);border-radius:12px;max-width:100%}
+.mcl-report .table-scroll table{border-collapse:collapse;min-width:570px;margin:0;line-height:1.65;font-size:.9rem}
+.mcl-report .table-scroll th,.mcl-report .table-scroll td{padding:12px 13px;border:0;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+.mcl-report .table-scroll th{background:#edf5f2;color:#1f4c4a}
+.mcl-report .table-scroll tr:last-child td{border-bottom:0}
+.mcl-report .mcl-report-chart{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:12px;background:#f8fbfa;margin:16px 0}
+.mcl-report .mcl-report-chart svg{display:block;min-width:660px;width:100%;height:auto}
+.mcl-report .mcl-report-cta strong{display:block;font-size:1.2rem;line-height:1.5}
+.mcl-report .mcl-report-cta .btn{color:#fff;line-height:1.6}
+.mcl-report code{overflow-wrap:anywhere}
+@media(max-width:680px){.mcl-report .mcl-report-stats{grid-template-columns:1fr;gap:10px}.mcl-report .mcl-report-stat{padding:15px}.mcl-report .table-scroll th,.mcl-report .table-scroll td{padding:10px}.mcl-report section{margin-bottom:32px}}
 </style>
-</head>
-<body>
-<header><a href="../index.html">メーカーキャリアラボ</a>　<small>／企業データで考えるキャリア</small></header>
-<div class="hero"><div class="container"><div class="kicker">DATA REPORT / 公開企業財務から検証</div>
-<h1>メーカーの平均年収は<br>売上高・利益・業種で変わるのか？</h1>
-<p>「会社が大きいほど給料が高い」「利益率が高いほど給料も高い」は本当なのか。収録した有価証券報告書データを使い、企業単位の統計的な関係を調べます。</p></div></div>
-<main class="container">
-<section><p class="lead">会社の業績や市場は給与とどの程度結びついているのか。数字で確かめる。</p>
+</head><body><header class="site-header"><div class="container nav"><a class="brand" href="../index.html">メーカー<span>キャリアラボ</span></a><nav aria-label="主要メニュー"><a href="../index.html">ホーム</a><a href="../index.html#articles">記事</a><a href="../company-check.html">企業分析</a><a href="../about.html">運営方針</a></nav></div></header>
+<main class="container"><article class="article mcl-report"><span class="tag">データ分析</span>
+<h1>メーカーの平均年収は、売上・利益・業種と関係する？</h1>
+<p class="muted">企業単位の財務データを分析・結果は閲覧時の掲載データから計算</p>
+
+<section><p class="intro">会社の業績や市場は給与とどの程度結びついているのか。数字で確かめる。</p>
 <p>売上高、営業利益額、営業利益率と平均年間給与の関係を、可能な限り同じ企業サンプルで比較します。給与は原則として提出会社の従業員平均、売上高・利益は主に連結数値です。対象の違いを前提に読む必要があります。</p>
-<div id="status" class="note" role="status">公開企業データを読み込んでいます…</div>
-<div class="stats">
- <div class="stat"><strong id="all-count">—</strong><span>収録企業数</span></div>
- <div class="stat"><strong id="sample-count">—</strong><span>売上・営業利益・年収が揃う分析対象企業</span></div>
- <div class="stat"><strong id="industry-count">—</strong><span>業種を確認できた分析対象企業</span></div>
+<div id="status" class="mcl-report-note" role="status">公開企業データを読み込んでいます…</div>
+<div class="mcl-report-stats">
+ <div class="mcl-report-stat"><strong id="all-count">—</strong><span>収録企業数</span></div>
+ <div class="mcl-report-stat"><strong id="sample-count">—</strong><span>売上・営業利益・年収が揃う分析対象企業</span></div>
+ <div class="mcl-report-stat"><strong id="industry-count">—</strong><span>業種を確認できた分析対象企業</span></div>
 </div></section>
 <section><h2>1. 売上・利益・利益率と平均年収の相関</h2>
 <p>企業規模には大きな差があるため、売上高は対数変換したピアソン相関を採用します。同時に、外れ値の影響を受けにくい順位相関（スピアマン相関）も表示します。相関は因果関係を意味しません。</p>
 <div class="table-scroll"><table><thead><tr><th>比較する指標</th><th>相関係数</th><th>順位相関</th><th>対象社数</th></tr></thead><tbody id="correlation-body"><tr><td colspan="4">計算中…</td></tr></tbody></table></div>
 <p class="muted">ピアソン相関：売上高のみ log10(売上高) を使用。利益額・営業利益率は原数値。順位相関：原数値に基づくスピアマンのρ。係数は -1〜1、0付近は線形・単調な関係が弱いことを示します。</p>
-<div id="interpretation" class="note" aria-live="polite">分析結果の要点を計算中…</div><h3>売上高と平均年収の分布</h3><div class="chart" id="scatter"></div><p class="muted">散布図の横軸：売上高（対数目盛・億円）。縦軸：平均年間給与（万円）。これは個人の給与分布ではなく、企業単位の分布です。</p></section>
+<div id="interpretation" class="mcl-report-note" aria-live="polite">分析結果の要点を計算中…</div><h3>売上高と平均年収の分布</h3><div class="mcl-report-chart" id="scatter"></div><p class="muted">スマートフォンではグラフ内を左右にスクロールできます。散布図の横軸：売上高（対数目盛・億円）。縦軸：平均年間給与（万円）。これは個人の給与分布ではなく、企業単位の分布です。</p></section>
 <section><h2>2. 製造業の領域によって給与水準は変わるか</h2>
 <p>業種は連続的な数値ではないため、「相関係数」ではなく、業種ごとの平均年間給与の中央値と、業種間で説明される分散の比率（η²）を示します。業種分類の出典が確認できない企業を、社名から推測して分類することはしません。</p>
-<div id="industry-status" class="note">業種データを確認中…</div>
+<div id="industry-status" class="mcl-report-note">業種データを確認中…</div>
 <div class="table-scroll"><table><thead><tr><th>業種</th><th>企業数</th><th>平均年収の中央値</th></tr></thead><tbody id="industry-body"><tr><td colspan="3">計算中…</td></tr></tbody></table></div>
 <p class="muted">5社以上の業種のみ表示。業種は収録データの業種フィールドを使用します。分類率が低い場合、比較可能な一部企業に限定した参考値となります。</p></section>
 <section><h2>3. この分析から何が分かり、何が分からないのか</h2>
-<div class="warning"><strong>重要：平均年収の違いは個人の能力差を示しません。</strong> 平均年齢・職種構成・持株会社と事業会社の違い・決算期・事業領域・連結と単体の範囲が影響します。複数の相関が観察されても、売上や利益を増やせば個人の給与が上がると断定できません。</div>
+<div class="mcl-report-warning"><strong>重要：平均年収の違いは個人の能力差を示しません。</strong> 平均年齢・職種構成・持株会社と事業会社の違い・決算期・事業領域・連結と単体の範囲が影響します。複数の相関が観察されても、売上や利益を増やせば個人の給与が上がると断定できません。</div>
 <p>企業比較の意義は、誰かの仕事の価値を数値で決めることではありません。同じスキルが異なる企業環境でどう扱われるか、考える材料を増やすことです。</p>
 <p>高い給与水準を求める合理性はあります。一方、家族、勤務地、仕事内容、働き方も重要です。数字を知ったうえで、残留・異動・転職を選べばよいと考えます。</p></section>
 <section><h2>4. 集計方法・再現条件</h2>
@@ -69,9 +75,16 @@ footer{padding:30px;background:var(--light);font-size:.85rem;color:var(--gray)}
 </ul>
 <p class="muted">資料：各社の有価証券報告書（金融庁EDINET）。業種区分は本サイト収録データ。画面の数値はページ読込時点の収録データから計算します。</p>
 </section>
-<section class="cta"><h2>気になるメーカーを自分で比べる</h2><p>会社の違いを知ることが、キャリア選択の第一歩。財務情報はあくまでも判断材料の一つです。</p><a href="../company-check.html">メーカーの財務データを比較する →</a></section>
-</main>
-<footer><div class="container">メーカーキャリアラボ｜統計的な関係は個別の給与・転職成功・将来業績を保証しません。</div></footer>
+<div class="cta mcl-report-cta"><strong>気になるメーカーを自分で比べる</strong><p>会社の違いを知ることが、キャリア選択の第一歩。財務情報はあくまでも判断材料の一つです。</p><a class="btn" href="../company-check.html">メーカーの財務データを比較する →</a></div>
+
+<section class="related"><h2>関連記事</h2><ul>
+<li><a href="salary-market.html">同じ仕事でも年収が違うのはなぜ？ 市場・企業・職種で考える</a></li>
+<li><a href="manufacturer-profit.html">収益力のあるメーカーを見極める</a></li>
+<li><a href="industry-compare.html">業界を変えたら自分のスキルは活きる？</a></li>
+</ul></section>
+<a href="../index.html#articles">← 記事一覧へ戻る</a>
+</article></main>
+<footer class="footer"><div class="container"><strong>メーカーキャリアラボ</strong><p>働く市場を知り、キャリアを自分で選ぶ。</p><div class="footer-links"><a href="../about.html">運営方針</a><a href="../privacy.html">プライバシー</a><a href="../disclosure.html">広告掲載方針</a><a href="../contact.html">お問い合わせ</a></div><small>© 2026 メーカーキャリアラボ。掲載数値はEDINET公開資料に基づきます。</small></div></footer>
 <script src="../company-data.js"></script>
 <script>
 (function(){
