@@ -1,26 +1,9 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#087c72"><title>現職と検討先のメーカー比較｜企業財務を読み解く | メーカーキャリアラボ</title><meta name="description" content="現在の勤務先と検討先を、出典付きの公開財務データで比較。点数化せず、違いと確認事項を整理します。"><link rel="canonical" href="https://cog-vja.github.io/maker-career-lab/company-check.html"><link rel="stylesheet" href="style.css"></head><body><header class="site-header"><div class="container nav"><a class="brand" href="index.html">メーカー<span>キャリアラボ</span></a><nav aria-label="主要メニュー"><a href="index.html">ホーム</a><a href="index.html#articles">記事</a><a href="company-check.html">企業分析</a><a href="about.html">運営方針</a></nav></div></header><main class="container"><div class="compare-wrap"><span class="tag">企業比較ツール v3.20・EDINET原本照合対応</span>
-<h1>今の会社と、気になる会社を比較する</h1>
-<p class="compare-intro">財務指標の違いから、次に調べるべきことを見つけるためのツールです。企業の優劣や転職の正解を判定しません。</p>
-<div class="notice"><strong>公開データの収録状況：</strong><span id="dataset-status">読み込み中</span><p class="small">掲載中の企業はEDINET原本との照合を行い、掲載対象に選定した企業です。追加の調査対象企業は、6指標の照合と公開承認が済むまで検索対象に含めません。表示できない会社は架空デモで操作を確認できます。</p></div>
-<p id="affiliate-disclosure" class="mcl-pr-disclosure" hidden>【PR】このページにはアフィリエイト広告が含まれます。広告は企業の評価・比較結果とは独立しています。</p>
-<form id="compare-form" class="compare-panel"><div class="compare-grid">
-<section><h2>① 現在の勤務先</h2><label for="name-a">会社名</label><input id="name-a" list="company-list" autocomplete="off" placeholder="会社名を入力" required><p id="hint-a" class="compare-help" aria-live="polite"></p></section>
-<section><h2>② 検討している会社</h2><label for="name-b">会社名</label><input id="name-b" list="company-list" autocomplete="off" placeholder="会社名を入力" required><p id="hint-b" class="compare-help" aria-live="polite"></p></section>
-</div><datalist id="company-list"></datalist><div class="compare-actions"><button class="btn" type="submit">2社を比較する →</button><button class="btn btn-neutral" type="button" id="demo">架空データで試す</button><button class="btn btn-neutral" type="button" id="reset">クリア</button></div><p class="compare-help">企業名はこのブラウザ内で照合します。入力した会社名を外部へ送信しません。企業データは公開済みの静的ファイルを参照します。</p></form>
-<details class="mcl-catalog"><summary>収録企業一覧から選ぶ（検索対応）</summary><label for="catalog-search">企業一覧を絞り込む</label><input id="catalog-search" type="search" placeholder="社名・証券コードで検索" autocomplete="off"><p class="compare-help">企業名をタップすると「検討している会社」に入力します。</p><div id="company-catalog" class="mcl-catalog-grid"></div></details>
-<p id="status" role="status" aria-live="polite"></p>
-<section id="results" class="compare-panel compare-result" hidden><span class="tag" id="result-label">比較結果</span><h2 id="compare-title"></h2><p id="result-context" class="compare-help"></p><div id="result-warnings" class="compare-warn"></div>
-<div class="table-scroll"><table class="compare-table"><thead><tr><th>指標</th><th>現職</th><th>検討先</th></tr></thead><tbody id="metrics-body"></tbody></table></div>
-<h2>数値から読み取れること・確認したいこと</h2><div id="insights"></div>
-<h2>対象期間と出典</h2><p class="small">書類IDをコピーして金融庁EDINETで原本を検索できます。照合実施日の記録がない場合、日付は推測せず「未記録」と表示します。</p><div id="sources"></div><p class="small">給与は一般に提出会社単体の平均値で、連結財務とは対象範囲が異なります。職種別の提示年収や働き方は求人票・面談で確認してください。</p>
-<div class="cta"><strong>次のアクション</strong><p>財務指標だけで職場を判断せず、希望職種の年収レンジ・配属部門・成長機会を確認しましょう。</p><a href="career-options.html">残留・異動・転職の判断表を見る →</a></div></section>
-<aside id="affiliate-slot" class="mcl-ad" hidden aria-label="広告・PR"></aside><section class="compare-panel"><h2>このツールのデータについて</h2><p>実在企業は、金融庁EDINETの書類取得APIで抽出候補を作り、原本XBRLに照合した数値のみ収録します。自動抽出しただけの数値は公開しません。データがない企業は「未収録」と表示します。</p>
-<ul><li>営業利益率＝営業利益 ÷ 売上高 × 100</li><li>売上成長率＝（当期売上高 ÷ 前期売上高 − 1）× 100</li><li>営業CF比率＝営業活動CF ÷ 売上高 × 100</li><li>自己資本比率は報告書における定義・会計基準を確認</li><li>平均年間給与は提出会社の対象範囲に注意</li></ul><p>営業利益が同一概念で開示されない企業や、比較対象の会計期間・範囲が異なる場合、数値を安易に同列比較しません。表示値は各有価証券報告書の対象期間に基づきます。追加企業の数値は原本XBRLから検証しましたが、EDINET提供の独立CSVとの突合は別工程です。</p>
-<p><a href="https://disclosure2.edinet-fsa.go.jp/" target="_blank" rel="noopener noreferrer">EDINET（金融庁）で一次資料を確認する ↗</a></p></section>
-</div></main><style>
-.mcl-metric-delta{display:block;font-size:.78em;line-height:1.5;color:#566b72;white-space:nowrap}
-.mcl-source-doc{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
-.mcl-copy-doc{cursor:pointer;border:1px solid #a8c0bc;background:#f4faf8;border-radius:6px;padding:5px 9px;color:#215b52;font:inherit}
-.compare-result .source-card{overflow-wrap:anywhere}
-.mcl-pr-disclosure{margin:15px 0;border-left:4px solid #546b75;background:#f3f6f7;padding:12px 14px;font-size:.92rem}.mcl-catalog{margin:20px 0;padding:16px;border:1px solid #d0e2df;border-radius:12px;background:#fbfdfc}.mcl-catalog summary{cursor:pointer;font-weight:700}.mcl-catalog label{display:block;margin:14px 0 5px}.mcl-catalog input{width:100%;padding:10px;border:1px solid #a9bcbc;border-radius:7px}.mcl-catalog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:7px;max-height:280px;overflow:auto;margin-top:12px}.mcl-catalog-grid button{font:inherit;padding:8px;text-align:left;cursor:pointer;border:1px solid #bfdbd7;border-radius:7px;background:white;color:#164b45}.mcl-ad{border:1px solid #cbd9d9;border-radius:12px;padding:16px;margin:24px 0;background:#f8faf9}.mcl-ad-label{font-size:.83rem;font-weight:bold;color:#52666c}.mcl-ad a{display:inline-block;margin-top:9px;padding:10px 14px;background:#087c72;color:white;border-radius:8px;text-decoration:none;font-weight:700}@media(max-width:480px){.compare-table td{vertical-align:top}.mcl-metric-delta{white-space:normal}}
-</style><script src="company-data.js" defer></script><script src="company-compare.js" defer></script><script src="affiliate-config.js" defer></script><script src="affiliate-render.js" defer></script><footer class="footer"><div class="container"><strong>メーカーキャリアラボ</strong><p>仕事を変える前に、働く市場を変えよう。</p><div class="footer-links"><a href="about.html">運営者・編集方針</a><a href="privacy.html">プライバシー</a><a href="disclosure.html">広告掲載方針</a><a href="contact.html">お問い合わせ</a></div><small>© 2026 メーカーキャリアラボ｜情報更新：2026年10月</small></div></footer></body></html>
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,follow"><link rel="canonical" href="https://cog-vja.github.io/maker-career-lab/company-check.html">
+<meta http-equiv="refresh" content="0; url=../company-check.html">
+<title>旧バージョンのページ｜メーカーキャリアラボ</title>
+<link rel="stylesheet" href="../style.css"></head><body>
+<main class="container" style="padding:2rem 1rem"><h1>最新ページへ移動します</h1>
+<p>このURLは以前の検証用プレビューです。最新のメーカーキャリアラボを開いてください。</p>
+<p><a href="../company-check.html">自動で移動しない場合はこちら</a></p></main></body></html>
