@@ -23,6 +23,17 @@
   if (window.__mclGa4EventsAttached) return;
   window.__mclGa4EventsAttached = true;
 
+  // Brand favicon for legacy /article pages without a static icon link.
+  // Existing GA4, affiliate and navigation event processing remain unchanged.
+  if (document.head && !document.querySelector('link[rel="icon"], link[rel="shortcut icon"]')) {
+    var brandIcon = document.createElement('link');
+    brandIcon.rel = 'icon';
+    brandIcon.type = 'image/png';
+    brandIcon.href = (window.location.pathname.indexOf('/articles/') >= 0 ? '../' : '') + 'favicon.png';
+    document.head.appendChild(brandIcon);
+  }
+
+
   function record(eventName, params) {
     if (typeof window.gtag !== 'function') return;
     window.gtag('event', eventName, params || {});
