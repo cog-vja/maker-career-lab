@@ -5,6 +5,21 @@
  */
 (function () {
   'use strict';
+  /* GA4 additional destination for the newly-created Maker Career Lab property.
+   * The existing Google tag loader is shared by both Measurement IDs.
+   * Register exactly once and do not replace event/navigation/advertisement logic.
+   * The old ID remains in individual HTML files until a later clean cutover.
+   */
+  if (!window.__mclGa4NewDestinationConfigured && typeof window.gtag === 'function') {
+    var id = 'G-G3EBC7ZZQ9';
+    var queue = Array.isArray(window.dataLayer) ? window.dataLayer : [];
+    var alreadyConfigured = queue.some(function (item) {
+      return item && item[0] === 'config' && item[1] === id;
+    });
+    if (!alreadyConfigured) window.gtag('config', id);
+    window.__mclGa4NewDestinationConfigured = true;
+  }
+
   if (window.__mclGa4EventsAttached) return;
   window.__mclGa4EventsAttached = true;
 
