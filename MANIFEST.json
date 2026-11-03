@@ -1,0 +1,65 @@
+{
+  "project": "maker-career-lab",
+  "created_date": "2026-11-03",
+  "baseline_repository": "cog-vja/maker-career-lab",
+  "baseline_git_tree_sha": "ac6d70cf8fe2c00b6e8e360fac0cc3db30e78829",
+  "package_type": "overlay_diff_not_full_repository",
+  "production_site": "https://maker-career-lab.com/",
+  "summary": "7 audit passes, two additional articles, editorial funnels, GA4 action tracking, safe Cloudflare build and sitemap changes",
+  "files": [
+    {
+      "path": "cloudflare-build.py",
+      "bytes": 17475,
+      "sha256": "59765bdb8c616522d5b754c5e5f9a85caca6d59773d556da4255703a257c9a0b",
+      "deployment": "required"
+    },
+    {
+      "path": "mcl_revenue_layer.py",
+      "bytes": 7546,
+      "sha256": "fef5a965fddac7e8c2b4d19bd0ded4d2ff4959c9023ee6383356556d3cbdeb14",
+      "deployment": "required"
+    },
+    {
+      "path": "mcl-revenue.css",
+      "bytes": 2322,
+      "sha256": "83f2d29661d49394032fe99563c89e1546f4bbfaf1e3a3b5e33c35c92c8d60ef",
+      "deployment": "required"
+    },
+    {
+      "path": "mcl-revenue.js",
+      "bytes": 2531,
+      "sha256": "ceb035d133ce72e37cdca269bbe12a1514f1d25feea92b5b2623e9837adaaf2a",
+      "deployment": "required"
+    },
+    {
+      "path": "articles/manufacturer-career-checklist.html",
+      "bytes": 10509,
+      "sha256": "673ee4f5a6d41062f06eee5d02dd127f7e0fe1e6b718f487486ded51b19711e7",
+      "deployment": "required"
+    },
+    {
+      "path": "articles/manufacturer-engineer-agent-selection.html",
+      "bytes": 10004,
+      "sha256": "5d748caf8d85724ef6e29dc933e7f54d01ffa6b4ef1635a2a06b2a477ad9e427",
+      "deployment": "required"
+    },
+    {
+      "path": "README-iPhone.txt",
+      "bytes": 3776,
+      "sha256": "de8c708262e3df272717465127fa7023588aeb0b4a10ad287699ae046875ad75",
+      "deployment": "documentation_or_optional_test"
+    },
+    {
+      "path": "AUDIT-REPORT-2026-11-03.md",
+      "bytes": 19662,
+      "sha256": "771f1cc16f6661b08a9bdad4f8b4da590a68f651891fc17247830a07e694c465",
+      "deployment": "documentation_or_optional_test"
+    },
+    {
+      "path": "tests/test_revenue_release.py",
+      "bytes": 8156,
+      "sha256": "91edfc6e122b5287b8d6a105a2b28ba9d8dbdf5ecdd44b98d610226b20a41e4f",
+      "deployment": "documentation_or_optional_test"
+    }
+  ]
+}

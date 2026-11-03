@@ -1,0 +1,25 @@
+/* Non-ad editorial navigation; supplement existing design without replacing it. */
+.mcl-revenue-section{padding:clamp(34px,5vw,62px) 0;background:#f4f9f7;border-top:1px solid #d8eae5;border-bottom:1px solid #d8eae5}
+.mcl-revenue-section h2,.mcl-revenue-after h2{color:#173b3e;margin:8px 0 14px}
+.mcl-revenue-section p,.mcl-revenue-after p,.mcl-revenue-aside p{line-height:1.85}
+.mcl-revenue-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:22px 0 12px}
+.mcl-revenue-card{background:#fff;border:1px solid #d4e5df;border-radius:14px;padding:21px;min-width:0}
+.mcl-revenue-card h3{font-size:1.15rem;margin:10px 0 8px}
+.mcl-revenue-card p{font-size:.95rem;color:#4f646e}
+.mcl-revenue-link{display:inline-block;font-weight:750;color:#075e57;text-underline-offset:4px;overflow-wrap:anywhere}
+.mcl-revenue-after,.mcl-revenue-aside{background:#f7fbf9;border:1px solid #d5e6df;border-radius:14px;padding:19px 22px;margin:26px 0}
+.mcl-revenue-after ol{padding-left:1.4rem;line-height:2}
+.mcl-revenue-aside{margin-top:28px}
+.mcl-revenue-small{font-size:.87rem;color:#52666a}
+.mcl-worksheet{padding:20px;border:1px solid #ccded7;background:#f7fbf9;border-radius:14px}
+.mcl-worksheet fieldset{border:0;padding:0;margin:0}
+.mcl-worksheet legend{font-size:1.12rem;font-weight:800;margin-bottom:8px}
+.mcl-worksheet label{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #d7e4df;line-height:1.6}
+.mcl-worksheet input[type=checkbox]{width:20px;height:20px;flex:none;margin-top:3px;accent-color:#087c72}
+.mcl-worksheet .mcl-counter{font-weight:750;margin:15px 0}
+.mcl-worksheet button{border:1px solid #087c72;background:#087c72;color:white;border-radius:8px;padding:9px 15px;font:inherit;font-weight:700;margin:6px 8px 6px 0;cursor:pointer}
+.mcl-worksheet button.mcl-secondary{color:#075e57;background:white}
+.mcl-worksheet [role=status]{display:block;font-size:.88rem;margin:8px 0}
+.mcl-sponsor-note{font-size:.87rem;color:#50646c}
+@media(max-width:700px){.mcl-revenue-grid{grid-template-columns:1fr}.mcl-revenue-card{padding:18px}.mcl-revenue-after,.mcl-revenue-aside{padding:16px}}
+@media print{header.site-header,.footer,.mcl-revenue-section,.mcl-revenue-aside,.mcl-worksheet button{display:none!important}.mcl-worksheet{border:1px solid #888}.article{max-width:none}}

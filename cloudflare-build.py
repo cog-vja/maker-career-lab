@@ -17,6 +17,8 @@ from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 from xml.etree import ElementTree as ET
 
+from mcl_revenue_layer import augment_output, REVENUE_ARTICLES
+
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "dist"
 OLD = "https://cog-vja.github.io/maker-career-lab/"
@@ -97,6 +99,21 @@ def transform_html(html: str, path: Path) -> str:
         html = re.sub(r'</head>', f'<link rel="canonical" href="{expected}"/></head>', html, count=1, flags=re.I)
     if expected not in html:
         raise RuntimeError(f"{path}: canonical設定に失敗しました")
+    # Canonical and structured metadata must describe the same *published* URL.
+    # Only normalize a JSON-LD mainEntityOfPage URL on our own domain;
+    # never rewrite partner links, publisher metadata, or A8 creative markup.
+    html = re.sub(
+        r'("mainEntityOfPage"\s*:\s*")https://maker-career-lab\.com/[^"\s]+("\s*)',
+        lambda m: m.group(1) + expected + m.group(2),
+        html,
+    )
+    # Likewise, normalise an explicit Open Graph article URL when present.
+    html = re.sub(
+        r'(<meta\s+property=["\']og:url["\']\s+content=["\'])https://maker-career-lab\.com/[^"\']+(["\'])',
+        lambda m: m.group(1) + expected + m.group(2),
+        html,
+        flags=re.I,
+    )
     # Present both new sector-article links in the initial HTML, not only after
     # analytics-events.js executes. Its existing IDs prevent duplicate inserts.
     if path.relative_to(ROOT).as_posix() == "index.html":
@@ -238,6 +255,17 @@ def make_sitemap(raw: str, html_paths: list[str]) -> str:
         loc.text = newloc
         newlocs.append(newloc)
     expected = {NEW if p == "index.html" else NEW + p[:-5] for p in html_paths}
+    # New editorial pages are included in the published sitemap automatically.
+    # Never silently add arbitrary or internal HTML paths.
+    additions = expected - set(newlocs)
+    allowed = {NEW + p[:-5] for p in REVENUE_ARTICLES}
+    if not additions.issubset(allowed):
+        raise RuntimeError(f"sitemap: 未登録ページがあります: {sorted(additions)}")
+    for url in sorted(additions):
+        node = ET.SubElement(root, f"{{{ns['s']}}}url")
+        ET.SubElement(node, f"{{{ns['s']}}}loc").text = url
+        ET.SubElement(node, f"{{{ns['s']}}}lastmod").text = "2026-11-03"
+        newlocs.append(url)
     if set(newlocs) != expected or len(newlocs) != len(expected):
         raise RuntimeError(f"sitemap不一致: 実際{len(newlocs)}URL / HTML{len(expected)}件")
     ET.register_namespace("", ns["s"])
@@ -254,6 +282,9 @@ def build() -> None:
     article_files = sorted((ROOT / "articles").glob("*.html"))
     if len(article_files) < 8:
         raise RuntimeError("記事数が想定より少ないため中断します")
+    absent = [p for p in REVENUE_ARTICLES if not (ROOT / p).is_file()]
+    if absent:
+        raise RuntimeError("今回の新規記事が不足しています: " + ", ".join(absent))
     assert_dataset(ROOT / "company-data.js")
     # Validate before replacing any previous dist tree.
     if OUT.exists():
@@ -292,6 +323,7 @@ def build() -> None:
         '<main><h1>ページが見つかりません</h1><p><a href="/">メーカーキャリアラボのトップへ戻る</a></p>'
         '</main></body></html>\n', encoding="utf-8")
     (OUT / "_redirects").write_text("/index / 301\n", encoding="utf-8")
+    augment_output(OUT, copied_html, ROOT)
     # Extra guard: past audits / sources / internal tools must never be served.
     paths = {p.relative_to(OUT).as_posix() for p in OUT.rglob("*") if p.is_file()}
     if any(p.startswith(("site-ready/", "site-update/", "site-reference/", "fixtures/", ".github/")) for p in paths):
