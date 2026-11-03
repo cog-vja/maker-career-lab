@@ -1,0 +1,11 @@
+{
+  // Maker Career Lab — Cloudflare Workers + Static Assets
+  // No Worker script yet: static files bypass Worker execution.
+  "name": "maker-career-lab-web",
+  "compatibility_date": "2026-11-03",
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}
