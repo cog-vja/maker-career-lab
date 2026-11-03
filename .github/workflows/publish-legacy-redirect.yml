@@ -1,0 +1,118 @@
+name: Publish legacy GitHub Pages redirects
+
+# Run only after confirming that maker-career-lab.com works.
+# This workflow deploys a standalone redirects-only artifact to GitHub Pages.
+# It never modifies main, company-data.js, Cloudflare Workers, or A8 ads.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: publish-legacy-redirect-pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Checkout the latest source for redirect URL mapping
+        uses: actions/checkout@v4
+
+      - name: Generate only the redirect pages for old GitHub Pages URLs
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import html
+          import json
+          import os
+          from pathlib import Path, PurePosixPath
+          from urllib.parse import urlsplit
+          from xml.etree import ElementTree as ET
+
+          OLD = "https://cog-vja.github.io/maker-career-lab/"
+          NEW = "https://maker-career-lab.com/"
+          REPO = "cog-vja/maker-career-lab"
+          out = Path("legacy-redirect-dist")
+          assert os.environ.get("GITHUB_REPOSITORY") == REPO, "Unexpected GitHub repository"
+          assert os.environ.get("GITHUB_REF") == "refs/heads/main", "Run only on main"
+          assert Path("cloudflare-build.py").is_file(), "Cloudflare Workers build script missing"
+
+          sitemap = ET.parse("sitemap.xml").getroot()
+          ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+          old_urls = [(node.text or "").strip() for node in sitemap.findall("s:url/s:loc", ns)]
+          assert len(old_urls) >= 22, f"Expected at least 22 old URLs; found {len(old_urls)}"
+          assert len(old_urls) == len(set(old_urls)), "Duplicate old URLs"
+
+          output = {}
+          for source in old_urls:
+              assert source.startswith(OLD), f"Unexpected source URL: {source}"
+              suffix = source[len(OLD):]
+              assert suffix == "" or suffix.endswith(".html"), f"Unexpected path: {suffix}"
+              p = PurePosixPath(suffix) if suffix else PurePosixPath("index.html")
+              assert not p.is_absolute() and ".." not in p.parts, f"Unsafe file path: {p}"
+              assert (Path.cwd() / p).is_file(), f"Source HTML not found: {p}"
+              target = NEW + (suffix[:-5] if suffix and suffix != "index.html" else "")
+              assert urlsplit(target).scheme == "https" and urlsplit(target).netloc == "maker-career-lab.com"
+              assert str(p) not in output, f"Duplicate output path: {p}"
+              output[str(p)] = target
+
+          assert output.get("index.html") == NEW
+          out.mkdir(parents=True, exist_ok=True)
+          for filename, target in sorted(output.items()):
+              safe_target = html.escape(target, quote=True)
+              script_target = json.dumps(target, ensure_ascii=False)
+              content = f'''<!doctype html>
+          <html lang="ja"><head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width,initial-scale=1">
+          <link rel="canonical" href="{safe_target}">
+          <title>メーカーキャリアラボは移転しました</title>
+          <script>try {{ location.replace({script_target} + location.search + location.hash); }} catch (e) {{}}</script>
+          <meta http-equiv="refresh" content="0; url={safe_target}">
+          </head><body>
+          <main><h1>メーカーキャリアラボは移転しました</h1>
+          <p>自動で移動しない場合は<a href="{safe_target}">新しいページを開く</a>を選んでください。</p></main>
+          </body></html>
+          '''
+              destination = out / filename
+              destination.parent.mkdir(parents=True, exist_ok=True)
+              destination.write_text(content, encoding="utf-8")
+
+          # Unknown paths are deliberately NOT redirected to an unrelated home page.
+          (out / "404.html").write_text('''<!doctype html><html lang="ja"><head>
+          <meta charset="utf-8"><meta name="robots" content="noindex">
+          <title>ページが見つかりません | メーカーキャリアラボ</title></head><body>
+          <main><h1>ページが見つかりません</h1>
+          <p>メーカーキャリアラボは新しいドメインに移転しました。</p>
+          <p><a href="https://maker-career-lab.com/">新サイトのトップページへ</a></p></main></body></html>\n''', encoding="utf-8")
+          (out / ".nojekyll").write_text("", encoding="utf-8")
+          # Do not include a sitemap.xml; the new site already submitted its own sitemap.
+          deployed = {p.relative_to(out).as_posix() for p in out.rglob("*") if p.is_file()}
+          expected = set(output) | {"404.html", ".nojekyll"}
+          assert deployed == expected, f"Unexpected deployment files: {deployed ^ expected}"
+          assert not any(x.endswith(".js") or x.startswith(".github/") for x in deployed)
+          print(f"[OK] {len(output)} old URLs mapped one-to-one to the new domain")
+          print("[OK] GitHub Pages artifact contains redirect HTML only; no company-data or ads")
+          for old_file, target in sorted(output.items()):
+              print(f"  {old_file} => {target}")
+          PY
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload redirects-only Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: legacy-redirect-dist
+
+      - name: Publish GitHub Pages redirects
+        id: deploy
+        uses: actions/deploy-pages@v4
