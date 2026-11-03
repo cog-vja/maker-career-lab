@@ -10,6 +10,7 @@ This script deliberately does not publish drafts, review JSON or EDINET secrets.
 from __future__ import annotations
 
 import json
+import math
 import re
 import shutil
 from pathlib import Path
@@ -96,7 +97,118 @@ def transform_html(html: str, path: Path) -> str:
         html = re.sub(r'</head>', f'<link rel="canonical" href="{expected}"/></head>', html, count=1, flags=re.I)
     if expected not in html:
         raise RuntimeError(f"{path}: canonical設定に失敗しました")
+    # Present both new sector-article links in the initial HTML, not only after
+    # analytics-events.js executes. Its existing IDs prevent duplicate inserts.
+    if path.relative_to(ROOT).as_posix() == "index.html":
+        html = add_static_sector_links(html)
+    # The published correlation report includes a sample of early-stage firms
+    # with tiny revenue denominators. Show a transparent sensitivity check,
+    # without deleting or silently excluding any source records.
+    if path.relative_to(ROOT).as_posix() == "articles/salary-correlation.html":
+        html = add_margin_sensitivity_note(html, ROOT / "company-data.js")
     return html
+
+
+
+def add_static_sector_links(html: str) -> str:
+    """Expose the 2 existing sector articles as first-response HTML links."""
+    ids = ("mcl-stage2-article-semi", "mcl-stage2-article-auto")
+    present = [name in html for name in ids]
+    if all(present):
+        return html
+    if any(present):
+        raise RuntimeError("トップページの業種比較リンクが部分的に存在します")
+    additions = (
+        '\n<a id="mcl-stage2-article-semi" class="article-tile" '
+        'href="articles/semiconductor-equipment-salary-profit">'
+        '<span class="tag">半導体関連・企業比較</span>'
+        '<h3>半導体製造装置・検査関連9社の平均年収と営業利益率</h3>'
+        '<p>ディスコ・東京エレクトロンなどを比較。単体給与と連結利益率の違いも解説。</p></a>\n'
+        '<a id="mcl-stage2-article-auto" class="article-tile" '
+        'href="articles/auto-parts-salary-profit">'
+        '<span class="tag">自動車部品・企業比較</span>'
+        '<h3>自動車部品メーカー4社の年収・利益率を比較</h3>'
+        '<p>デンソー・アイシン・豊田合成・小糸製作所の数字と仕事選びの視点。</p></a>\n'
+    )
+    # Only the one article directory on the homepage is changed.
+    pattern = r'(<div\s+class=["\']article-list["\']\s*>)([\s\S]*?)(</div>)'
+    matches = list(re.finditer(pattern, html))
+    if len(matches) != 1:
+        raise RuntimeError(f"記事一覧コンテナが想定外です: {len(matches)}")
+    m = matches[0]
+    html = html[:m.start()] + m.group(1) + m.group(2) + additions + m.group(3) + html[m.end():]
+    html = html.replace("7つのキャリア・企業分析記事", "9つのキャリア・企業分析記事")
+    return html
+
+
+def margin_pearson(dataset: list[dict]) -> tuple[float, float, int, int]:
+    """Current margin/salary correlation and transparent <-100% sensitivity."""
+    pairs = []
+    for row in dataset:
+        rev, profit, salary = row.get("revenue"), row.get("operatingProfit"), row.get("averageSalary")
+        if not all(isinstance(v, (int, float)) and math.isfinite(v) for v in (rev, profit, salary)):
+            continue
+        if rev <= 0 or salary <= 0:
+            continue
+        pairs.append((100 * profit / rev, salary))
+    if len(pairs) < 30:
+        raise RuntimeError("感度分析の母集団が不足しています")
+    kept = [(m, salary) for m, salary in pairs if m >= -100]
+    if len(kept) < 30:
+        raise RuntimeError("感度分析で残る母集団が不足しています")
+
+    def pearson(vals: list[tuple[float, float]]) -> float:
+        n = len(vals)
+        mx = sum(x for x, _ in vals) / n
+        my = sum(y for _, y in vals) / n
+        cov = sum((x-mx)*(y-my) for x,y in vals)
+        var_x = sum((x-mx)**2 for x,_ in vals)
+        var_y = sum((y-my)**2 for _,y in vals)
+        denom = math.sqrt(var_x) * math.sqrt(var_y)
+        return cov/denom if denom else 0.0
+
+    return pearson(pairs), pearson(kept), len(pairs), len(kept)
+
+
+def add_margin_sensitivity_note(html: str, source: Path) -> str:
+    """Add a labeled secondary calculation; retain the original primary table."""
+    if 'id="mcl-margin-sensitivity"' in html:
+        return html
+    match = re.search(r"window\.MCL_COMPANIES\s*=\s*(\[[\s\S]*?\])\s*;",source.read_text(encoding="utf-8"))
+    if not match:
+        raise RuntimeError("相関感度分析に必要な企業データがありません")
+    raw = json.loads(match.group(1))
+    basic, restricted, count, kept = margin_pearson(raw)
+    omitted = count - kept
+    note = (
+        '<div id="mcl-margin-sensitivity" class="mcl-report-note" role="note">'
+        '<strong>補足：営業利益率の相関係数は外れ値の影響に注意</strong>'
+        f'<p>公開データ全{count:,}社での営業利益率と平均給与のピアソン相関は '
+        f'<strong>{basic:+.2f}</strong>です。一方、営業利益率がマイナス100%未満の'
+        f'{omitted}社を除く感度分析では、残り{kept:,}社で '
+        f'<strong>{restricted:+.2f}</strong>となります。</p>'
+        '<p>売上が非常に小さい研究開発段階の企業では、営業利益率の分母が小さく、'
+        '赤字率の絶対値が極端に大きくなる場合があります。'        'ここでの除外は結果の頑健性を確かめるための<strong>比較用の再計算</strong>であり、'
+        '元の相関表から企業を削除したものではありません。閾値は営業利益率がマイナス100%未満です。'
+        '給与と利益率の因果関係を示すものではありません。</p></div>'
+    )
+    # Insert directly after the method statement; calculation table remains unchanged.
+    needle = '相関は因果関係を意味しません。</p>'
+    if html.count(needle) != 1:
+        raise RuntimeError("相関記事の注記挿入位置が見つかりません")
+    return html.replace(needle, needle + note, 1)
+
+
+def transform_onecareer(js: str) -> str:
+    """Keep A8 creative exactly intact; accept both legacy and clean paths."""
+    old = r"\.html$"
+    if js.count(old) != 2:
+        raise RuntimeError("ワンキャリアの表示条件が想定外です")
+    rewritten = js.replace(old, r"(?:\.html)?$")
+    # The tracking href/image/pixel strings are not modified by this change.
+    if js.count("https://px.a8.net/") != rewritten.count("https://px.a8.net/"):
+        raise RuntimeError("広告リンク数が変化しました")
+    return rewritten
 
 
 def transform_analytics(js: str) -> str:
@@ -159,6 +271,8 @@ def build() -> None:
         dest = OUT / name
         if name == "analytics-events.js":
             dest.write_text(transform_analytics(origin.read_text(encoding="utf-8")), encoding="utf-8")
+        elif name == "onecareer-ads.js":
+            dest.write_text(transform_onecareer(origin.read_text(encoding="utf-8")), encoding="utf-8")
         else:
             shutil.copyfile(origin, dest)
     for name in OTHER_OPTIONAL:
