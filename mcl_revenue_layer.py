@@ -1,21 +1,18 @@
 #!/usr/bin/env python3
-"""Revenue-path enhancements for the Cloudflare build (editorial, not ad code).
+"""Existing Cloudflare revenue enhancement, with SEO generation appended.
 
-- Does not touch the EDINET dataset, ranking, A8 creatives or existing event logic.
-- Adds crawlable HTML links and non-personal funnel events.
-- Keeps source HTML unchanged and only transforms the dist/ output.
+The existing A8 creatives and analytics handlers are never modified here.
 """
 from __future__ import annotations
-
 import re
 import shutil
 from pathlib import Path
 
 REVENUE_ARTICLES = (
-    "articles/manufacturer-career-checklist.html",
-    "articles/manufacturer-engineer-agent-selection.html",
+    'articles/manufacturer-career-checklist.html',
+    'articles/manufacturer-engineer-agent-selection.html',
 )
-ASSETS = ("mcl-revenue.css", "mcl-revenue.js")
+ASSETS = ('mcl-revenue.css', 'mcl-revenue.js')
 
 HOME_BLOCK = '''
 <section id="career-next-step" class="mcl-revenue-section" aria-labelledby="revenue-next-title">
@@ -58,7 +55,6 @@ ARTICLE_BLOCK = '''
 </aside>
 '''
 
-
 STUDENT_BLOCK = '''
 <aside class="mcl-revenue-aside" aria-label="理系就活の比較ガイド">
  <strong>理系学生の方向け：サービス選びも職種から考える</strong>
@@ -68,29 +64,28 @@ STUDENT_BLOCK = '''
 </aside>
 '''
 
-
 def insert_once(body: str, needle: str, block: str, marker: str, title: str) -> str:
     if marker in body:
         return body
     if body.count(needle) != 1:
-        raise RuntimeError(f"{title} の挿入位置が想定外: {body.count(needle)}件")
-    return body.replace(needle, block + "\n" + needle, 1)
+        raise RuntimeError(f'{title} の挿入位置が想定外: {body.count(needle)}件')
+    return body.replace(needle, block + '\n' + needle, 1)
 
 
 def augment_output(out: Path, copied_html: list[str], root: Path) -> None:
     for asset in ASSETS:
         src = root / asset
         if not src.is_file():
-            raise RuntimeError(f"収益導線アセットが不足: {asset}")
+            raise RuntimeError(f'収益導線アセットが不足: {asset}')
         shutil.copyfile(src, out / asset)
 
     expected = set(REVENUE_ARTICLES)
     if not expected.issubset(set(copied_html)):
-        raise RuntimeError("収益導線の記事がdistに出力されていません")
+        raise RuntimeError('収益導線の記事がdistに出力されていません')
 
     for name in copied_html:
         path = out / name
-        html = path.read_text(encoding="utf-8")
+        html = path.read_text(encoding='utf-8')
         if name == 'index.html':
             html = insert_once(html, '<section id="start-here"', HOME_BLOCK,
                                'id="career-next-step"', 'トップページ')
@@ -98,7 +93,6 @@ def augment_output(out: Path, copied_html: list[str], root: Path) -> None:
             html = insert_once(html, '<section class="mcl-onecareer-end"', COMPARE_BLOCK,
                                'id="mcl-after-comparison"', '企業比較ページ')
         elif name in ('articles/agent-guide.html', 'articles/it-scm-career.html'):
-            # Existing sponsor section sits AFTER </article>; retain its A8 creatives.
             html = insert_once(html, '</article>', ARTICLE_BLOCK,
                                'class="mcl-revenue-aside"', name)
         elif name == 'articles/science-career-market.html':
@@ -108,17 +102,21 @@ def augment_output(out: Path, copied_html: list[str], root: Path) -> None:
             base = '../' if name.startswith('articles/') else ''
             if 'mcl-revenue.css' not in html:
                 if html.count('</head>') != 1:
-                    raise RuntimeError(f"{name}: </head> 件数が想定外")
+                    raise RuntimeError(f'{name}: </head> 件数が想定外')
                 html = html.replace('</head>', f'<link rel="stylesheet" href="{base}mcl-revenue.css"></head>', 1)
             if 'mcl-revenue.js' not in html:
                 if html.count('</body>') != 1:
-                    raise RuntimeError(f"{name}: </body> 件数が想定外")
+                    raise RuntimeError(f'{name}: </body> 件数が想定外')
                 html = html.replace('</body>', f'<script src="{base}mcl-revenue.js" defer></script></body>', 1)
         path.write_text(html, encoding='utf-8')
 
-    # Publication guard: assets and all new HTML exist; approved A8 URL count stays in original pages.
     if (out / 'index.html').read_text(encoding='utf-8').count('id="career-next-step"') != 1:
         raise RuntimeError('トップページの収益導線が不足・重複しています')
     if (out / 'company-check.html').read_text(encoding='utf-8').count('id="mcl-after-comparison"') != 1:
         raise RuntimeError('比較ページの収益導線が不足・重複しています')
     print('[OK] Audience landing pages / post-compare action routes / non-PII funnel assets')
+
+    # Add search-intent landing pages AFTER the original, audited revenue layer.
+    # The existing cloudflare-build.py calls this hook after its sitemap creation.
+    from mcl_seo_layer import augment_seo_output
+    augment_seo_output(out, copied_html, root)
