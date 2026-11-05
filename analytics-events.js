@@ -1,4 +1,4 @@
-/* メーカーキャリアラボ GA4 events + related-reading navigation (v3.31)
+/* メーカーキャリアラボ GA4 events + related-reading navigation (v3.31 + makersjob)
  * - Existing GA4 event names and A8 tracking preserved.
  * - All analytics omit company names, free-form inputs and personal data.
  * - Add editorial links without rewriting existing article bodies or ad placements.
@@ -56,7 +56,9 @@
     if (url.hostname === 'px.a8.net' && url.pathname.startsWith('/svt/ejp')) {
       var program = 'other';
       var code = url.searchParams.get('a8mat') || '';
-      if (code.indexOf('6Z8ZLU') !== -1) program = 'factory_jobs';
+      if (code.indexOf('F75F9E') !== -1 && code.indexOf('4BGCF8') !== -1) program = 'makers_job';
+      else if (code.indexOf('78RXAA') !== -1 && code.indexOf('4BEHXF') !== -1) program = 'onecareer';
+      else if (code.indexOf('6Z8ZLU') !== -1) program = 'factory_jobs';
       else if (code.indexOf('7JHQ6A') !== -1) program = 'science_students';
       record('affiliate_click', {
         affiliate_network: 'a8',
