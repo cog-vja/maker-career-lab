@@ -8,11 +8,12 @@ commit the existing-issuer candidate only after this gate passes.
 from __future__ import annotations
 
 import argparse
-from datetime import date
+from datetime import date, datetime
 from decimal import Decimal, InvalidOperation
 import json
 from pathlib import Path
 import re
+from zoneinfo import ZoneInfo
 
 from expand_manufacturers_v325 import GateError, parse_public, METRICS
 
@@ -21,11 +22,44 @@ UPDATE_FIELDS = frozenset({
     'equityRatio', 'averageSalary', 'period', 'sourceLabel', 'sourceDocId',
     'sourceSha256', 'sourceXbrlSha256', 'sourcePayloadFingerprint', 'verifiedAt',
 })
+# These are operational fields intentionally rewritten by proposed() in
+# monthly_edinet_v325.py. The original gate incorrectly treated them as
+# immutable, so every successful subsequent monthly run was rejected.
+MONTHLY_METADATA_FIELDS = frozenset({
+    'lastMonthlyReviewJST', 'lastMonthlyVerifiedUpdateCount',
+})
 DOC_ID = re.compile(r'^S[A-Z0-9]{7,15}$')
 
 
 def _read_json(path):
     return json.loads(Path(path).read_text(encoding='utf-8'))
+
+
+def _verify_monthly_metadata(base_meta, candidate_meta, summary, expected_update_count):
+    """Allow only monthly bookkeeping mutations; preserve all release provenance."""
+    # A candidate may introduce the two operational keys to an older release,
+    # but it may not drop existing keys or invent any other metadata keys.
+    if set(base_meta) - set(candidate_meta):
+        raise GateError('Candidate removed established publication metadata')
+    if (set(candidate_meta) - set(base_meta)) - MONTHLY_METADATA_FIELDS:
+        raise GateError('Candidate added unapproved publication metadata')
+    for key, original in base_meta.items():
+        if key not in MONTHLY_METADATA_FIELDS and candidate_meta.get(key) != original:
+            raise GateError('Candidate overwrote established publication metadata: ' + key)
+    if candidate_meta.get('lastMonthlyVerifiedUpdateCount') != expected_update_count:
+        raise GateError('Candidate monthly verified-update count mismatch')
+    # The generator stamps now_jst().date(); an explicit historical test asof
+    # can be older than this stamp, but a future or regressed review is unsafe.
+    try:
+        stamped = date.fromisoformat(candidate_meta['lastMonthlyReviewJST'])
+        scanned_asof = date.fromisoformat(summary['as_of_jst'])
+        old_stamp = base_meta.get('lastMonthlyReviewJST')
+        old_review = date.fromisoformat(old_stamp) if old_stamp else None
+    except (KeyError, TypeError, ValueError) as exc:
+        raise GateError('Invalid monthly review date metadata') from exc
+    today_jst = datetime.now(ZoneInfo('Asia/Tokyo')).date()
+    if stamped < scanned_asof or stamped > today_jst or (old_review and stamped < old_review):
+        raise GateError('Candidate monthly review date is outside allowed range')
 
 
 def validate_monthly(baseline, candidate, summary_file, details_file, minimum_count=1000):
@@ -74,8 +108,7 @@ def validate_monthly(baseline, candidate, summary_file, details_file, minimum_co
         raise GateError('Candidate changed published company identity or ordering')
     if meta.get('count') != len(base) or meta.get('lastMonthlyVerifiedUpdateCount') != len(expected_codes):
         raise GateError('Candidate count metadata mismatch')
-    if any(meta.get(k) != v for k, v in base_meta.items()):
-        raise GateError('Candidate overwrote established publication metadata')
+    _verify_monthly_metadata(base_meta, meta, summary, len(expected_codes))
     # No manipulation of archived demos or site runtime code.
     if base_raw.split('window.MCL_DEMOS =', 1)[-1] != cand_raw.split('window.MCL_DEMOS =', 1)[-1]:
         raise GateError('Candidate edited demo data')

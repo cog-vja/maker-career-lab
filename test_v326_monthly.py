@@ -25,13 +25,26 @@ class MonthlyV326Tests(unittest.TestCase):
         self.assertNotIn('6390',{str(r['id']) for r in rows})
         self.assertEqual(len(set(str(r['id']) for r in rows)),len(rows))
 
-    def test_live_page_claims_and_209_historical_statistics(self):
-        for p in ('index.html','company-check.html','articles/it-scm-career.html','articles/salary-market.html'):
+    def test_live_page_claims_and_snapshot_statistics(self):
+        # Articles have been refreshed to the 1,089-company October snapshot.
+        # Do not force the obsolete 209-company wording or demand the generic
+        # marketing phrase '1,000社以上' on a page showing the exact count.
+        _,_,rows,_=parse_public(ROOT/'company-data.js')
+        published=f'{len(rows):,}社'
+        pages=('index.html','company-check.html',
+               'articles/it-scm-career.html','articles/salary-market.html')
+        for p in pages:
             html=(ROOT/p).read_text(encoding='utf-8')
             self.assertNotIn('200社以上',html,p)
-            self.assertIn('1,000社以上',html,p)
-        self.assertIn('過去', (ROOT/'articles/salary-market.html').read_text(encoding='utf8'))
-        self.assertIn('集計対象：比較ツール掲載209社', (ROOT/'index.html').read_text(encoding='utf8'))
+            self.assertTrue('1,000社以上' in html or published in html,
+                            f'{p}: missing current dataset scale claim')
+        index=(ROOT/'index.html').read_text(encoding='utf-8')
+        article=(ROOT/'articles/salary-market.html').read_text(encoding='utf-8')
+        self.assertIn(published,index)
+        self.assertIn(published,article)
+        self.assertIn('集計対象：',article)
+        self.assertIn('固定集計',article)
+        self.assertIn('月次',article)
 
     def test_no_filing_keeps_published_file_unchanged(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -76,6 +89,24 @@ class MonthlyV326Tests(unittest.TestCase):
             self.assertEqual(len(rows),1089)
             self.assertEqual(rows[0]['sourceDocId'],doc)
             self.assertEqual(rows[1],parse_public(src)[2][1])
+            self.assertEqual(meta['lastMonthlyVerifiedUpdateCount'],1)
+            self.assertEqual(meta['version'],parse_public(src)[3]['version'])
+            # Tampered immutable metadata is still blocked, while legitimate
+            # monthly review bookkeeping is allowed to change.
+            bad_meta=dict(meta,version='UNAPPROVED')
+            cand.write_text(raw[:m.start(4)]+json.dumps(bad_meta,ensure_ascii=False)+raw[m.end(4):],encoding='utf-8')
+            with self.assertRaisesRegex(GateError,'publication metadata'):
+                validate_monthly(src,cand,summary,details)
+            # Reject newly invented release metadata too.
+            bad_meta=dict(meta,extraPublicationApproval='YES')
+            cand.write_text(raw[:m.start(4)]+json.dumps(bad_meta,ensure_ascii=False)+raw[m.end(4):],encoding='utf-8')
+            with self.assertRaisesRegex(GateError,'publication metadata'):
+                validate_monthly(src,cand,summary,details)
+            # Reject a regressed monthly review date.
+            bad_meta=dict(meta,lastMonthlyReviewJST='2020-01-01')
+            cand.write_text(raw[:m.start(4)]+json.dumps(bad_meta,ensure_ascii=False)+raw[m.end(4):],encoding='utf-8')
+            with self.assertRaisesRegex(GateError,'review date'):
+                validate_monthly(src,cand,summary,details)
             # Tampered row: no unrelated firm may be silently updated.
             rows[1]['averageSalary']=2000
             cand.write_text(raw[:m.start(2)]+json.dumps(rows,ensure_ascii=False)+raw[m.end(2):],encoding='utf-8')
