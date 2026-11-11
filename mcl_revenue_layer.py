@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Existing Cloudflare revenue enhancement, with SEO generation appended.
+"""Existing Cloudflare revenue enhancement, with SEO and editorial generation appended.
 
 The existing A8 creatives and analytics handlers are never modified here.
 """
@@ -117,6 +117,9 @@ def augment_output(out: Path, copied_html: list[str], root: Path) -> None:
     print('[OK] Audience landing pages / post-compare action routes / non-PII funnel assets')
 
     # Add search-intent landing pages AFTER the original, audited revenue layer.
-    # The existing cloudflare-build.py calls this hook after its sitemap creation.
     from mcl_seo_layer import augment_seo_output
     augment_seo_output(out, copied_html, root)
+
+    # Production-only editorial treatment: preserve all source HTML, data and ads.
+    from mcl_editorial_layer import augment_editorial_output
+    augment_editorial_output(out, root)
