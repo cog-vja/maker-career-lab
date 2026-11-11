@@ -29,6 +29,12 @@ def run(screenshots: Path | None = None):
         shutil.copyfile(HERE/'mcl-editorial.js',root/'mcl-editorial.js')
         shutil.copyfile(HERE/'mcl-editorial.css',root/'style.css')
         (root/'articles').mkdir()
+        # Cloudflare copies this Search Console verification token as a standalone
+        # plain-text .html file. It must not be given head/body requirements.
+        verification = root / 'google551bf0fb86f23e67.html'
+        original_verification = 'google-site-verification: google551bf0fb86f23e67.html\n'
+        verification.write_text(original_verification, encoding='utf-8')
+        (root/'404.html').write_text('plain 404 fixture', encoding='utf-8')
         (root/'index.html').write_text(fake_html('<section class="hero"><div class="container"><h1>メーカーの企業と仕事を理解する</h1></div></section><section class="section"><div class="container"><h2>企業を測る</h2></div></section>','トップ'),encoding='utf-8')
         metrics=''.join(f'<tr><td>{label}</td><td>{a}</td><td>{b}</td></tr>' for label,a,b in [
             ('営業利益率','42.3%','25.6%'),('売上成長率','11.1%','0.5%'),('営業CF／売上高','30.6%','22.1%'),('自己資本比率','78.9%','71.5%'),('平均年間給与','1,879.6万円','1,380.4万円')])
@@ -38,7 +44,9 @@ def run(screenshots: Path | None = None):
             (root/'articles'/p).write_text(fake_html(f'<main class="container"><article class="article"><h1>{p}</h1><p>本文の冒頭説明です。製造業の実務と数字を確認します。</p><h2>STEP 1｜工程の違いを知る</h2><p>本文は省略せず、この見出しから引き続き表示します。</p></article></main>',p),encoding='utf-8')
         m=load_module(HERE/'mcl_editorial_layer.py')
         m.augment_editorial_output(root,HERE)
-        assert len(list(root.rglob('*.html')))==6
+        assert len(list(root.rglob('*.html')))==8
+        assert verification.read_text(encoding='utf-8') == original_verification
+        assert (root/'404.html').read_text(encoding='utf-8') == 'plain 404 fixture'
         assert (root/'index.html').read_text().count('data-mcl-figure="home"')==1
         for name in ['industry-compare','it-scm-career','manufacturer-profit','semiconductor-equipment-salary-profit']:
             text=(root/'articles'/f'{name}.html').read_text()
@@ -50,6 +58,8 @@ def run(screenshots: Path | None = None):
         assert (root/'company-check.html').read_text().count('mcl-editorial.js')==1
         # Re-invocation should not create duplicates.
         m.augment_editorial_output(root,HERE)
+        assert verification.read_text(encoding='utf-8') == original_verification
+        assert (root/'404.html').read_text(encoding='utf-8') == 'plain 404 fixture'
         assert (root/'index.html').read_text().count('data-mcl-figure="home"')==1
         from playwright.sync_api import sync_playwright
         with sync_playwright() as playwright:

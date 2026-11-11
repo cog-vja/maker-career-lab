@@ -70,7 +70,7 @@ a{text-underline-offset:.23em}a:focus-visible,button:focus-visible,input:focus-v
 .mcl-map-figure{margin:23px 0 28px;padding:22px;border:1px solid #c6dad3;border-radius:3px;background:#fff;min-width:0}
 .mcl-map-figure *{box-sizing:border-box}
 .mcl-map-caption{font-size:1.03rem;font-weight:750;letter-spacing:-.02em;line-height:1.6;margin-bottom:15px}
-.mcl-map-figure figcaption{border-top:1px solid var(--mcl-line);margin-top:16px;padding-top:10px;color:#506875;font-size:.81rem;line-height:1.85}
+.mcl-map-figure figcaption{border-top:1px solid var(--mcl-line);margin-top:16px;padding-top:10px;color:#506875;font-size:.875rem;line-height:1.85}
 .mcl-flow-columns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .mcl-flow-node{position:relative;border-top:3px solid var(--mcl-green);background:#f5faf8;padding:13px 12px 14px;min-width:0}
 .mcl-flow-node:not(:last-child)::after{content:"›";position:absolute;color:var(--mcl-green);right:-11px;top:40%;font-size:1.4rem;font-family:Arial,sans-serif;z-index:1}
@@ -78,7 +78,7 @@ a{text-underline-offset:.23em}a:focus-visible,button:focus-visible,input:focus-v
 .mcl-flow-node strong{display:block;font-size:.95rem;line-height:1.6;overflow-wrap:anywhere}
 .mcl-flow-node small{display:block;font-size:.75rem;line-height:1.65;color:#5d7374;margin-top:7px}
 .mcl-article-figure{max-width:100%;margin:26px 0 35px;padding:18px 19px}
-.article .mcl-article-figure figcaption{font-size:.79rem;line-height:1.8}
+.article .mcl-article-figure figcaption{font-size:.86rem;line-height:1.8}
 .mcl-sector-list{border-top:1px solid var(--mcl-strong-line)}
 .mcl-sector-row{display:grid;grid-template-columns:125px 1fr 1fr;gap:14px;border-bottom:1px solid var(--mcl-line);padding:12px 0;align-items:start}
 .mcl-sector-name{font-size:.91rem;line-height:1.6;color:#176c63}
@@ -94,7 +94,7 @@ a{text-underline-offset:.23em}a:focus-visible,button:focus-visible,input:focus-v
 .mcl-role small{display:block;color:#637572;font-size:.75rem;margin-top:6px;line-height:1.65}
 .mcl-semi-flow{border:1px solid var(--mcl-line);padding:12px;background:#fbfdfc}
 .mcl-semi-flow>span{display:block;font-weight:700;font-size:.77rem;color:#286e65;margin-bottom:10px}
-.mcl-semi-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.mcl-semi-steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
 .mcl-semi-steps b{background:#eaf7f2;border-left:3px solid var(--mcl-green);font-size:.85rem;font-weight:700;text-align:center;padding:11px 5px;line-height:1.5}
 .mcl-semi-flow>small{display:block;margin-top:9px;font-size:.77rem;color:var(--mcl-muted);line-height:1.7}
 .mcl-semi-support{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}
@@ -140,10 +140,86 @@ a{text-underline-offset:.23em}a:focus-visible,button:focus-visible,input:focus-v
  .compare-result .compare-table tbody tr>td:nth-child(2),.compare-result .compare-table tbody tr>td:nth-child(3){font-family:var(--mcl-number);font-size:clamp(.85rem,3.8vw,1rem);font-weight:650;line-height:1.55;padding:9px 10px 13px;letter-spacing:-.015em;overflow-wrap:anywhere}
  .compare-result .compare-table tbody tr>td:nth-child(3){border-left:1px solid var(--mcl-line)!important}
  .compare-result .compare-table tbody tr>td:nth-child(2)::before,.compare-result .compare-table tbody tr>td:nth-child(3)::before{display:block;font-family:"Noto Sans JP",sans-serif;font-size:.74rem;font-weight:600;color:#506875;margin-bottom:5px;letter-spacing:0}
- .compare-result .compare-table tbody tr>td:nth-child(2)::before{content:"企業A"}
- .compare-result .compare-table tbody tr>td:nth-child(3)::before{content:"企業B"}
+ .compare-result .compare-table tbody tr>td:nth-child(2)::before{content:attr(data-company, "企業A")}
+ .compare-result .compare-table tbody tr>td:nth-child(3)::before{content:attr(data-company, "企業B")}
  .compare-result .compare-table .mcl-metric-delta{font-size:.7rem;line-height:1.65;font-weight:400}
  .compare-grid{display:block}.compare-panel input{font-size:16px!important}
 }
 @media(max-width:360px){.container{width:calc(100% - 32px)!important}.mcl-role-grid{grid-template-columns:1fr}.mcl-map-figure{padding:11px}.mcl-sector-row{grid-template-columns:1fr}.mcl-sector-name{grid-column:auto}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* Cycle 2: show the exact selected company above each mobile metric, without abbreviating it. */
+@media(max-width:640px){
+ .compare-result .compare-table tbody tr>td:nth-child(2)::before,
+ .compare-result .compare-table tbody tr>td:nth-child(3)::before{
+   font-size:.8rem;line-height:1.45;overflow-wrap:anywhere;word-break:normal;
+   min-height:1.6em;font-weight:700;
+ }
+ .compare-result .compare-table tbody tr>td:nth-child(2),
+ .compare-result .compare-table tbody tr>td:nth-child(3){font-variant-numeric:tabular-nums;letter-spacing:0}
+}
+
+/* Cycle 3: wide technical tables must indicate their own horizontal scroll. */
+.article .table-scroll,.mcl-seo-table-wrap{max-width:100%;overflow-x:auto!important;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#9ebbb4 #f5faf8}
+.mcl-table-swipe-hint{margin:16px 0 5px!important;color:#326c64;font-size:.86rem!important;font-weight:700;line-height:1.5!important}
+.mcl-table-swipe-hint::before{content:'↔';display:inline-block;margin-right:.45em;font-weight:700}
+.mcl-table-swipe-hint[hidden]{display:none!important}
+.article .table-scroll:focus-visible,.mcl-seo-table-wrap:focus-visible{outline:3px solid var(--mcl-green);outline-offset:3px}
+
+/* Cycle 4: technical labels and qualifications must remain legible at mobile widths. */
+.mcl-figure-kicker{font-size:.85rem}
+.mcl-flow-type,.mcl-flow-issue span,.mcl-role span,.mcl-sector-row>div>span{font-size:.82rem}
+.mcl-flow-node small,.mcl-role small,.mcl-semi-flow>small{font-size:.84rem}
+.mcl-sector-row b{font-size:.9rem}
+@media(max-width:640px){
+ .mcl-role-grid{grid-template-columns:minmax(0,1fr)}
+ .mcl-role{padding:13px 12px}
+ .mcl-role strong{font-size:.94rem}
+ .mcl-semi-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .mcl-semi-steps b:last-child{grid-column:1/-1}
+ .mcl-sector-row{grid-template-columns:minmax(0,1fr)}
+ .mcl-sector-name{grid-column:1/-1}
+ .mcl-sector-row b{font-size:.93rem}
+}
+
+/* Cycle 5: interaction, reading rhythm, and visual restraint. */
+@media(min-width:761px){
+ .article{max-width:760px}
+ .mcl-article-figure{max-width:100%}
+ .site-header nav a{display:inline-flex;align-items:center;min-height:42px}
+}
+@media(max-width:760px){
+ .site-header .nav nav{display:flex;flex-wrap:wrap;align-items:center;gap:0 16px}
+ .site-header .nav nav a{display:inline-flex;align-items:center;min-height:44px;padding-block:7px;white-space:nowrap}
+ .article .intro{font-size:1.04rem}
+ .article p,.article li{overflow-wrap:break-word}
+ .mcl-map-figure figcaption,.article .mcl-article-figure figcaption{font-size:.875rem!important}
+ .source-card,.compare-panel,.mcl-map-figure{overflow-wrap:anywhere}
+ .mcl-map-figure{max-width:100%}
+}
+/* Prefer a rule over another colored panel. Avoid reintroducing the generic card system. */
+.mcl-editorial-section .mcl-map-figure{box-shadow:none}
+.article .mcl-article-figure{box-shadow:none}
+/* Non-JS contexts still show all semantic headings and unaltered table values. */
+@media print{
+ .article .table-scroll{overflow:visible!important}
+ .mcl-table-swipe-hint{display:none!important}
+ .compare-result .compare-table{display:table!important;width:100%!important}
+ .compare-result .compare-table thead{position:static!important;width:auto;height:auto;clip:auto;overflow:visible}
+ .compare-result .compare-table tbody{display:table-row-group!important}
+ .compare-result .compare-table tbody tr{display:table-row!important}
+ .compare-result .compare-table tbody td,.compare-result .compare-table tbody th{display:table-cell!important}
+}
+
+/* Cycle 6: process/role diagram should add information rather than repeat the article table. */
+.mcl-sector-row{grid-template-columns:125px minmax(0,1.65fr) minmax(0,1fr)}
+.mcl-mini-steps{list-style:none;display:flex;align-items:stretch;gap:5px;margin:5px 0 0!important;padding:0!important}
+.mcl-mini-steps li{position:relative;flex:1;min-width:0;margin:0!important;padding:7px 7px!important;background:#f5faf8;border-left:2px solid var(--mcl-green);font-size:.83rem;line-height:1.55!important;font-weight:700}
+.mcl-mini-steps li:not(:last-child)::after{content:'›';position:absolute;right:-6px;top:calc(50% - 10px);font-family:Arial,sans-serif;font-size:17px;color:var(--mcl-green);z-index:1}
+.mcl-sector-role b{font-weight:650}
+@media(max-width:760px){
+ .mcl-sector-row{grid-template-columns:minmax(0,1fr);gap:7px}
+ .mcl-sector-role{margin-top:4px}
+ .mcl-mini-steps li{font-size:.83rem;overflow-wrap:anywhere}
+}
+@media(max-width:360px){.mcl-mini-steps{gap:3px}.mcl-mini-steps li{padding:7px 4px!important;font-size:.79rem}}

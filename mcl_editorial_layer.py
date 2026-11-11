@@ -34,14 +34,14 @@ HOME_FIGURE = '''
 
 INDUSTRY_FIGURE = '''
 <figure class="mcl-map-figure mcl-article-figure" data-mcl-figure="industry" aria-labelledby="mcl-industry-fig-title">
- <div class="mcl-figure-kicker">独自図解 01 / 産業ごとに変わる仕事の条件</div>
- <div class="mcl-map-caption" id="mcl-industry-fig-title">同じ生産管理でも、製品・市場の制約が違う</div>
+ <div class="mcl-figure-kicker">独自図解 01 / 業界で異なる工程と職種</div>
+ <div class="mcl-map-caption" id="mcl-industry-fig-title">「生産管理」という同じ職種でも、扱う製品と工程が違う</div>
  <div class="mcl-sector-list">
-  <div class="mcl-sector-row"><strong class="mcl-sector-name">半導体装置・材料</strong><div><span>製品・市場</span><b>高度な技術・顧客工程への適合</b></div><div><span>仕事上の論点</span><b>長期部材調達／設備投資サイクル</b></div></div>
-  <div class="mcl-sector-row"><strong class="mcl-sector-name">自動車・部品</strong><div><span>製品・市場</span><b>量産効率・品質・供給網</b></div><div><span>仕事上の論点</span><b>多拠点生産／原価・納期改善</b></div></div>
-  <div class="mcl-sector-row"><strong class="mcl-sector-name">食品</strong><div><span>製品・市場</span><b>ブランド・商品開発・安定供給</b></div><div><span>仕事上の論点</span><b>鮮度・期限管理／需要予測</b></div></div>
+  <div class="mcl-sector-row"><strong class="mcl-sector-name">半導体装置の例</strong><div class="mcl-sector-process"><span>装置を届けるまでの仕事</span><ol class="mcl-mini-steps"><li>部材を調達</li><li>装置を組立・調整</li><li>顧客工程で立上げ</li></ol></div><div class="mcl-sector-role"><span>関係する職種例</span><b>調達・生産技術・フィールドサービス</b></div></div>
+  <div class="mcl-sector-row"><strong class="mcl-sector-name">自動車部品の例</strong><div class="mcl-sector-process"><span>量産工程の例</span><ol class="mcl-mini-steps"><li>材料・部品を準備</li><li>加工・組立</li><li>検査・出荷</li></ol></div><div class="mcl-sector-role"><span>関係する職種例</span><b>生産管理・品質保証・生産技術</b></div></div>
+  <div class="mcl-sector-row"><strong class="mcl-sector-name">加工食品の例</strong><div class="mcl-sector-process"><span>製造・供給の例</span><ol class="mcl-mini-steps"><li>原料を受入</li><li>加工・包装</li><li>品質確認・出荷</li></ol></div><div class="mcl-sector-role"><span>関係する職種例</span><b>生産管理・品質保証・物流</b></div></div>
  </div>
- <figcaption>記事で示す典型例を整理した模式図。個々の企業の特徴や収益力を断定するものではありません。</figcaption>
+ <figcaption>工程・役割の模式例です。各企業の実際の工程や厳密な順序を示すものではありません。下の表では、市場や供給制約が仕事に与える影響を比較します。</figcaption>
 </figure>
 '''
 
@@ -77,7 +77,7 @@ SEMICON_FIGURE = '''
 <figure class="mcl-map-figure mcl-article-figure" data-mcl-figure="semiconductor" aria-labelledby="mcl-semi-fig-title">
  <div class="mcl-figure-kicker">独自図解 04 / 半導体製造装置の位置づけ</div>
  <div class="mcl-map-caption" id="mcl-semi-fig-title">半導体を作る複数の工程を、異なる装置・材料が支える</div>
- <div class="mcl-semi-flow"><span>ウェハの製造工程</span><div class="mcl-semi-steps"><b>成膜</b><b>露光</b><b>エッチング</b><b>洗浄</b></div><small>多くの工程を繰り返し、測定・検査で状態を確認する</small></div>
+ <div class="mcl-semi-flow"><span>ウェハの製造工程</span><div class="mcl-semi-steps"><b>成膜</b><b>露光</b><b>エッチング</b><b>洗浄</b><b>測定・検査</b></div><small>多くの工程を繰り返し、測定・検査で状態を確認する</small></div>
  <div class="mcl-semi-support"><div><span>装置・材料</span><strong>工程別の専用技術</strong></div><div><span>関連する職種</span><strong>開発・生産技術・品質・調達・IT</strong></div></div>
  <figcaption>工程の一部を抜粋した概念図。実際の製造順序を1周で表したものではありません。個別メーカーの担当工程は各社の公開情報をご確認ください。</figcaption>
 </figure>
@@ -89,6 +89,25 @@ FIGURES = {
     'articles/manufacturer-profit.html': PROFIT_FIGURE,
     'articles/semiconductor-equipment-salary-profit.html': SEMICON_FIGURE,
 }
+
+
+# Narrow, content-only translations. Keep the established CSS class and link markup.
+HOME_EYEBROWS = {
+    'MANUFACTURING × MARKET × CAREER': '製造業の企業・仕事・キャリア',
+    'WHY IT MATTERS': '会社を選ぶ3つの視点',
+    'DATA INSIGHT': '公開データから考える',
+    'TRY IT': '企業データを比較する',
+    'START HERE': '目的から探す',
+    'EDITORIAL': '調査・解説記事',
+    'FROM DATA TO ACTION': '調べたあとに確かめる',
+}
+
+
+def localize_home_labels(html: str) -> str:
+    for original, japanese in HOME_EYEBROWS.items():
+        pattern = r'(<div\s+class="eyebrow"\s*>)' + re.escape(original) + r'(</div>)'
+        html = re.sub(pattern, lambda m: m.group(1) + japanese + m.group(2), html, count=1)
+    return html
 
 
 def add_figure(html: str, rel: str, figure: str) -> str:
@@ -139,6 +158,7 @@ def augment_editorial_output(out: Path, root: Path) -> None:
                 figures_found.add(relative)
             continue
         if relative == 'index.html':
+            html = localize_home_labels(html)
             # Home hero is one section and contains no nested section.
             match = re.search(r'<section\b[^>]*\bclass=["\']hero["\'][\s\S]*?</section>', html)
             if not match:
