@@ -170,9 +170,20 @@ def compact_homepage(html: str) -> str:
     new_main = '<main class="mcl-home-compact">\n' + hero + '\n' + article + '\n</main>'
     output = html[:main_open.start()] + new_main + html[main_close+len('</main>'):]
     # Protect homepage-relevant behavior even when outer sections were deleted.
-    for vital in ('id="articles"','class="article-list"','mcl-home-directory','company-check.html'):
+    # Cloudflare's transform_html() rewrites local .html links to clean URLs
+    # *before* this editorial layer runs, so both URL forms must be accepted.
+    for vital in ('id="articles"', 'class="article-list"', 'mcl-home-directory'):
         if vital not in output:
-            raise RuntimeError('ホーム必須要素がありません: '+vital)
+            raise RuntimeError('ホーム必須要素がありません: ' + vital)
+    from urllib.parse import urlsplit
+    hrefs = re.findall(r'<a\b[^>]*\bhref\s*=\s*["\']([^"\']+)["\']', hero, flags=re.I)
+    def is_compare_link(href: str) -> bool:
+        parsed = urlsplit(href)
+        if parsed.netloc and parsed.netloc != 'maker-career-lab.com':
+            return False
+        return bool(re.fullmatch(r'(?:/|\./)?company-check(?:\.html)?/?', parsed.path))
+    if not any(is_compare_link(href) for href in hrefs):
+        raise RuntimeError('ホームの企業比較リンクがありません')
     return output
 
 
