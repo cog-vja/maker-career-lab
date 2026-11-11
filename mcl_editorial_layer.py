@@ -114,7 +114,18 @@ def augment_editorial_output(out: Path, root: Path) -> None:
             raise RuntimeError(f'デザイン資産が不足しています: {asset}')
         shutil.copyfile(source, out / asset)
 
-    paths = sorted(p for p in out.rglob('*.html') if p.name != '404.html')
+    # Verification tokens are intentionally plain-text .html files, not site pages.
+    # They must be published byte-for-byte and must never be decorated with CSS/JS.
+    # The 404 page is also left untouched, as in the original release.
+    def is_content_page(p: Path) -> bool:
+        rel = p.relative_to(out)
+        if rel.as_posix() == '404.html':
+            return False
+        if len(rel.parts) == 1 and re.fullmatch(r'google[A-Za-z0-9_-]+\.html', p.name):
+            return False
+        return True
+
+    paths = sorted(p for p in out.rglob('*.html') if is_content_page(p))
     if not paths:
         raise RuntimeError('デザイン対象HTMLが存在しません')
     figures_found = set()
