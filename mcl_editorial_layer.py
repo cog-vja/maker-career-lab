@@ -13,25 +13,6 @@ from pathlib import Path
 ASSETS = ('mcl-editorial.css', 'mcl-editorial.js')
 MARKER = 'data-mcl-editorial="2026-11"'
 
-HOME_FIGURE = '''
-<section class="mcl-editorial-section" aria-labelledby="mcl-editorial-home-title" data-mcl-figure="home">
- <div class="container">
-  <div class="mcl-figure-kicker"><span>図解 01</span> 製造業の企業研究</div>
-  <h2 id="mcl-editorial-home-title">企業を見る前に、製品と工程を知る。</h2>
-  <p class="mcl-figure-lead">同じメーカーでも、製品が使われる工程と、そこで求められる仕事は異なります。</p>
-  <figure class="mcl-map-figure mcl-map-figure--home">
-   <div class="mcl-map-caption">半導体製造装置メーカーを調べるときの例</div>
-   <div class="mcl-flow-columns">
-    <div class="mcl-flow-node"><span class="mcl-flow-type">製品</span><strong>成膜・洗浄・検査などの装置</strong><small>各社の製品領域は異なる</small></div>
-    <div class="mcl-flow-node"><span class="mcl-flow-type">使われる工程</span><strong>ウェハ製造・検査工程</strong><small>装置に応じて担当工程が異なる</small></div>
-    <div class="mcl-flow-node"><span class="mcl-flow-type">関わる仕事</span><strong>設計・生産技術・品質・IT／SCM</strong><small>実際の職務は求人票で確認</small></div>
-   </div>
-   <figcaption>企業研究のための概念図。特定企業の製品構成や、製造工程の厳密な順序を表すものではありません。</figcaption>
-  </figure>
- </div>
-</section>
-'''
-
 INDUSTRY_FIGURE = '''
 <figure class="mcl-map-figure mcl-article-figure" data-mcl-figure="industry" aria-labelledby="mcl-industry-fig-title">
  <div class="mcl-figure-kicker">独自図解 01 / 業界で異なる工程と職種</div>
@@ -94,13 +75,105 @@ FIGURES = {
 # Narrow, content-only translations. Keep the established CSS class and link markup.
 HOME_EYEBROWS = {
     'MANUFACTURING × MARKET × CAREER': '製造業の企業・仕事・キャリア',
-    'WHY IT MATTERS': '会社を選ぶ3つの視点',
-    'DATA INSIGHT': '公開データから考える',
-    'TRY IT': '企業データを比較する',
-    'START HERE': '目的から探す',
-    'EDITORIAL': '調査・解説記事',
-    'FROM DATA TO ACTION': '調べたあとに確かめる',
+    'EDITORIAL': '記事ガイド',
 }
+
+# Homepage is a navigation surface. Manufacturing illustrations and research
+# claims belong in content pages, where readers can examine evidence.
+ARTICLE_INDEX = (
+    ('salary-market', 'メーカー転職と年収の考え方'),
+    ('manufacturer-salary-ranking-2026', 'メーカー平均年収ランキング'),
+    ('manufacturer-operating-margin-ranking', '営業利益率が高いメーカー'),
+    ('manufacturer-profit', '収益力のあるメーカーを見極める'),
+    ('salary-correlation', '平均年収と利益の関係を分析'),
+    ('semiconductor-equipment-salary-profit', '半導体製造装置メーカーの比較'),
+    ('auto-parts-salary-profit', '自動車部品メーカーの比較'),
+    ('industry-compare', '半導体・自動車・食品の業界比較'),
+    ('manufacturing-generative-ai', '製造業における生成AI活用'),
+    ('manufacturing-ai-careers', 'AIで製造業の仕事はどう変わる？'),
+    ('it-scm-career', '製造業IT・SCMのスキル棚卸し'),
+    ('agent-guide', '転職相談の前に決めたいこと'),
+    ('manufacturer-career-checklist', '転職前のチェックリスト'),
+    ('manufacturer-engineer-agent-selection', 'メーカー技術職のサービス選び'),
+    ('science-career-market', '理系学生の企業選び'),
+    ('factory-job-guide', '工場求人の確認ポイント'),
+)
+
+
+def _top_sections(main_html: str) -> list[tuple[str, str]]:
+    """Return balanced top-level sections (nested forms/sections are respected)."""
+    tags = re.finditer(r'<section\b[^>]*>|</section\s*>', main_html, flags=re.I)
+    depth = 0
+    start = -1
+    opener = ''
+    result = []
+    for tag in tags:
+        if tag.group(0).lower().startswith('</'):
+            depth -= 1
+            if depth < 0:
+                raise RuntimeError('ホームのsection閉じタグが過剰です')
+            if depth == 0:
+                result.append((opener, main_html[start:tag.end()]))
+        else:
+            if depth == 0:
+                opener = tag.group(0)
+                start = tag.start()
+            depth += 1
+    if depth:
+        raise RuntimeError('ホームのsection閉じタグが不足しています')
+    return result
+
+
+def compact_homepage(html: str) -> str:
+    """Keep hero + article discovery only; remove repetitive home essays.
+
+    Executed after existing revenue/SEO transformations, so those legacy
+    insertion validations remain valid. Existing articles, data, ads, canonicals,
+    and non-home pages are untouched.
+    """
+    if 'class="mcl-home-compact"' in html:
+        return html
+    main_open = re.search(r'<main\b[^>]*>', html, flags=re.I)
+    if not main_open:
+        raise RuntimeError('トップのmainがありません')
+    main_close = html.find('</main>', main_open.end())
+    if main_close < 0:
+        raise RuntimeError('トップのmain終端がありません')
+    source = html[main_open.end():main_close]
+    sections = _top_sections(source)
+    hero_candidates = [section for tag, section in sections if re.search(r'\bclass=["\']hero["\']', tag)]
+    articles_candidates = [section for tag, section in sections if re.search(r'\bid=["\']articles["\']', tag)]
+    if len(hero_candidates) != 1 or len(articles_candidates) != 1 or len(sections) < 5:
+        raise RuntimeError(f'トップ構造の変更を検出: hero={len(hero_candidates)}, articles={len(articles_candidates)}, sections={len(sections)}')
+    hero, article = hero_candidates[0], articles_candidates[0]
+    hero = re.sub(r'<a\b[^>]*\bclass=["\']btn btn-outline["\'][^>]*>[\s\S]*?</a>', '', hero, count=1, flags=re.I)
+    hero = re.sub(r'(<p\b[^>]*\bclass=["\']lead["\'][^>]*>)[\s\S]*?(</p>)',
+                  r'\g<1>メーカー1,000社以上の公開財務データを比較。業界・企業・仕事の情報を、次のキャリア選択に役立てられます。\2',hero,count=1, flags=re.I)
+    hero = re.sub(r'(<p\b[^>]*\bclass=["\']micro["\'][^>]*>)[\s\S]*?(</p>)',
+                  r'\g<1>平均給与は個人の提示年収ではありません。\2', hero, count=1, flags=re.I)
+    article = re.sub(r'(<h2\b[^>]*>)[\s\S]*?(</h2>)',r'\g<1>記事を探す\2',article,count=1,flags=re.I)
+    article = re.sub(r'(<div\b[^>]*\bclass=["\']eyebrow["\'][^>]*>)[\s\S]*?(</div>)',r'\g<1>記事ガイド\2',article,count=1,flags=re.I)
+    if 'class="article-list"' not in article:
+        raise RuntimeError('記事一覧の既存リンクが見つかりません')
+    # Kept in source HTML for indexing and for users who turn JS off.
+    from html import escape
+    static_links = ''.join('<li><a href="articles/'+slug+'">'+escape(title)+'</a></li>' for slug,title in ARTICLE_INDEX)
+    directory = ('<details class="mcl-home-directory" id="mcl-home-directory">'
+                 '<summary>すべての記事を検索する <span aria-hidden="true">＋</span></summary>'
+                 '<div class="mcl-home-directory-fallback"><p>すべての記事</p><ul>'+static_links+'</ul></div>'
+                 '</details>')
+    # Article section already contains a single container. Do not change rail HTML.
+    end_container = article.rfind('</div></section>')
+    if end_container < 0:
+        raise RuntimeError('記事セクションのコンテナ末尾を確認できません')
+    article = article[:end_container] + directory + article[end_container:]
+    new_main = '<main class="mcl-home-compact">\n' + hero + '\n' + article + '\n</main>'
+    output = html[:main_open.start()] + new_main + html[main_close+len('</main>'):]
+    # Protect homepage-relevant behavior even when outer sections were deleted.
+    for vital in ('id="articles"','class="article-list"','mcl-home-directory','company-check.html'):
+        if vital not in output:
+            raise RuntimeError('ホーム必須要素がありません: '+vital)
+    return output
 
 
 def localize_home_labels(html: str) -> str:
@@ -126,7 +199,7 @@ def add_figure(html: str, rel: str, figure: str) -> str:
 
 
 def augment_editorial_output(out: Path, root: Path) -> None:
-    """Add editorial CSS, accessible diagrams and compact 2-company mobile tables."""
+    """Add editorial CSS, content-specific diagrams and compact homepage."""
     for asset in ASSETS:
         source = root / asset
         if not source.is_file():
@@ -152,19 +225,12 @@ def augment_editorial_output(out: Path, root: Path) -> None:
         relative = path.relative_to(out).as_posix()
         html = path.read_text(encoding='utf-8')
         if MARKER in html:
-            if relative == 'index.html' and 'data-mcl-figure="home"' in html:
-                figures_found.add(relative)
             if relative in FIGURES and 'data-mcl-figure=' in html:
                 figures_found.add(relative)
             continue
         if relative == 'index.html':
             html = localize_home_labels(html)
-            # Home hero is one section and contains no nested section.
-            match = re.search(r'<section\b[^>]*\bclass=["\']hero["\'][\s\S]*?</section>', html)
-            if not match:
-                raise RuntimeError('トップページのヒーローが見つかりません')
-            html = html[:match.end()] + '\n' + HOME_FIGURE + html[match.end():]
-            figures_found.add(relative)
+            html = compact_homepage(html)
         if relative in FIGURES:
             html = add_figure(html, relative, FIGURES[relative])
             figures_found.add(relative)
@@ -175,7 +241,7 @@ def augment_editorial_output(out: Path, root: Path) -> None:
         html = html.replace('</body>', f'<script src="{prefix}mcl-editorial.js" defer></script></body>', 1)
         path.write_text(html, encoding='utf-8')
 
-    required = set(FIGURES) | {'index.html'}
+    required = set(FIGURES)
     if not required.issubset(figures_found):
         raise RuntimeError('図解の対象HTMLが足りません: ' + ', '.join(sorted(required - figures_found)))
     print(f'[OK] Editorial: {len(paths)} HTML / {len(figures_found)} diagrams / assets {len(ASSETS)}')

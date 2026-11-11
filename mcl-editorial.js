@@ -51,3 +51,29 @@
  decorateArticleTables();
  window.addEventListener('resize',decorateArticleTables,{passive:true});
 })();
+
+/* Homepage: keep article discovery directly below the primary comparison CTA.
+ * The existing revenue script builds the category/search directory. We move
+ * that progressively-enhanced directory into a native collapsed <details>.
+ * Without JS, 16 HTML links remain in the fallback directory. */
+(()=>{'use strict';
+ function compactHomepage(){
+  const home=document.querySelector('.mcl-home-compact');
+  if(!home)return;
+  const articles=home.querySelector('#articles');
+  const directory=home.querySelector('#mcl-home-directory');
+  if(!articles||!directory)return;
+  const title=articles.querySelector('h2');
+  if(title)title.textContent='記事を探す';
+  const lead=articles.querySelector('.mcl-discovery-lead');
+  if(lead)lead.textContent='気になるテーマを左右にスワイプ。';
+  const library=articles.querySelector('.mcl-library');
+  if(library){
+   directory.append(library);
+   const fallback=directory.querySelector('.mcl-home-directory-fallback');
+   if(fallback)fallback.hidden=true;
+  }
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',compactHomepage);
+ else compactHomepage();
+})();
