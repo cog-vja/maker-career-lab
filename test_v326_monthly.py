@@ -138,6 +138,10 @@ class MonthlyV326Tests(unittest.TestCase):
         self.assertIn("cron: '23 12 5 * *'",current)
         self.assertIn('timezone: \'Asia/Tokyo\'',current)
         self.assertIn('monthly_publish_v326.py',current)
-        self.assertIn('MCL_PAGES_PUBLISH_PAT',current)
+        # The monthly workflow now proposes a reviewed PR instead of publishing.
+        self.assertIn('MCL_PDCA_PR_TOKEN',current)
+        self.assertIn('peter-evans/create-pull-request',current)
+        self.assertNotIn('MCL_PAGES_PUBLISH_PAT',current)
+        self.assertNotIn('git push origin HEAD:main',current)
 
 if __name__=='__main__':unittest.main()
