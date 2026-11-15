@@ -13,10 +13,10 @@ on:
         type: number
         default: 55
 
-# Reads the repository, writes ONLY company-data.js via a scoped PAT when safe.
-# GitHub's built-in GITHUB_TOKEN commits do not trigger branch-source Pages builds.
+# Review-only monthly updates: never push to main.
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
 
 concurrency:
   group: mcl-monthly-v326-company-data
@@ -28,11 +28,10 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 120
     steps:
-      - name: Checkout, using Pages-publishing token if configured
+      - name: Checkout without persistent write credentials
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.MCL_PAGES_PUBLISH_PAT || github.token }}
-          persist-credentials: true
+          persist-credentials: false
       - name: Python 3.12
         uses: actions/setup-python@v5
         with:
@@ -86,22 +85,34 @@ jobs:
           path: out/monthly/
           retention-days: 90
           if-no-files-found: ignore
-      - name: Commit verified changes and trigger branch-source Pages rebuild
+      - name: Prepare verified change for PR
         if: steps.validate.outputs.publish == 'true'
-        env:
-          MCL_PAGES_PUBLISH_PAT: ${{ secrets.MCL_PAGES_PUBLISH_PAT }}
         run: |
           set -euo pipefail
-          if [ -z "$MCL_PAGES_PUBLISH_PAT" ]; then
-            echo 'Verified update was prepared but not published: set MCL_PAGES_PUBLISH_PAT (Contents: Read and write)'
-            exit 1
-          fi
           cp out/monthly/company-data-VERIFIED-REVIEW.js company-data.js
           node --check company-data.js
-          test "$(git diff --name-only | wc -l | tr -d ' ')" = '1'
           test "$(git diff --name-only)" = 'company-data.js'
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- company-data.js
-          git commit -m 'chore(data): refresh source-verified monthly EDINET financials'
-          git push origin HEAD:main
+      - name: Require PR token, otherwise fail closed
+        if: steps.validate.outputs.publish == 'true'
+        env:
+          MCL_PDCA_PR_TOKEN: ${{ secrets.MCL_PDCA_PR_TOKEN }}
+        run: |
+          if [ -z "$MCL_PDCA_PR_TOKEN" ]; then
+            echo "::error::Missing MCL_PDCA_PR_TOKEN; artifact saved but nothing published"
+            exit 1
+          fi
+      - name: Propose source-verified data as PR; never deploy directly
+        if: steps.validate.outputs.publish == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.MCL_PDCA_PR_TOKEN }}
+          base: main
+          branch: automation/edinet-verified-monthly
+          delete-branch: true
+          add-paths: company-data.js
+          commit-message: "chore(data): propose source-verified EDINET refresh"
+          title: "chore(data): review source-verified monthly EDINET updates"
+          body: |
+            Changes to company-data.js are source-verified but require owner review.
+            Inspect corresponding mcl-v326-monthly Actions evidence artifact.
+            Wait for PR CI. Production remains unchanged until owner merges.

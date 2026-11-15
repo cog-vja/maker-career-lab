@@ -1,0 +1,45 @@
+name: MCL PR quality gates
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mcl-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: quality
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Existing offline EDINET regressions
+        run: python3 -m unittest -v test_v325.py test_v326_monthly.py test_pipeline.py
+      - name: Build production assets without deployment
+        run: python3 cloudflare-build.py
+      - name: Check generated artifacts and approval contract
+        run: python3 tests/test_pdca_smoke.py
+      - name: Check published JavaScript syntax
+        run: |
+          node --check dist/analytics-events.js
+          node --check dist/company-data.js
+          node --check dist/company-compare.js
+          node --check dist/mcl-editorial.js
