@@ -69,8 +69,14 @@
     }
     if (url.origin === window.location.origin && /\/company-check\.html$/.test(url.pathname) &&
         !/\/company-check\.html$/.test(window.location.pathname)) {
-      record('company_compare_link_click', { source_page: window.location.pathname });
-      record('mcl_article_to_tool_click', { source_page: window.location.pathname });
+      var sourcePage = window.location.pathname;
+      record('company_compare_link_click', { source_page: sourcePage });
+      // Include articles under /articles/ and the legacy guides at the site root.
+      var isArticle = /\/articles\/[^/]+\/?$/.test(sourcePage) ||
+        /\/(?:agent-guide|career-options|industry-compare|it-scm-career|manufacturer-profit|salary-market)(?:\.html)?\/?$/.test(sourcePage);
+      if (isArticle) {
+        record('mcl_article_to_tool_click', { source_page: sourcePage });
+      }
     }
   });
 
@@ -175,10 +181,13 @@
   onReady(function () {
     addRelatedHeadingLinks();
     addHomepageArticles();
-    // Missing data or a blocked data script should never be counted as a successful comparison.
+  });
+  // This deferred script runs before the deferred company-data.js. At
+  // DOMContentLoaded the data script has either completed or failed.
+  document.addEventListener('DOMContentLoaded', function () {
     if (/\/company-check\.html$/.test(window.location.pathname) &&
         (!Array.isArray(window.MCL_COMPANIES) || window.MCL_COMPANIES.length === 0)) {
       record('mcl_data_load_error', { tool: 'company_check' });
     }
-  });
+  }, { once: true });
 })();

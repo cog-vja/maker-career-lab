@@ -5,6 +5,7 @@ These checks validate output contracts, NOT real browser/GA4 event receipt.
 from pathlib import Path
 from xml.etree import ElementTree as ET
 import re
+import subprocess
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -41,6 +42,14 @@ class PublicBuildSmoke(unittest.TestCase):
         self.assertNotIn("G-GKLVPVKKZ4", js)
         for event in ("company_compare_link_click", "mcl_article_to_tool_click", "company_compare_complete", "affiliate_click"):
             self.assertIn(event, js)
+
+    def test_built_analytics_event_behavior(self):
+        result = subprocess.run(
+            ["node", "--test", str(ROOT / "tests" / "analytics-events.test.cjs")],
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
     def test_no_internal_release_files(self):
         forbidden = {".git", ".github", ".env", "AGENTS.md", "README-PDCA.md"}
