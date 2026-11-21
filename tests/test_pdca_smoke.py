@@ -51,6 +51,21 @@ class PublicBuildSmoke(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
+    def test_google_tag_bootstrap(self):
+        for path in DIST.rglob("*.html"):
+            if path.name in ("404.html", "google551bf0fb86f23e67.html"):
+                continue
+            with self.subTest(path=path):
+                html = path.read_text(encoding="utf-8")
+                self.assertEqual(html.count("gtag/js?id=GT-KT5GGMBR"), 1)
+                self.assertNotIn("gtag/js?id=G-", html)
+                self.assertIn(
+                    'window["ga-disable-G-GKLVPVKKZ4"]=true;'
+                    'gtag("config","GT-KT5GGMBR");'
+                    'window.__mclGa4NewDestinationConfigured=true',
+                    html,
+                )
+
     def test_no_internal_release_files(self):
         forbidden = {".git", ".github", ".env", "AGENTS.md", "README-PDCA.md"}
         for path in DIST.rglob("*"):
