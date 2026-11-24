@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import math
+import os
 import re
 import shutil
 from html import escape
@@ -39,6 +40,7 @@ PHASE1_ARTICLES = {
 PHASE1_PUBLISHED = "2026-11-24"
 PHASE1_REVISED = "2026-11-24"
 FINANCIAL_TABLE_MARKER = "<!-- MCL_PHASE1_FINANCIAL_TABLE -->"
+AFFILIATE_MARKER = "<!-- MCL_PHASE1_AFFILIATE -->"
 
 # Strict allowlist: these are the ONLY root assets that go online.
 ROOT_HTML = (
@@ -198,6 +200,26 @@ def add_phase1_dates(html: str) -> str:
 
     return re.sub(r'(<script type="application/ld\+json">)(.*?)(</script>)',
                   stamp_article, html, flags=re.S)
+
+
+def phase1_affiliate_creative(comparison: bool, preview: bool) -> str:
+    if preview:
+        return '<p class="mcl-phase1-ad-preview">プレビューでは広告リンクと計測を停止しています。</p>'
+
+    if comparison:
+        # The compact One Career creative is also used by the existing widget.
+        source = (ROOT / "onecareer-ads.js").read_text(encoding="utf-8")
+        pattern = r'class="mcl-onecareer-floating__ad">\s*(<a\b[^>]*>\s*<img\b[^>]*></a>\s*<img\b[^>]*>)\s*</div>'
+        program = "onecareer"
+    else:
+        source = (ROOT / "articles" / "manufacturer-engineer-agent-selection.html").read_text(encoding="utf-8")
+        pattern = r'class="mcl-makersjob-action">\s*(<a\b[^>]*>[^<]+</a>)\s*</p>\s*(<img\b[^>]*>)'
+        program = "makersjob"
+    matches = list(re.finditer(pattern, source))
+    if len(matches) != 1 or 'href="https://px.a8.net/svt/ejp?' not in matches[0][1]:
+        raise RuntimeError(f"Phase 1広告の既存素材を一意に確認できません: {program}")
+    # Keep the complete anchor, banner (if present), and impression image intact.
+    return f'<div class="mcl-phase1-ad-direct mcl-phase1-ad-{program}">' + "\n".join(matches[0].groups()) + "</div>"
 
 
 def as_clean_url(url: str) -> str:
@@ -451,6 +473,9 @@ def build() -> None:
     if absent:
         raise RuntimeError("今回の新規記事が不足しています: " + ", ".join(absent))
     dataset = assert_dataset(ROOT / "company-data.js")
+    # Workers Builds exposes the checked-out branch. A8 creatives must stay
+    # inactive on unregistered preview domains. Local builds support offline tests.
+    preview = os.environ.get("WORKERS_CI_BRANCH", "main") != "main"
     # Validate before replacing any previous dist tree.
     if OUT.exists():
         shutil.rmtree(OUT)
@@ -464,6 +489,11 @@ def build() -> None:
         if item.parent.name == "articles":
             if item.stem in PHASE1_ARTICLES:
                 html = add_phase1_dates(html)
+                if html.count(AFFILIATE_MARKER) != 1:
+                    raise RuntimeError(f"Phase 1広告の配置が一意ではありません: {relative}")
+                html = html.replace(AFFILIATE_MARKER, phase1_affiliate_creative(
+                    item.stem in COMPARISON_ARTICLES, preview,
+                ))
             if item.stem in COMPARISON_ARTICLES:
                 html = build_financial_table(html, COMPARISON_ARTICLES[item.stem], dataset)
         dest.write_text(html, encoding="utf-8")
