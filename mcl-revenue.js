@@ -2,7 +2,7 @@
 (function(){
  'use strict';
  const allowed = new Set([
-  'home_checklist','home_engineer','compare_checklist','compare_engineer',
+  'home_checklist','home_engineer','compare_checklist','compare_engineer','compare_onecareer',
   'student_services',
   'article_checklist','article_engineer','checklist_compare','checklist_services',
   'engineer_compare','engineer_checklist','checklist_print','checklist_copy',
@@ -65,10 +65,14 @@
   ['salary-correlation','年収・企業','平均年収と売上・利益は関係する？','掲載企業の相関関係と注意点を検証'],
   ['semiconductor-equipment-salary-profit','年収・企業','半導体製造装置・検査関連9社を比較','半導体装置企業の給与と収益力'],
   ['auto-parts-salary-profit','年収・企業','自動車部品メーカー4社を比較','デンソーなどの年収・利益率を比較'],
+  ['fa-robotics-maker-comparison','年収・企業','FA・産業用ロボットメーカー4社を比較','キーエンス・ファナック・安川電機・オムロンの年収と利益率'],
+  ['semiconductor-materials-comparison','年収・企業','半導体材料メーカー4社を比較','ウェーハ・フォトレジスト・研磨材と各社の年収・利益率'],
   ['industry-compare','年収・企業','業界を変えたらスキルは活きる？','半導体・自動車・食品の業界特性'],
   ['manufacturing-generative-ai','AI・DX','製造業の生成AI活用事例','品質保証・設計・生産管理の実践例'],
   ['manufacturing-ai-careers','AI・DX','AIで製造業の仕事はなくなる？','職種別に変わる仕事と必要な力'],
   ['it-scm-career','AI・DX','今の仕事の専門性は他社でも活かせる？','社内IT・SCMのスキルを棚卸しする'],
+  ['manufacturer-inhouse-se-career','AI・DX','メーカー社内SE・工場DXへの転職','ERP・MES・工場ITの仕事内容と募集要件'],
+  ['production-management-career','キャリア・転職','生産管理からの転職先を考える','需給管理・SCM・生産企画へのキャリアパスを比較'],
   ['agent-guide','キャリア・転職','転職相談の前に決めたいこと','希望する仕事と条件を整理する'],
   ['manufacturer-career-checklist','キャリア・転職','メーカー転職前の7項目チェックリスト','職種・勤務地・働き方を無料で整理'],
   ['manufacturer-engineer-agent-selection','キャリア・転職','メーカー技術職向け転職サービスの選び方','技術職向けの相談先を比較する'],
@@ -109,7 +113,7 @@
  controls.append(status,previous,next);
  railTop.append(railTitle,controls);
  rail.insertAdjacentElement('beforebegin',railTop);
- // Keep the homepage rail deliberately short. All 16 articles remain
+ // Keep the homepage rail deliberately short. All articles remain
  // accessible through the complete directory below, and in no-JS HTML.
  const featured=new Set([
    'salary-market','manufacturer-profit','industry-compare',

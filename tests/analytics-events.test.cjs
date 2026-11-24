@@ -8,11 +8,15 @@ const script = readFileSync(join(__dirname, '../dist/analytics-events.js'), 'utf
 
 function openPage(path) {
   const events = [];
+  const parameters = [];
   const listeners = new Map();
   const window = {
     location: new URL(path, 'https://maker-career-lab.com/'),
-    gtag(command, name) {
-      if (command === 'event') events.push(name);
+    gtag(command, name, params) {
+      if (command === 'event') {
+        events.push(name);
+        parameters.push(JSON.parse(JSON.stringify(params)));
+      }
     },
   };
   const document = {
@@ -22,7 +26,7 @@ function openPage(path) {
     addEventListener: (name, listener) => listeners.set(name, listener),
   };
   runInNewContext(script, { document, URL, window });
-  return { events, listeners, window };
+  return { events, parameters, listeners, window };
 }
 
 test('data load check waits for deferred company data', () => {
@@ -31,6 +35,50 @@ test('data load check waits for deferred company data', () => {
   page.window.MCL_COMPANIES = [{}];
   page.listeners.get('DOMContentLoaded')();
   assert.deepEqual(page.events, []);
+});
+
+function click(page, href, cta = null, placement = null) {
+  const link = {
+    getAttribute: (attr) => ({ href, 'data-mcl-cta': cta })[attr],
+    closest: (selector) => selector === placement ? link : null,
+  };
+  page.listeners.get('click')({
+    target: { closest: (selector) => selector === 'a[href]' ? link : null },
+  });
+}
+
+test('phase 1 CTA classifications are allowlisted and do not pass query strings', () => {
+  const path = '/articles/production-management-career';
+  const page = openPage(path + '?private=input');
+  click(page, '../company-check', 'compare_tool');
+  click(page, 'manufacturer-engineer-agent-selection#mcl-makersjob', 'service_guide');
+  click(page, 'https://example.test/articles/manufacturer-engineer-agent-selection', 'service_guide');
+  assert.deepEqual(page.events, [
+    'company_compare_link_click', 'mcl_article_to_tool_click', 'mcl_funnel_action',
+  ]);
+  assert.deepEqual(page.parameters, [
+    { source_page: path, cta_type: 'compare_tool' },
+    { source_page: path, cta_type: 'compare_tool' },
+    { source_page: path, cta_type: 'service_guide', content_group: 'career_decision',
+      funnel_action: 'phase1_service_guide' },
+  ]);
+});
+
+test('affiliate click records only the program and fixed placement, once', () => {
+  const url = 'https://px.a8.net/svt/ejp?a8mat=4BEHXF+78RXAA+test';
+  for (const [path, selector, placement] of [
+    ['/company-check', null, 'compare_page'],
+    ['/articles/agent-guide', 'article', 'article_inline'],
+    ['/articles/it-scm-career', '#mcl-onecareer-floating', 'floating'],
+  ]) {
+    const page = openPage(path);
+    click(page, url, null, selector);
+    assert.deepEqual(page.events, ['affiliate_click']);
+    assert.deepEqual(page.parameters, [{
+      affiliate_network: 'a8', affiliate_program: 'onecareer',
+      affiliate_placement: placement, source_page: path,
+    }]);
+  }
 });
 
 test('a failed company data load still emits an error', () => {

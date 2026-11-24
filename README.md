@@ -1,6 +1,8 @@
 # メーカーキャリアラボ 企業比較 v3
 
-全ファイルをGitHub Pagesリポジトリ直下に置けます。`index.html` がトップページ、`company-check.html` が企業比較画面です。`style.css` は共通CSSです。
+現在の本番は Cloudflare Workers Static Assets です。
+
+`python3 cloudflare-build.py` が `dist/` を生成し、公開対象を選びます。開発・リリースの手順は [AGENTS.md](AGENTS.md) と [README-PDCA.md](README-PDCA.md) を参照してください。`index.html` がトップページ、`company-check.html` が企業比較画面です。`style.css` は共通CSSです。
 
 ## v3の追加
 - `edinet_pipeline.py`: EDINET APIで有価証券報告書を発見し、CSV ZIPから財務候補を抽出（標準ライブラリのみ）
@@ -9,10 +11,10 @@
 - `company-check.html`: v3の収録状態・注意事項
 - `validate_data.py`: 公開前検証を強化
 
-**承認済みの実在企業データは0社です。** EDINET APIキーがなく、一次資料との照合を実施していないため、数値の自動公開はしません。会社名だけで実在企業を比較するには、まずデータ登録が必要です。架空デモは利用できます。
+現在の比較データは、EDINET原本と照合済みの1,000社以上を `company-data.js` で提供しています。月次の追加・差し替えは専用ワークフローでレビュー用PRにし、公開前に確認します。
 
-### GitHubにアップロードするファイル
-解凍した全ファイルをリポジトリ直下に置いて構いません。PythonファイルはGitHub Pages上では実行されません。APIキーをリポジトリに追加しないでください。
+### 開発とデータ取得
+Pythonのビルドと検証はローカルまたはCIで実行します。APIキーをリポジトリに追加しないでください。
 
 詳しい手順: `V3-DATA-OPERATIONS.md`。
 

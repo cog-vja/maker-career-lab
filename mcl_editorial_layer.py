@@ -97,6 +97,10 @@ ARTICLE_INDEX = (
     ('manufacturer-engineer-agent-selection', 'メーカー技術職のサービス選び'),
     ('science-career-market', '理系学生の企業選び'),
     ('factory-job-guide', '工場求人の確認ポイント'),
+    ('production-management-career', '生産管理からの転職先を考える'),
+    ('manufacturer-inhouse-se-career', 'メーカー社内SE・工場DXへの転職'),
+    ('fa-robotics-maker-comparison', 'FA・産業用ロボットメーカー4社を比較'),
+    ('semiconductor-materials-comparison', '半導体材料メーカー4社を比較'),
 )
 
 

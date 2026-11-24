@@ -4,6 +4,7 @@ These checks validate output contracts, NOT real browser/GA4 event receipt.
 """
 from pathlib import Path
 from xml.etree import ElementTree as ET
+import json
 import re
 import subprocess
 import unittest
@@ -11,6 +12,12 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 DOMAIN = "https://maker-career-lab.com/"
+PHASE1_SLUGS = (
+    "production-management-career",
+    "manufacturer-inhouse-se-career",
+    "fa-robotics-maker-comparison",
+    "semiconductor-materials-comparison",
+)
 
 
 class PublicBuildSmoke(unittest.TestCase):
@@ -33,6 +40,50 @@ class PublicBuildSmoke(unittest.TestCase):
         self.assertGreaterEqual(len(urls), 20)
         self.assertEqual(len(urls), len(set(urls)))
         self.assertTrue(all(url and url.startswith(DOMAIN) for url in urls))
+        for slug in PHASE1_SLUGS:
+            self.assertIn(DOMAIN + "articles/" + slug, urls)
+
+    def test_phase1_article_metadata_and_discovery(self):
+        home = (DIST / "index.html").read_text(encoding="utf-8")
+        catalog = (DIST / "mcl-revenue.js").read_text(encoding="utf-8")
+        titles, descriptions = set(), set()
+        for slug in PHASE1_SLUGS:
+            with self.subTest(slug=slug):
+                html = (DIST / "articles" / (slug + ".html")).read_text(encoding="utf-8")
+                url = DOMAIN + "articles/" + slug
+                self.assertIn(f'<link rel="canonical" href="{url}"/>', html)
+                self.assertIn(f'href="articles/{slug}"', home)
+                self.assertIn(f"'{slug}'", catalog)
+                self.assertIn("BreadcrumbList", html)
+                self.assertRegex(html, r'<meta property="og:image" content="https://')
+                self.assertEqual(len(re.findall(r"<h1\b", html)), 1)
+                title = re.search(r"<title>([^<]+)</title>", html)[1]
+                description = re.search(r'<meta name="description" content="([^"]+)"', html)[1]
+                self.assertNotIn(title, titles)
+                self.assertNotIn(description, descriptions)
+                titles.add(title)
+                descriptions.add(description)
+
+    def test_phase1_comparison_tables_use_published_dataset(self):
+        js = (DIST / "company-data.js").read_text(encoding="utf-8")
+        dataset = json.loads(re.search(r"window\.MCL_COMPANIES\s*=\s*(\[[\s\S]*?\])\s*;", js)[1])
+        companies = {str(row["id"]): row for row in dataset}
+        for slug, codes in (
+            (PHASE1_SLUGS[2], ("6861", "6954", "6506", "6645")),
+            (PHASE1_SLUGS[3], ("4063", "3436", "4186", "5384")),
+        ):
+            html = (DIST / "articles" / (slug + ".html")).read_text(encoding="utf-8")
+            self.assertNotIn("MCL_PHASE1_FINANCIAL_TABLE", html)
+            self.assertIn('scope="col">平均年間給与（万円）', html)
+            for code in codes:
+                with self.subTest(slug=slug, code=code):
+                    row = companies[code]
+                    self.assertIn("（" + code + "）</th>", html)
+                    self.assertIn(row["sourceDocId"], html)
+                    self.assertIn(row["period"], html)
+                    salary = row.get("averageSalary")
+                    expected = f"{salary:,.1f}" if salary is not None else "未取得"
+                    self.assertIn(f"<td>{expected}</td>", html)
 
     def test_built_analytics_route_compatibility(self):
         js = (DIST / "analytics-events.js").read_text(encoding="utf-8")

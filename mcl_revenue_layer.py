@@ -33,19 +33,6 @@ HOME_BLOCK = '''
 </section>
 '''
 
-COMPARE_BLOCK = '''
-<section id="mcl-after-comparison" class="mcl-revenue-after" aria-labelledby="mcl-next-heading">
- <h2 id="mcl-next-heading">比較した数字を、応募前の確認事項に変える</h2>
- <p>利益率が高い会社でも、希望職種の年収・転勤・評価制度が合うとは限りません。比較後は条件を確認しましょう。</p>
- <ol><li>候補2社の<strong>希望職種の求人票</strong>を確認する</li>
-     <li>勤務地、転勤、手当、残業、昇給・配属制度を比べる</li>
-     <li>応募するか決める前に、条件の優先順位を整理する</li></ol>
- <p><a data-mcl-funnel="compare_checklist" class="mcl-revenue-link" href="articles/manufacturer-career-checklist">7項目の無料チェックリストへ</a>　
- <a data-mcl-funnel="compare_engineer" href="articles/manufacturer-engineer-agent-selection">技術職のサービス選びへ</a></p>
- <p class="mcl-revenue-small">本ツールの企業データと、広告掲載・収益は独立しています。</p>
-</section>
-'''
-
 ARTICLE_BLOCK = '''
 <aside class="mcl-revenue-aside" aria-label="関連する無料ガイド">
  <strong>企業比較から、具体的な求人確認まで</strong>
@@ -89,9 +76,6 @@ def augment_output(out: Path, copied_html: list[str], root: Path) -> None:
         if name == 'index.html':
             html = insert_once(html, '<section id="start-here"', HOME_BLOCK,
                                'id="career-next-step"', 'トップページ')
-        elif name == 'company-check.html':
-            html = insert_once(html, '<section class="mcl-onecareer-end"', COMPARE_BLOCK,
-                               'id="mcl-after-comparison"', '企業比較ページ')
         elif name in ('articles/agent-guide.html', 'articles/it-scm-career.html'):
             html = insert_once(html, '</article>', ARTICLE_BLOCK,
                                'class="mcl-revenue-aside"', name)

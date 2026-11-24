@@ -52,6 +52,8 @@
     var url;
     try { url = new URL(href, window.location.href); }
     catch (_e) { return; }
+    var sourcePage = window.location.pathname;
+    var cta = link.getAttribute('data-mcl-cta');
 
     if (url.hostname === 'px.a8.net' && url.pathname.startsWith('/svt/ejp')) {
       var program = 'other';
@@ -60,22 +62,37 @@
       else if (code.indexOf('78RXAA') !== -1 && code.indexOf('4BEHXF') !== -1) program = 'onecareer';
       else if (code.indexOf('6Z8ZLU') !== -1) program = 'factory_jobs';
       else if (code.indexOf('7JHQ6A') !== -1) program = 'science_students';
+      var placement = 'other';
+      if (link.closest('#mcl-onecareer-floating')) placement = 'floating';
+      else if (/\/company-check\.html$/.test(sourcePage)) placement = 'compare_page';
+      else if (link.closest('article')) placement = 'article_inline';
       record('affiliate_click', {
         affiliate_network: 'a8',
         affiliate_program: program,
-        source_page: window.location.pathname
+        affiliate_placement: placement,
+        source_page: sourcePage
       });
       return;
     }
+    if (url.origin === window.location.origin && cta === 'service_guide' &&
+        /\/articles\/(?:manufacturer-engineer-agent-selection|agent-guide)\.html$/.test(url.pathname)) {
+      record('mcl_funnel_action', {
+        funnel_action: 'phase1_service_guide',
+        cta_type: 'service_guide',
+        content_group: 'career_decision',
+        source_page: sourcePage
+      });
+    }
     if (url.origin === window.location.origin && /\/company-check\.html$/.test(url.pathname) &&
-        !/\/company-check\.html$/.test(window.location.pathname)) {
-      var sourcePage = window.location.pathname;
-      record('company_compare_link_click', { source_page: sourcePage });
+        !/\/company-check\.html$/.test(sourcePage)) {
+      var params = { source_page: sourcePage };
+      if (cta === 'compare_tool') params.cta_type = 'compare_tool';
+      record('company_compare_link_click', params);
       // Include articles under /articles/ and the legacy guides at the site root.
       var isArticle = /\/articles\/[^/]+\/?$/.test(sourcePage) ||
         /\/(?:agent-guide|career-options|industry-compare|it-scm-career|manufacturer-profit|salary-market)(?:\.html)?\/?$/.test(sourcePage);
       if (isArticle) {
-        record('mcl_article_to_tool_click', { source_page: sourcePage });
+        record('mcl_article_to_tool_click', params);
       }
     }
   });
