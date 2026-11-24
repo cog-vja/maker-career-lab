@@ -5,6 +5,7 @@ These checks validate output contracts, NOT real browser/GA4 event receipt.
 from pathlib import Path
 from xml.etree import ElementTree as ET
 import json
+import os
 import re
 import subprocess
 import unittest
@@ -111,6 +112,30 @@ class PublicBuildSmoke(unittest.TestCase):
                     salary = row.get("averageSalary")
                     expected = f"{salary:,.1f}" if salary is not None else "未取得"
                     self.assertIn(f"<td>{expected}</td>", html)
+
+    def test_phase1_affiliate_reuses_intact_creative(self):
+        makers = (ROOT / "articles" / "manufacturer-engineer-agent-selection.html").read_text(encoding="utf-8")
+        onecareer = (ROOT / "onecareer-ads.js").read_text(encoding="utf-8")
+        preview = os.environ.get("WORKERS_CI_BRANCH", "main") != "main"
+        for index, slug in enumerate(PHASE1_SLUGS):
+            with self.subTest(slug=slug):
+                html = (DIST / "articles" / (slug + ".html")).read_text(encoding="utf-8")
+                self.assertNotIn("MCL_PHASE1_AFFILIATE", html)
+                self.assertEqual(html.count('class="cta mcl-phase1-ad"'), 1)
+                self.assertIn("PR｜アフィリエイト広告", html)
+                self.assertIn('data-mcl-cta="service_guide"', html)
+                self.assertNotIn("onecareer-ads.js", html)
+                if preview:
+                    self.assertIn('class="mcl-phase1-ad-preview"', html)
+                    self.assertNotIn(".a8.net", html)
+                    continue
+                ads = re.findall(r'<a href="https://px\.a8\.net/[^"]+"[^>]*>.*?</a>', html, re.S)
+                self.assertEqual(len(ads), 1)
+                images = re.findall(r'<img\b[^>]*\.a8\.net[^>]*>', html)
+                self.assertEqual(len(images), 1 if index < 2 else 2)
+                source = makers if index < 2 else onecareer
+                for tag in (*ads, *images):
+                    self.assertIn(tag, source)
 
     def test_built_analytics_route_compatibility(self):
         js = (DIST / "analytics-events.js").read_text(encoding="utf-8")
