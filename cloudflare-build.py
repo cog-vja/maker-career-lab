@@ -31,6 +31,13 @@ COMPARISON_ARTICLES = {
     "fa-robotics-maker-comparison": ("6861", "6954", "6506", "6645"),
     "semiconductor-materials-comparison": ("4063", "3436", "4186", "5384"),
 }
+PHASE1_ARTICLES = {
+    "production-management-career", "manufacturer-inhouse-se-career", *COMPARISON_ARTICLES,
+}
+# The original main deployment completed at 22:52 JST on November 24.
+# The revision date records an editorial edit, independent of rollout time.
+PHASE1_PUBLISHED = "2026-11-24"
+PHASE1_REVISED = "2026-11-24"
 FINANCIAL_TABLE_MARKER = "<!-- MCL_PHASE1_FINANCIAL_TABLE -->"
 
 # Strict allowlist: these are the ONLY root assets that go online.
@@ -64,16 +71,34 @@ def assert_dataset(source: Path) -> list[dict]:
     return data
 
 
+def financial_range(values, number_format):
+    """Describe the endpoints at the same precision as the displayed table."""
+    if len(values) < 2:
+        return None
+    ordered = [(name, format(value, number_format)) for name, value in sorted(values, key=lambda row: row[1])]
+    low = ordered[0][1]
+    high = ordered[-1][1]
+    if low == high:
+        return f"掲載値は表示桁でいずれも {low}"
+    low_names = "・".join(name for name, value in ordered if value == low)
+    high_names = "・".join(name for name, value in ordered if value == high)
+    return f"{low_names}の {low} から、{high_names}の {high}"
+
+
 def build_financial_table(html: str, codes: tuple[str, ...], dataset: list[dict]) -> str:
     if html.count(FINANCIAL_TABLE_MARKER) != 1:
         raise RuntimeError(f"財務比較表の差し込み位置が一意ではありません: {codes}")
     companies = {str(row["id"]): row for row in dataset}
     rows = []
+    sources = []
     standards = {"JP_GAAP": "日本基準", "IFRS": "IFRS", "US_GAAP": "米国基準"}
+    salary_values = []
+    margins_by_standard = {standard: [] for standard in standards}
 
     def number(value):
         return type(value) in (int, float) and math.isfinite(value)
 
+    show_age = any(number(companies.get(code, {}).get("averageAge")) for code in codes)
     for code in codes:
         company = companies.get(code)
         if not company:
@@ -83,6 +108,7 @@ def build_financial_table(html: str, codes: tuple[str, ...], dataset: list[dict]
             r"[0-9a-f]{64}", company.get("sourceSha256") or ""
         ):
             raise RuntimeError(f"比較記事の出典情報を確認できません: {code}")
+        name = escape(company["name"])
         revenue = company.get("revenue")
         profit = company.get("operatingProfit")
         salary = company.get("averageSalary")
@@ -92,35 +118,86 @@ def build_financial_table(html: str, codes: tuple[str, ...], dataset: list[dict]
         salary_scope = company.get("salaryScope") or "範囲未記録"
         # Use the vetted operating-profit field only. Never substitute net
         # income, segment profit, adjusted profit, or another definition.
-        margin = (
-            f"{100 * profit / revenue:,.2f}%"
-            if standard in standards and number(revenue) and revenue > 0 and number(profit)
-            else "未取得"
-        )
+        margin = "未取得"
+        if standard in standards and number(revenue) and revenue > 0 and number(profit):
+            calculated = 100 * profit / revenue
+            margin = f"{calculated:,.2f}%"
+            margins_by_standard[standard].append((name, calculated))
         revenue_label = f"{revenue:,.2f}" if number(revenue) else "未取得"
         salary_label = f"{salary:,.1f}" if number(salary) else "未取得"
+        if number(salary) and salary_scope == "提出会社単体":
+            salary_values.append((name, salary))
         age_label = f"{age:,.1f}" if number(age) else "未取得"
+        age_cell = f"<td>{age_label}</td>" if show_age else ""
         period = escape(company.get("period") or "未記録")
         verified = escape(company.get("verifiedAt") or "記録なし")
         rows.append(
-            f'<tr><th scope="row">{escape(company["name"])}（{code}）</th>'
-            f"<td>{revenue_label}</td><td>{margin}</td><td>{salary_label}</td>"
-            f"<td>{age_label}</td>"
-            f'<td>{period}<br>{escape(standards.get(standard, "会計基準未記録"))}'
-            f"<br>{escape(scope)}<br>給与：{escape(salary_scope)}</td>"
-            f'<td><a href="https://disclosure2.edinet-fsa.go.jp/">{doc_id}</a>'
-            f"<br>照合日：{verified}</td></tr>"
+            f'<tr><th scope="row">{name}（{code}）</th>'
+            f"<td>{salary_label}</td><td>{margin}</td><td>{revenue_label}</td>{age_cell}</tr>"
+        )
+        sources.append(
+            f"<dt>{name}（{code}）</dt><dd>通期：{period} ／ "
+            f'{escape(standards.get(standard, "会計基準未記録"))}<br>'
+            f"財務：{escape(scope)} ／ 給与：{escape(salary_scope)}<br>"
+            f'EDINET書類ID：<a href="https://disclosure2.edinet-fsa.go.jp/">{doc_id}</a> ／ '
+            f"照合日：{verified}</dd>"
         )
 
-    headings = ("提出会社（証券コード）", "売上高・売上収益（億円）", "営業利益率",
-                "平均年間給与（万円）", "平均年齢（歳）", "通期・会計基準・範囲", "EDINET書類ID")
+    headings = ["提出会社（証券コード）", "平均年間給与（万円）", "営業利益率", "売上高・売上収益（億円）"]
+    if show_age:
+        headings.append("平均年齢（歳）")
     header = "".join(f'<th scope="col">{heading}</th>' for heading in headings)
+    age_attr = " data-mcl-average-age" if show_age else ""
     table = (
-        '<div class="table-scroll" tabindex="0" role="region" aria-labelledby="mcl-financial-caption">'
-        '<table class="mcl-financial-table"><caption id="mcl-financial-caption">有価証券報告書に基づく4社の通期比較</caption>'
+        '<p class="mcl-table-swipe-hint" id="mcl-financial-scroll-hint">狭い画面では表を横にスクロールできます</p>'
+        '<div class="table-scroll" tabindex="0" role="region" aria-labelledby="mcl-financial-caption" '
+        'aria-describedby="mcl-financial-scroll-hint">'
+        f'<table class="mcl-financial-table"{age_attr}>'
+        '<caption id="mcl-financial-caption">有価証券報告書に基づく4社の通期比較</caption>'
         f"<thead><tr>{header}</tr></thead><tbody>{''.join(rows)}</tbody></table></div>"
+        '<details class="mcl-financial-sources"><summary>決算期・会計基準・EDINETの出典を確認</summary>'
+        f"<dl>{''.join(sources)}</dl></details>"
     )
-    return html.replace(FINANCIAL_TABLE_MARKER, table)
+
+    findings = []
+    salary_range = financial_range(salary_values, ",.1f")
+    if salary_range:
+        findings.append(f"<li>提出会社単体の平均年間給与は {salary_range} 万円です。</li>")
+    for standard, margins in margins_by_standard.items():
+        margin_range = financial_range(margins, ",.2f")
+        if margin_range:
+            findings.append(f"<li>{standards[standard]}の{len(margins)}社では、営業利益率は {margin_range}％です。</li>")
+    comparison = ""
+    if findings:
+        comparison = (
+            '<div class="keypoint" id="mcl-financial-findings">'
+            '<strong>表から読み取れる差</strong>'
+            f"<ul>{''.join(findings)}</ul>"
+            "<p>利益率の比較は会計基準が同じ企業に絞っています。"
+            "決算期や事業構成、給与集計に含まれる社員の構成は企業ごとに異なります。</p></div>"
+        )
+    return html.replace(FINANCIAL_TABLE_MARKER, table + comparison)
+
+
+def add_phase1_dates(html: str) -> str:
+    heading = re.search(r"<h1\b[^>]*>.*?</h1>", html, re.S)
+    if heading is None:
+        raise RuntimeError("Phase 1記事の見出しがありません")
+    dates = (
+        f'\n<p class="muted" id="mcl-article-dates">公開日 <time datetime="{PHASE1_PUBLISHED}">{PHASE1_PUBLISHED}</time>'
+        f' ／ 最終更新日 <time datetime="{PHASE1_REVISED}">{PHASE1_REVISED}</time></p>'
+    )
+    html = html[:heading.end()] + dates + html[heading.end():]
+
+    def stamp_article(match):
+        data = json.loads(match[2])
+        if data.get("@type") != "Article":
+            return match[0]
+        data.update(datePublished=PHASE1_PUBLISHED, dateModified=PHASE1_REVISED)
+        return match[1] + json.dumps(data, ensure_ascii=False) + match[3]
+
+    return re.sub(r'(<script type="application/ld\+json">)(.*?)(</script>)',
+                  stamp_article, html, flags=re.S)
 
 
 def as_clean_url(url: str) -> str:
@@ -175,10 +252,9 @@ def transform_html(html: str, path: Path) -> str:
         html,
         flags=re.I,
     )
-    # Present both new sector-article links in the initial HTML, not only after
-    # analytics-events.js executes. Its existing IDs prevent duplicate inserts.
+    # Render the short featured rail in HTML so it also works without JavaScript.
     if path.relative_to(ROOT).as_posix() == "index.html":
-        html = add_static_sector_links(html)
+        html = add_featured_articles(html)
     # The published correlation report includes a sample of early-stage firms
     # with tiny revenue denominators. Show a transparent sensitivity check,
     # without deleting or silently excluding any source records.
@@ -188,35 +264,33 @@ def transform_html(html: str, path: Path) -> str:
 
 
 
-def add_static_sector_links(html: str) -> str:
-    """Expose the 2 existing sector articles as first-response HTML links."""
-    ids = ("mcl-stage2-article-semi", "mcl-stage2-article-auto")
-    present = [name in html for name in ids]
-    if all(present):
-        return html
-    if any(present):
-        raise RuntimeError("トップページの業種比較リンクが部分的に存在します")
-    additions = (
-        '\n<a id="mcl-stage2-article-semi" class="article-tile" '
+def add_featured_articles(html: str) -> str:
+    pattern = r'(<div class="article-list">)(.*?)(</div>)'
+    matches = list(re.finditer(pattern, html, re.S))
+    if len(matches) != 1:
+        raise RuntimeError(f"記事一覧コンテナが想定外です: {len(matches)}")
+    match = matches[0]
+    existing = {
+        card[2]: card[1] for card in re.finditer(
+            r'(<a class="article-tile" href="articles/([^"/]+)">.*?</a>)', match[2], re.S
+        )
+    }
+    cards = [
+        '<a class="article-tile" href="articles/manufacturer-inhouse-se-career">'
+        '<span class="tag">製造業IT・転職</span><h3>メーカー社内SE・工場DXへの転職</h3>'
+        '<p>運用、ERP、MES、DX企画の担当範囲と求人票の見方。</p></a>',
+        '<a class="article-tile" href="articles/fa-robotics-maker-comparison">'
+        '<span class="tag">FA・企業比較</span><h3>FAメーカー4社の年収・利益率を比較</h3>'
+        '<p>キーエンス、ファナック、安川電機、オムロンの数字と仕事を比較。</p></a>',
+        *(existing[slug] for slug in ("salary-market", "manufacturer-profit", "industry-compare")),
+        '<a id="mcl-stage2-article-semi" class="article-tile" '
         'href="articles/semiconductor-equipment-salary-profit">'
         '<span class="tag">半導体関連・企業比較</span>'
         '<h3>半導体製造装置・検査関連9社の平均年収と営業利益率</h3>'
-        '<p>ディスコ・東京エレクトロンなどを比較。単体給与と連結利益率の違いも解説。</p></a>\n'
-        '<a id="mcl-stage2-article-auto" class="article-tile" '
-        'href="articles/auto-parts-salary-profit">'
-        '<span class="tag">自動車部品・企業比較</span>'
-        '<h3>自動車部品メーカー4社の年収・利益率を比較</h3>'
-        '<p>デンソー・アイシン・豊田合成・小糸製作所の数字と仕事選びの視点。</p></a>\n'
-    )
-    # Only the one article directory on the homepage is changed.
-    pattern = r'(<div\s+class=["\']article-list["\']\s*>)([\s\S]*?)(</div>)'
-    matches = list(re.finditer(pattern, html))
-    if len(matches) != 1:
-        raise RuntimeError(f"記事一覧コンテナが想定外です: {len(matches)}")
-    m = matches[0]
-    html = html[:m.start()] + m.group(1) + m.group(2) + additions + m.group(3) + html[m.end():]
-    html = html.replace("7つのキャリア・企業分析記事", "9つのキャリア・企業分析記事")
-    return html
+        '<p>ディスコ・東京エレクトロンなどを比較。単体給与と連結利益率の違いも解説。</p></a>',
+    ]
+    rail = '<div class="article-list" data-mcl-featured>' + "\n".join(cards) + match[3]
+    return html[:match.start()] + rail + html[match.end():]
 
 
 def margin_pearson(dataset: list[dict]) -> tuple[float, float, int, int]:
@@ -328,16 +402,23 @@ def transform_analytics(js: str) -> str:
 def make_sitemap(raw: str, html_paths: list[str]) -> str:
     ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
     root = ET.fromstring(raw)
-    locs = root.findall("s:url/s:loc", ns)
-    if not locs:
+    entries = root.findall("s:url", ns)
+    if not entries:
         raise RuntimeError("sitemap.xml にURLがありません")
     newlocs = []
-    for loc in locs:
-        if not (loc.text or "").startswith(OLD):
+    phase1_urls = {NEW + "articles/" + slug for slug in PHASE1_ARTICLES}
+    for entry in entries:
+        loc = entry.find("s:loc", ns)
+        if loc is None or not (loc.text or "").startswith(OLD):
             raise RuntimeError("sitemap.xml に想定外のURLがあります")
         newloc = as_clean_url(NEW + loc.text[len(OLD):])
         loc.text = newloc
         newlocs.append(newloc)
+        if newloc in phase1_urls:
+            lastmod = entry.find("s:lastmod", ns)
+            if lastmod is None:
+                lastmod = ET.SubElement(entry, f"{{{ns['s']}}}lastmod")
+            lastmod.text = PHASE1_REVISED
     expected = {NEW if p == "index.html" else NEW + p[:-5] for p in html_paths}
     # New editorial pages are included in the published sitemap automatically.
     # Never silently add arbitrary or internal HTML paths.
@@ -380,8 +461,11 @@ def build() -> None:
         dest = OUT / relative
         dest.parent.mkdir(parents=True, exist_ok=True)
         html = transform_html(item.read_text(encoding="utf-8"), item)
-        if item.parent.name == "articles" and item.stem in COMPARISON_ARTICLES:
-            html = build_financial_table(html, COMPARISON_ARTICLES[item.stem], dataset)
+        if item.parent.name == "articles":
+            if item.stem in PHASE1_ARTICLES:
+                html = add_phase1_dates(html)
+            if item.stem in COMPARISON_ARTICLES:
+                html = build_financial_table(html, COMPARISON_ARTICLES[item.stem], dataset)
         dest.write_text(html, encoding="utf-8")
         copied_html.append(relative.as_posix())
     for name in STATIC_ASSETS:

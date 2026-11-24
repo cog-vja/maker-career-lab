@@ -55,7 +55,7 @@
 /* Homepage: keep article discovery directly below the primary comparison CTA.
  * The existing revenue script builds the category/search directory. We move
  * that progressively-enhanced directory into a native collapsed <details>.
- * Without JS, 16 HTML links remain in the fallback directory. */
+ * Without JS, all HTML links remain in the fallback directory. */
 (()=>{'use strict';
  function compactHomepage(){
   const home=document.querySelector('.mcl-home-compact');

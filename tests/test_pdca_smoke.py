@@ -46,15 +46,36 @@ class PublicBuildSmoke(unittest.TestCase):
     def test_phase1_article_metadata_and_discovery(self):
         home = (DIST / "index.html").read_text(encoding="utf-8")
         catalog = (DIST / "mcl-revenue.js").read_text(encoding="utf-8")
+        sitemap = ET.parse(DIST / "sitemap.xml")
+        lastmods = {node.findtext("{*}loc"): node.findtext("{*}lastmod")
+                    for node in sitemap.findall("{*}url")}
+        featured = re.search(r'<div class="article-list" data-mcl-featured>(.*?)</div>', home, re.S)[1]
+        featured_slugs = re.findall(r'href="articles/([^"]+)"', featured)
+        self.assertEqual(len(featured_slugs), 6)
+        self.assertEqual(featured_slugs[:2], list(PHASE1_SLUGS[1:3]))
+        fallback = re.search(r'<div class="mcl-home-directory-fallback">(.*?)</div>', home, re.S)[1]
+        self.assertEqual(len(re.findall(r'<li>', fallback)), 20)
         titles, descriptions = set(), set()
         for slug in PHASE1_SLUGS:
             with self.subTest(slug=slug):
                 html = (DIST / "articles" / (slug + ".html")).read_text(encoding="utf-8")
                 url = DOMAIN + "articles/" + slug
                 self.assertIn(f'<link rel="canonical" href="{url}"/>', html)
-                self.assertIn(f'href="articles/{slug}"', home)
+                self.assertIn(f'href="articles/{slug}"', fallback)
                 self.assertIn(f"'{slug}'", catalog)
-                self.assertIn("BreadcrumbList", html)
+                structured = [json.loads(block) for block in re.findall(
+                    r'<script type="application/ld\+json">(.*?)</script>', html, re.S)]
+                article = next(item for item in structured if item["@type"] == "Article")
+                breadcrumb = next(item for item in structured if item["@type"] == "BreadcrumbList")
+                entity = article["mainEntityOfPage"]
+                self.assertEqual(entity["@id"] if isinstance(entity, dict) else entity, url)
+                self.assertEqual(breadcrumb["itemListElement"][-1]["item"], url)
+                self.assertEqual(article["datePublished"], "2026-11-24")
+                self.assertEqual(article["dateModified"], lastmods[url])
+                displayed = re.search(r'id="mcl-article-dates">(.*?)</p>', html, re.S)[1]
+                self.assertEqual(re.findall(r'<time datetime="([^"]+)">', displayed),
+                                 [article["datePublished"], article["dateModified"]])
+                self.assertIn(f'<meta property="og:url" content="{url}">', html)
                 self.assertRegex(html, r'<meta property="og:image" content="https://')
                 self.assertEqual(len(re.findall(r"<h1\b", html)), 1)
                 title = re.search(r"<title>([^<]+)</title>", html)[1]
@@ -75,6 +96,12 @@ class PublicBuildSmoke(unittest.TestCase):
             html = (DIST / "articles" / (slug + ".html")).read_text(encoding="utf-8")
             self.assertNotIn("MCL_PHASE1_FINANCIAL_TABLE", html)
             self.assertIn('scope="col">平均年間給与（万円）', html)
+            self.assertIn('id="mcl-financial-findings"', html)
+            self.assertIn('class="mcl-financial-sources"', html)
+            self.assertEqual(
+                "平均年齢（歳）</th>" in html,
+                any(companies[code].get("averageAge") is not None for code in codes),
+            )
             for code in codes:
                 with self.subTest(slug=slug, code=code):
                     row = companies[code]
