@@ -164,9 +164,9 @@ def inject_link_sections(out: Path) -> None:
     link = '''<aside id="mcl-seo-compare" class="mcl-seo-related"><strong>一覧から比較する：</strong>
     <a href="articles/manufacturer-salary-ranking-2026">メーカー年収ランキング</a> ／
     <a href="articles/manufacturer-operating-margin-ranking">営業利益率ランキング</a></aside>'''
-    needle = '<section id="mcl-after-comparison"'
+    needle = '<section id="mcl-onecareer-comparison"'
     if source.count(needle) != 1:
-        raise RuntimeError('SEO: 既存の比較後導線位置が不明')
+        raise RuntimeError('SEO: 比較ページの関連ランキング挿入位置が不明')
     if 'id="mcl-seo-compare"' not in source:
         source = source.replace(needle, link + '\n' + needle, 1)
     if 'mcl-seo.css' not in source:

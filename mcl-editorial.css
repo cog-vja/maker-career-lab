@@ -161,6 +161,8 @@ a{text-underline-offset:.23em}a:focus-visible,button:focus-visible,input:focus-v
 
 /* Cycle 3: wide technical tables must indicate their own horizontal scroll. */
 .article .table-scroll,.mcl-seo-table-wrap{max-width:100%;overflow-x:auto!important;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#9ebbb4 #f5faf8}
+.article .mcl-financial-table{min-width:730px}
+.article .mcl-financial-table td:nth-child(-n+5){white-space:nowrap;text-align:right}
 .mcl-table-swipe-hint{margin:16px 0 5px!important;color:#326c64;font-size:.86rem!important;font-weight:700;line-height:1.5!important}
 .mcl-table-swipe-hint::before{content:'↔';display:inline-block;margin-right:.45em;font-weight:700}
 .mcl-table-swipe-hint[hidden]{display:none!important}

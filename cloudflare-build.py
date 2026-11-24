@@ -13,6 +13,7 @@ import json
 import math
 import re
 import shutil
+from html import escape
 from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 from xml.etree import ElementTree as ET
@@ -26,6 +27,11 @@ NEW = "https://maker-career-lab.com/"
 GA_OLD = "G-GKLVPVKKZ4"
 GA_NEW = "G-G3EBC7ZZQ9"
 GOOGLE_TAG = "GT-KT5GGMBR"
+COMPARISON_ARTICLES = {
+    "fa-robotics-maker-comparison": ("6861", "6954", "6506", "6645"),
+    "semiconductor-materials-comparison": ("4063", "3436", "4186", "5384"),
+}
+FINANCIAL_TABLE_MARKER = "<!-- MCL_PHASE1_FINANCIAL_TABLE -->"
 
 # Strict allowlist: these are the ONLY root assets that go online.
 ROOT_HTML = (
@@ -43,7 +49,7 @@ STATIC_ASSETS = (
 OTHER_OPTIONAL = ("google551bf0fb86f23e67.html",)
 
 
-def assert_dataset(source: Path) -> None:
+def assert_dataset(source: Path) -> list[dict]:
     text = source.read_text(encoding="utf-8")
     match = re.search(r"window\.MCL_COMPANIES\s*=\s*(\[[\s\S]*?\])\s*;", text)
     if not match:
@@ -55,6 +61,66 @@ def assert_dataset(source: Path) -> None:
     if any(str(row.get("id")) == "6390" for row in data):
         raise RuntimeError("保留企業6390が公開データに含まれています")
     print(f"[OK] 企業データ: {len(data)}社、証券コード重複なし")
+    return data
+
+
+def build_financial_table(html: str, codes: tuple[str, ...], dataset: list[dict]) -> str:
+    if html.count(FINANCIAL_TABLE_MARKER) != 1:
+        raise RuntimeError(f"財務比較表の差し込み位置が一意ではありません: {codes}")
+    companies = {str(row["id"]): row for row in dataset}
+    rows = []
+    standards = {"JP_GAAP": "日本基準", "IFRS": "IFRS", "US_GAAP": "米国基準"}
+
+    def number(value):
+        return type(value) in (int, float) and math.isfinite(value)
+
+    for code in codes:
+        company = companies.get(code)
+        if not company:
+            raise RuntimeError(f"比較記事の企業が公開データにありません: {code}")
+        doc_id = company.get("sourceDocId") or ""
+        if not re.fullmatch(r"S[A-Z0-9]{7,15}", doc_id) or not re.fullmatch(
+            r"[0-9a-f]{64}", company.get("sourceSha256") or ""
+        ):
+            raise RuntimeError(f"比較記事の出典情報を確認できません: {code}")
+        revenue = company.get("revenue")
+        profit = company.get("operatingProfit")
+        salary = company.get("averageSalary")
+        age = company.get("averageAge")
+        standard = company.get("accountingStandard")
+        scope = company.get("scope") or "範囲未記録"
+        salary_scope = company.get("salaryScope") or "範囲未記録"
+        # Use the vetted operating-profit field only. Never substitute net
+        # income, segment profit, adjusted profit, or another definition.
+        margin = (
+            f"{100 * profit / revenue:,.2f}%"
+            if standard in standards and number(revenue) and revenue > 0 and number(profit)
+            else "未取得"
+        )
+        revenue_label = f"{revenue:,.2f}" if number(revenue) else "未取得"
+        salary_label = f"{salary:,.1f}" if number(salary) else "未取得"
+        age_label = f"{age:,.1f}" if number(age) else "未取得"
+        period = escape(company.get("period") or "未記録")
+        verified = escape(company.get("verifiedAt") or "記録なし")
+        rows.append(
+            f'<tr><th scope="row">{escape(company["name"])}（{code}）</th>'
+            f"<td>{revenue_label}</td><td>{margin}</td><td>{salary_label}</td>"
+            f"<td>{age_label}</td>"
+            f'<td>{period}<br>{escape(standards.get(standard, "会計基準未記録"))}'
+            f"<br>{escape(scope)}<br>給与：{escape(salary_scope)}</td>"
+            f'<td><a href="https://disclosure2.edinet-fsa.go.jp/">{doc_id}</a>'
+            f"<br>照合日：{verified}</td></tr>"
+        )
+
+    headings = ("提出会社（証券コード）", "売上高・売上収益（億円）", "営業利益率",
+                "平均年間給与（万円）", "平均年齢（歳）", "通期・会計基準・範囲", "EDINET書類ID")
+    header = "".join(f'<th scope="col">{heading}</th>' for heading in headings)
+    table = (
+        '<div class="table-scroll" tabindex="0" role="region" aria-labelledby="mcl-financial-caption">'
+        '<table class="mcl-financial-table"><caption id="mcl-financial-caption">有価証券報告書に基づく4社の通期比較</caption>'
+        f"<thead><tr>{header}</tr></thead><tbody>{''.join(rows)}</tbody></table></div>"
+    )
+    return html.replace(FINANCIAL_TABLE_MARKER, table)
 
 
 def as_clean_url(url: str) -> str:
@@ -303,7 +369,7 @@ def build() -> None:
     absent = [p for p in REVENUE_ARTICLES if not (ROOT / p).is_file()]
     if absent:
         raise RuntimeError("今回の新規記事が不足しています: " + ", ".join(absent))
-    assert_dataset(ROOT / "company-data.js")
+    dataset = assert_dataset(ROOT / "company-data.js")
     # Validate before replacing any previous dist tree.
     if OUT.exists():
         shutil.rmtree(OUT)
@@ -313,7 +379,10 @@ def build() -> None:
         relative = item.relative_to(ROOT)
         dest = OUT / relative
         dest.parent.mkdir(parents=True, exist_ok=True)
-        dest.write_text(transform_html(item.read_text(encoding="utf-8"), item), encoding="utf-8")
+        html = transform_html(item.read_text(encoding="utf-8"), item)
+        if item.parent.name == "articles" and item.stem in COMPARISON_ARTICLES:
+            html = build_financial_table(html, COMPARISON_ARTICLES[item.stem], dataset)
+        dest.write_text(html, encoding="utf-8")
         copied_html.append(relative.as_posix())
     for name in STATIC_ASSETS:
         origin = ROOT / name
