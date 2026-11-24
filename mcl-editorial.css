@@ -175,6 +175,15 @@ a{text-underline-offset:.23em}a:focus-visible,button:focus-visible,input:focus-v
 .mcl-financial-sources summary{min-height:44px;padding:9px 0;cursor:pointer;color:var(--green);font-weight:700}
 .mcl-financial-sources dt{margin-top:8px;font-weight:700}
 .mcl-financial-sources dd{margin:0;overflow-wrap:anywhere}
+.mcl-phase1-ad-direct>a{
+ display:inline-flex;align-items:center;flex-wrap:wrap;gap:.55rem;min-height:44px;
+ max-width:100%;padding:.5rem .75rem;background:var(--green);color:#fff;
+ border-radius:4px;font-weight:700;text-decoration:none
+}
+.mcl-phase1-ad-direct>a:hover{background:#065c55;color:#fff}
+.mcl-phase1-ad-onecareer>a::after{content:"中途採用・選考情報を確認する"}
+.mcl-phase1-ad-direct>img{display:block}
+.mcl-phase1-ad-preview{font-size:.9rem;color:var(--sub)}
 .mcl-table-swipe-hint{margin:16px 0 5px!important;color:#326c64;font-size:.86rem!important;font-weight:700;line-height:1.5!important}
 .mcl-table-swipe-hint::before{content:'↔';display:inline-block;margin-right:.45em;font-weight:700}
 .mcl-table-swipe-hint[hidden]{display:none!important}
