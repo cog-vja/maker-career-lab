@@ -113,16 +113,18 @@
  controls.append(status,previous,next);
  railTop.append(railTitle,controls);
  rail.insertAdjacentElement('beforebegin',railTop);
- // Keep the homepage rail deliberately short. All articles remain
- // accessible through the complete directory below, and in no-JS HTML.
- const featured=new Set([
-   'salary-market','manufacturer-profit','industry-compare',
-   'it-scm-career','science-career-market','semiconductor-equipment-salary-profit'
- ]);
- rail.querySelectorAll('a.article-tile').forEach(a=>{
-   const slug=(a.getAttribute('href')||'').split('/').pop().replace(/\.html$/,'');
-   if(!featured.has(slug)) a.remove();
- });
+ // The Cloudflare build supplies the featured rail in HTML. Legacy pages
+ // that have no build marker still use their original featured selections.
+ if(!rail.hasAttribute('data-mcl-featured')){
+   const featured=new Set([
+     'salary-market','manufacturer-profit','industry-compare',
+     'it-scm-career','science-career-market','semiconductor-equipment-salary-profit'
+   ]);
+   rail.querySelectorAll('a.article-tile').forEach(a=>{
+     const slug=(a.getAttribute('href')||'').split('/').pop().replace(/\.html$/,'');
+     if(!featured.has(slug)) a.remove();
+   });
+ }
  const cards=Array.from(rail.querySelectorAll('a.article-tile'));
  const updateRail=()=>{
    const max=Math.max(0,rail.scrollWidth-rail.clientWidth);

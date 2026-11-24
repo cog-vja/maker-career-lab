@@ -161,8 +161,20 @@ a{text-underline-offset:.23em}a:focus-visible,button:focus-visible,input:focus-v
 
 /* Cycle 3: wide technical tables must indicate their own horizontal scroll. */
 .article .table-scroll,.mcl-seo-table-wrap{max-width:100%;overflow-x:auto!important;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#9ebbb4 #f5faf8}
-.article .mcl-financial-table{min-width:730px}
-.article .mcl-financial-table td:nth-child(-n+5){white-space:nowrap;text-align:right}
+.article .mcl-financial-table{min-width:410px;table-layout:fixed}
+.article .mcl-financial-table[data-mcl-average-age]{min-width:510px}
+.article .mcl-financial-table th,.article .mcl-financial-table td{padding:8px}
+.article .mcl-financial-table th:first-child{overflow-wrap:anywhere}
+.article .mcl-financial-table td{white-space:nowrap;text-align:right}
+@media(max-width:560px){
+ .article .mcl-financial-table thead th:first-child{width:104px}
+ .article .mcl-financial-table thead th:nth-child(2){width:100px}
+ .article .mcl-financial-table thead th:nth-child(3){width:76px}
+}
+.mcl-financial-sources{margin:16px 0}
+.mcl-financial-sources summary{min-height:44px;padding:9px 0;cursor:pointer;color:var(--green);font-weight:700}
+.mcl-financial-sources dt{margin-top:8px;font-weight:700}
+.mcl-financial-sources dd{margin:0;overflow-wrap:anywhere}
 .mcl-table-swipe-hint{margin:16px 0 5px!important;color:#326c64;font-size:.86rem!important;font-weight:700;line-height:1.5!important}
 .mcl-table-swipe-hint::before{content:'↔';display:inline-block;margin-right:.45em;font-weight:700}
 .mcl-table-swipe-hint[hidden]{display:none!important}
