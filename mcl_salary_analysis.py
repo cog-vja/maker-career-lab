@@ -85,16 +85,17 @@ def salary_distribution(salaries):
     )
 
 
-def table(caption, columns, rows):
+def table(caption, columns, rows, *, css_class=None):
     head = "".join(f'<th scope="col">{escape(column)}</th>' for column in columns)
     rendered = []
     for label, *cells in rows:
         data = "".join(f"<td>{cell}</td>" for cell in cells)
         rendered.append(f'<tr><th scope="row">{escape(label)}</th>{data}</tr>')
     safe_caption = escape(caption)
+    attribute = f' class="{css_class}"' if css_class else ""
     return (
         f'<div class="table-scroll" role="region" tabindex="0" aria-label="{safe_caption}">'
-        f"<table><caption>{safe_caption}</caption>"
+        f"<table{attribute}><caption>{safe_caption}</caption>"
         f"<thead><tr>{head}</tr></thead><tbody>{''.join(rendered)}</tbody></table></div>"
     )
 
@@ -140,7 +141,7 @@ def example_rows(examples, issuer_by_id):
         edinet = f'<a href="https://disclosure2.edinet-fsa.go.jp/">{document}</a>'
         company_profile = f'<a href="{source}">{escape(name)}の公式情報</a>'
         rows.append((
-            f"{name}（{code}）", f'{issuer["averageSalary"]:,.1f}万円',
+            f"{name}（{code}）", f'{issuer["averageSalary"]:,.1f}',
             f"{period}<br>書類ID {edinet}", company_profile,
         ))
     return rows
@@ -148,13 +149,16 @@ def example_rows(examples, issuer_by_id):
 
 def render_examples(issuers):
     by_id = {str(issuer["id"]): issuer for issuer in issuers}
-    columns = ("提出会社（証券コード）", "平均年間給与", "対象期間・出典", "会社形態の出典")
+    columns = ("提出会社（証券コード）", "平均年間給与（万円）", "対象期間・出典", "会社形態の出典")
     examples = []
     for label, companies in (
         ("事業会社", OPERATING_EXAMPLES), ("持株会社", HOLDING_EXAMPLES),
     ):
         if rows := example_rows(companies, by_id):
-            examples.append(table(f"平均年間給与が1,000万円以上の{label}の例", columns, rows))
+            examples.append(table(
+                f"平均年間給与が1,000万円以上の{label}の例", columns, rows,
+                css_class="mcl-salary-example-table",
+            ))
     if not examples:
         return ""
     return (

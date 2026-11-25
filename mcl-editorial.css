@@ -196,6 +196,8 @@ a{text-underline-offset:.23em}a:focus-visible,button:focus-visible,input:focus-v
 .mcl-salary-track,.mcl-salary-track>span{display:block;height:.5rem;border-radius:.15rem}
 .mcl-salary-track{margin-top:.2rem;background:var(--mcl-pale)}
 .mcl-salary-track>span{background:var(--mcl-green)}
+.article .mcl-salary-example-table th:nth-child(2){min-width:7em;text-wrap:balance}
+.article .mcl-salary-example-table td:nth-child(2){white-space:nowrap;font-variant-numeric:tabular-nums}
 
 /* Keep numeric comparisons in columns. Stack prose matrices on small screens. */
 @media screen and (max-width:640px){
