@@ -19,6 +19,7 @@ from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 from xml.etree import ElementTree as ET
 
+from mcl_growth_batch import BATCH1_ARTICLES, BATCH1_COMPARISONS, BATCH1_PUBLISHED, BATCH1_REVISED
 from mcl_revenue_layer import augment_output, REVENUE_ARTICLES
 
 ROOT = Path(__file__).resolve().parent
@@ -28,6 +29,7 @@ NEW = "https://maker-career-lab.com/"
 GA_OLD = "G-GKLVPVKKZ4"
 GA_NEW = "G-G3EBC7ZZQ9"
 GOOGLE_TAG = "GT-KT5GGMBR"
+BATCH1_LAST_CHANGE = max(BATCH1_REVISED, BATCH1_PUBLISHED or BATCH1_REVISED)
 COMPARISON_ARTICLES = {
     "fa-robotics-maker-comparison": ("6861", "6954", "6506", "6645"),
     "semiconductor-materials-comparison": ("4063", "3436", "4186", "5384"),
@@ -181,21 +183,25 @@ def build_financial_table(html: str, codes: tuple[str, ...], dataset: list[dict]
     return html.replace(FINANCIAL_TABLE_MARKER, table + comparison)
 
 
-def add_phase1_dates(html: str) -> str:
+def add_article_dates(html: str, published: str | None, revised: str) -> str:
     heading = re.search(r"<h1\b[^>]*>.*?</h1>", html, re.S)
     if heading is None:
-        raise RuntimeError("Phase 1記事の見出しがありません")
-    dates = (
-        f'\n<p class="muted" id="mcl-article-dates">公開日 <time datetime="{PHASE1_PUBLISHED}">{PHASE1_PUBLISHED}</time>'
-        f' ／ 最終更新日 <time datetime="{PHASE1_REVISED}">{PHASE1_REVISED}</time></p>'
-    )
+        raise RuntimeError("公開記事の見出しがありません")
+    revised_label = f'最終更新日 <time datetime="{revised}">{revised}</time>'
+    if published:
+        dates = f'公開日 <time datetime="{published}">{published}</time> ／ ' + revised_label
+    else:
+        dates = f'最終編集日 <time datetime="{revised}">{revised}</time>'
+    dates = f'\n<p class="muted" id="mcl-article-dates">{dates}</p>'
     html = html[:heading.end()] + dates + html[heading.end():]
 
     def stamp_article(match):
         data = json.loads(match[2])
         if data.get("@type") != "Article":
             return match[0]
-        data.update(datePublished=PHASE1_PUBLISHED, dateModified=PHASE1_REVISED)
+        data["dateModified"] = revised
+        if published:
+            data["datePublished"] = published
         return match[1] + json.dumps(data, ensure_ascii=False) + match[3]
 
     return re.sub(r'(<script type="application/ld\+json">)(.*?)(</script>)',
@@ -385,7 +391,7 @@ def transform_onecareer(js: str) -> str:
     return rewritten
 
 
-def configure_production_tag(path: Path) -> None:
+def configure_production_tag(path: Path, content_group: str | None = None) -> None:
     """Use the linked Google tag and suppress delivery to its legacy destination."""
     html = path.read_text(encoding="utf-8").replace(GA_OLD, GA_NEW)
     loader = f"https://www.googletagmanager.com/gtag/js?id={GA_NEW}"
@@ -394,9 +400,12 @@ def configure_production_tag(path: Path) -> None:
     html = html.replace(loader, f"https://www.googletagmanager.com/gtag/js?id={GOOGLE_TAG}")
     # The shared tag otherwise sends to both destinations. Disable the old ID
     # before config and skip the legacy script's additional config call.
+    config_args = json.dumps(GOOGLE_TAG)
+    if content_group:
+        config_args += "," + json.dumps({"content_group": content_group}, separators=(",", ":"))
     bootstrap = (
         f'window["ga-disable-{GA_OLD}"]=true;'
-        f'gtag("config","{GOOGLE_TAG}");'
+        f'gtag("config",{config_args});'
         'window.__mclGa4NewDestinationConfigured=true'
     )
     html, count = re.subn(
@@ -445,13 +454,14 @@ def make_sitemap(raw: str, html_paths: list[str]) -> str:
     # New editorial pages are included in the published sitemap automatically.
     # Never silently add arbitrary or internal HTML paths.
     additions = expected - set(newlocs)
-    allowed = {NEW + p[:-5] for p in REVENUE_ARTICLES}
+    batch1_urls = {NEW + "articles/" + slug for slug in BATCH1_ARTICLES}
+    allowed = {NEW + p[:-5] for p in REVENUE_ARTICLES} | batch1_urls
     if not additions.issubset(allowed):
         raise RuntimeError(f"sitemap: 未登録ページがあります: {sorted(additions)}")
     for url in sorted(additions):
         node = ET.SubElement(root, f"{{{ns['s']}}}url")
         ET.SubElement(node, f"{{{ns['s']}}}loc").text = url
-        ET.SubElement(node, f"{{{ns['s']}}}lastmod").text = "2026-11-03"
+        ET.SubElement(node, f"{{{ns['s']}}}lastmod").text = BATCH1_LAST_CHANGE if url in batch1_urls else "2026-11-03"
         newlocs.append(url)
     if set(newlocs) != expected or len(newlocs) != len(expected):
         raise RuntimeError(f"sitemap不一致: 実際{len(newlocs)}URL / HTML{len(expected)}件")
@@ -469,7 +479,8 @@ def build() -> None:
     article_files = sorted((ROOT / "articles").glob("*.html"))
     if len(article_files) < 8:
         raise RuntimeError("記事数が想定より少ないため中断します")
-    absent = [p for p in REVENUE_ARTICLES if not (ROOT / p).is_file()]
+    required_articles = (*REVENUE_ARTICLES, *(f"articles/{slug}.html" for slug in BATCH1_ARTICLES))
+    absent = [p for p in required_articles if not (ROOT / p).is_file()]
     if absent:
         raise RuntimeError("今回の新規記事が不足しています: " + ", ".join(absent))
     dataset = assert_dataset(ROOT / "company-data.js")
@@ -481,6 +492,7 @@ def build() -> None:
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True)
     copied_html = []
+    financial_articles = COMPARISON_ARTICLES | BATCH1_COMPARISONS
     for item in [ROOT / p for p in ROOT_HTML] + article_files:
         relative = item.relative_to(ROOT)
         dest = OUT / relative
@@ -488,14 +500,16 @@ def build() -> None:
         html = transform_html(item.read_text(encoding="utf-8"), item)
         if item.parent.name == "articles":
             if item.stem in PHASE1_ARTICLES:
-                html = add_phase1_dates(html)
+                html = add_article_dates(html, PHASE1_PUBLISHED, PHASE1_REVISED)
                 if html.count(AFFILIATE_MARKER) != 1:
                     raise RuntimeError(f"Phase 1広告の配置が一意ではありません: {relative}")
                 html = html.replace(AFFILIATE_MARKER, phase1_affiliate_creative(
                     item.stem in COMPARISON_ARTICLES, preview,
                 ))
-            if item.stem in COMPARISON_ARTICLES:
-                html = build_financial_table(html, COMPARISON_ARTICLES[item.stem], dataset)
+            if item.stem in BATCH1_ARTICLES:
+                html = add_article_dates(html, BATCH1_PUBLISHED, BATCH1_LAST_CHANGE)
+            if item.stem in financial_articles:
+                html = build_financial_table(html, financial_articles[item.stem], dataset)
         dest.write_text(html, encoding="utf-8")
         copied_html.append(relative.as_posix())
     for name in STATIC_ASSETS:
@@ -528,7 +542,8 @@ def build() -> None:
     # Includes SEO pages generated by augment_output.
     for page in OUT.rglob("*.html"):
         if page.name != "404.html" and page.name not in OTHER_OPTIONAL:
-            configure_production_tag(page)
+            batch1 = BATCH1_ARTICLES.get(page.stem) if page.parent == OUT / "articles" else None
+            configure_production_tag(page, batch1[3] if batch1 else None)
     # Extra guard: past audits / sources / internal tools must never be served.
     paths = {p.relative_to(OUT).as_posix() for p in OUT.rglob("*") if p.is_file()}
     if any(p.startswith(("site-ready/", "site-update/", "site-reference/", "fixtures/", ".github/")) for p in paths):
