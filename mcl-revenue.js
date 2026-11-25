@@ -77,7 +77,8 @@
   ['manufacturer-career-checklist','キャリア・転職','メーカー転職前の7項目チェックリスト','職種・勤務地・働き方を無料で整理'],
   ['manufacturer-engineer-agent-selection','キャリア・転職','メーカー技術職向け転職サービスの選び方','技術職向けの相談先を比較する'],
   ['science-career-market','工場・就活','理系学生がメーカーを選ぶときの考え方','業界と企業の収益力から就職を考える'],
-  ['factory-job-guide','工場・就活','工場の仕事を探す前に確認したい7つの条件','給与・夜勤・雇用形態・勤務地を確認']
+  ['factory-job-guide','工場・就活','工場の仕事を探す前に確認したい7つの条件','給与・夜勤・雇用形態・勤務地を確認'],
+  /* MCL_BATCH1_CATALOG */
  ];
  const groups=['すべて','年収・企業','AI・DX','キャリア・転職','工場・就活'];
  const el=(tag,className,text)=>{

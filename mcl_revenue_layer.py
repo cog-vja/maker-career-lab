@@ -4,9 +4,12 @@
 The existing A8 creatives and analytics handlers are never modified here.
 """
 from __future__ import annotations
+import json
 import re
 import shutil
 from pathlib import Path
+
+from mcl_growth_batch import BATCH1_ARTICLES
 
 REVENUE_ARTICLES = (
     'articles/manufacturer-career-checklist.html',
@@ -64,7 +67,16 @@ def augment_output(out: Path, copied_html: list[str], root: Path) -> None:
         src = root / asset
         if not src.is_file():
             raise RuntimeError(f'収益導線アセットが不足: {asset}')
-        shutil.copyfile(src, out / asset)
+        if asset == "mcl-revenue.js":
+            script = src.read_text(encoding="utf-8")
+            marker = "/* MCL_BATCH1_CATALOG */"
+            if script.count(marker) != 1:
+                raise RuntimeError("追加記事の一覧挿入先が一意ではありません")
+            entries = (json.dumps((slug, *fields[:3]), ensure_ascii=False)
+                       for slug, fields in BATCH1_ARTICLES.items())
+            (out / asset).write_text(script.replace(marker, ",\n  ".join(entries)), encoding="utf-8")
+        else:
+            shutil.copyfile(src, out / asset)
 
     expected = set(REVENUE_ARTICLES)
     if not expected.issubset(set(copied_html)):

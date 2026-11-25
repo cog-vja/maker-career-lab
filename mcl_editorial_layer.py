@@ -10,6 +10,8 @@ import re
 import shutil
 from pathlib import Path
 
+from mcl_growth_batch import BATCH1_ARTICLES
+
 ASSETS = ('mcl-editorial.css', 'mcl-editorial.js')
 MARKER = 'data-mcl-editorial="2026-11"'
 
@@ -101,7 +103,7 @@ ARTICLE_INDEX = (
     ('manufacturer-inhouse-se-career', 'メーカー社内SE・工場DXへの転職'),
     ('fa-robotics-maker-comparison', 'FA・産業用ロボットメーカー4社を比較'),
     ('semiconductor-materials-comparison', '半導体材料メーカー4社を比較'),
-)
+) + tuple((slug, fields[1]) for slug, fields in BATCH1_ARTICLES.items())
 
 
 def _top_sections(main_html: str) -> list[tuple[str, str]]:

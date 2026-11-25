@@ -7,6 +7,7 @@ from xml.etree import ElementTree as ET
 import json
 import os
 import re
+import runpy
 import subprocess
 import unittest
 
@@ -55,7 +56,7 @@ class PublicBuildSmoke(unittest.TestCase):
         self.assertEqual(len(featured_slugs), 6)
         self.assertEqual(featured_slugs[:2], list(PHASE1_SLUGS[1:3]))
         fallback = re.search(r'<div class="mcl-home-directory-fallback">(.*?)</div>', home, re.S)[1]
-        self.assertEqual(len(re.findall(r'<li>', fallback)), 20)
+        self.assertEqual(len(re.findall(r'<li>', fallback)), 30)
         titles, descriptions = set(), set()
         for slug in PHASE1_SLUGS:
             with self.subTest(slug=slug):
@@ -137,6 +138,46 @@ class PublicBuildSmoke(unittest.TestCase):
                 for tag in (*ads, *images):
                     self.assertIn(tag, source)
 
+    def test_batch1_metadata_and_routes(self):
+        batch = runpy.run_path(str(ROOT / "mcl_growth_batch.py"))
+        catalog = batch["BATCH1_ARTICLES"]
+        self.assertEqual(len(catalog), 10)
+        sitemap = ET.parse(DIST / "sitemap.xml")
+        lastmods = {node.findtext("{*}loc"): node.findtext("{*}lastmod")
+                    for node in sitemap.findall("{*}url")}
+        home = (DIST / "index.html").read_text(encoding="utf-8")
+        directory = re.search(r'<div class="mcl-home-directory-fallback">(.*?)</div>', home, re.S)[1]
+        script = (DIST / "mcl-revenue.js").read_text(encoding="utf-8")
+        self.assertNotIn("MCL_BATCH1_CATALOG", script)
+        for slug, (category, _, _, content_group) in catalog.items():
+            with self.subTest(slug=slug):
+                url = DOMAIN + "articles/" + slug
+                html = (DIST / "articles" / (slug + ".html")).read_text(encoding="utf-8")
+                self.assertIn(f'<link rel="canonical" href="{url}"/>', html)
+                self.assertIn(f'<meta property="og:url" content="{url}">', html)
+                self.assertIn(f'href="articles/{slug}"', directory)
+                self.assertIn(json.dumps((slug, category), ensure_ascii=False)[:-1] + ",", script)
+                self.assertEqual(len(re.findall(r"<h1\b", html)), 1)
+                options = json.dumps({"content_group": content_group}, separators=(",", ":"))
+                self.assertIn(f'gtag("config","GT-KT5GGMBR",{options});', html)
+                structured = [json.loads(block) for block in re.findall(
+                    r'<script type="application/ld\+json">(.*?)</script>', html, re.S)]
+                article = next(item for item in structured if item["@type"] == "Article")
+                breadcrumbs = next(item for item in structured if item["@type"] == "BreadcrumbList")
+                entity = article["mainEntityOfPage"]
+                self.assertEqual(entity["@id"] if isinstance(entity, dict) else entity, url)
+                self.assertEqual(breadcrumbs["itemListElement"][-1]["item"], url)
+                self.assertEqual(article.get("datePublished"), batch["BATCH1_PUBLISHED"])
+                self.assertEqual(article["dateModified"], lastmods[url])
+                self.assertIn('data-mcl-cta="service_guide"', html)
+                self.assertIn('data-mcl-cta="compare_tool"', html)
+                self.assertNotIn("px.a8.net", html)
+                if slug in batch["BATCH1_COMPARISONS"]:
+                    self.assertIn('id="mcl-financial-findings"', html)
+                    for code in batch["BATCH1_COMPARISONS"][slug]:
+                        self.assertIn(f"（{code}）</th>", html)
+                self.assertNotIn("MCL_PHASE1_FINANCIAL_TABLE", html)
+
     def test_built_analytics_route_compatibility(self):
         js = (DIST / "analytics-events.js").read_text(encoding="utf-8")
         self.assertIn(r"company-check(?:\.html)?$", js)
@@ -162,11 +203,11 @@ class PublicBuildSmoke(unittest.TestCase):
                 html = path.read_text(encoding="utf-8")
                 self.assertEqual(html.count("gtag/js?id=GT-KT5GGMBR"), 1)
                 self.assertNotIn("gtag/js?id=G-", html)
-                self.assertIn(
-                    'window["ga-disable-G-GKLVPVKKZ4"]=true;'
-                    'gtag("config","GT-KT5GGMBR");'
-                    'window.__mclGa4NewDestinationConfigured=true',
+                self.assertRegex(
                     html,
+                    r'window\["ga-disable-G-GKLVPVKKZ4"\]=true;gtag\("config","GT-KT5GGMBR"'
+                    r'(?:,\{"content_group":"batch1_(?:career|comparison|growth)"\})?\);'
+                    r'window\.__mclGa4NewDestinationConfigured=true',
                 )
 
     def test_no_internal_release_files(self):
