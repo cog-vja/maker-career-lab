@@ -87,6 +87,18 @@ test('a failed company data load still emits an error', () => {
   assert.deepEqual(page.events, ['mcl_data_load_error']);
 });
 
+test('related article click counts one internal navigation and omits query strings', () => {
+  const page = openPage('/articles/quality-assurance-career?query=synthetic');
+  click(page, '/articles/procurement-career?input=synthetic#work', 'article_related');
+  click(page, '/articles/quality-assurance-career#work', 'article_related');
+  click(page, 'https://example.test/articles/procurement-career', 'article_related');
+  click(page, '/articles/procurement-career');
+  assert.deepEqual(page.events, ['mcl_article_related_click']);
+  assert.deepEqual(page.parameters, [{
+    source_page: '/articles/quality-assurance-career', target_article: '/articles/procurement-career',
+  }]);
+});
+
 test('article-to-tool click counts only article sources', () => {
   for (const [source, target, isArticle] of [
     ['/', '/company-check', false],

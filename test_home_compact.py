@@ -52,7 +52,7 @@ with tempfile.TemporaryDirectory() as d:
  assert 'data-mcl-figure="home"' not in produced
  assert 'id="articles"' in produced
  assert 'すべての記事を検索する' in produced
- assert len(BeautifulSoup(produced,'html.parser').select('#mcl-home-directory ul li'))==30
+ assert len(BeautifulSoup(produced,'html.parser').select('#mcl-home-directory ul li'))==len(m.ARTICLE_INDEX)
  assert len(BeautifulSoup(produced,'html.parser').select('main > section'))==2
  assert (p/'google551bf0fb86f23e67.html').read_text().startswith('google-site-verification:')
  for k in m.FIGURES:assert 'data-mcl-figure' in (p/k).read_text()
@@ -104,5 +104,5 @@ with tempfile.TemporaryDirectory() as d:
    page.close();context.close()
   browser.close()
  (R/'TEST-RESULTS.json').write_text(json.dumps(checks,ensure_ascii=False,indent=2))
- print('PASS: build, 4 article diagrams, google verification, idempotency, 30 fallback links, 7 widths, collapsed directory')
+ print('PASS: build, 4 article diagrams, google verification, idempotency, registry-based fallback links, 7 widths, collapsed directory')
  for c in checks:print(c)

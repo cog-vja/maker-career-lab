@@ -189,6 +189,31 @@ a{text-underline-offset:.23em}a:focus-visible,button:focus-visible,input:focus-v
 .mcl-table-swipe-hint[hidden]{display:none!important}
 .article .table-scroll:focus-visible,.mcl-seo-table-wrap:focus-visible{outline:3px solid var(--mcl-green);outline-offset:3px}
 
+.article .mcl-salary-distribution{list-style:none;padding:0;margin:1em 0}
+.mcl-salary-distribution li+li{margin-top:.75rem}
+.mcl-salary-distribution li>div{display:flex;flex-wrap:wrap;justify-content:space-between;gap:0 .75rem}
+.mcl-salary-distribution strong{white-space:nowrap;font-variant-numeric:tabular-nums}
+.mcl-salary-track,.mcl-salary-track>span{display:block;height:.5rem;border-radius:.15rem}
+.mcl-salary-track{margin-top:.2rem;background:var(--mcl-pale)}
+.mcl-salary-track>span{background:var(--mcl-green)}
+
+/* Keep numeric comparisons in columns. Stack prose matrices on small screens. */
+@media screen and (max-width:640px){
+ .article table.mcl-prose-table{position:relative;display:block;min-width:0;width:100%;font-size:1rem;font-variant-numeric:normal}
+ .mcl-prose-table caption{display:block;margin-bottom:.4rem;text-align:left;font-size:.875rem}
+ .mcl-prose-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+ .mcl-prose-table tbody,.mcl-prose-table tbody tr,.mcl-prose-table tbody th,.mcl-prose-table tbody td{display:block}
+ .mcl-prose-table tbody tr{border:1px solid var(--mcl-line)}
+ .mcl-prose-table tbody tr+tr{margin-top:.9rem}
+ .mcl-prose-table tbody th,.mcl-prose-table tbody td{border:0;padding:.6rem .75rem;overflow-wrap:anywhere}
+ .mcl-prose-table tbody td{border-top:1px solid var(--mcl-line);line-height:1.65}
+ .mcl-prose-table tbody td::before{
+  content:attr(data-label);
+  content:attr(data-label) / "";
+  display:block;margin-bottom:.15rem;color:var(--mcl-ink);font-size:.875rem;font-weight:700
+ }
+}
+
 /* Cycle 4: technical labels and qualifications must remain legible at mobile widths. */
 .mcl-figure-kicker{font-size:.85rem}
 .mcl-flow-type,.mcl-flow-issue span,.mcl-role span,.mcl-sector-row>div>span{font-size:.82rem}

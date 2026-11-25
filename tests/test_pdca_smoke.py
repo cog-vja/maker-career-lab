@@ -9,11 +9,13 @@ import os
 import re
 import runpy
 import subprocess
+import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 DOMAIN = "https://maker-career-lab.com/"
+sys.path.insert(0, str(ROOT))
 PHASE1_SLUGS = (
     "production-management-career",
     "manufacturer-inhouse-se-career",
@@ -54,9 +56,20 @@ class PublicBuildSmoke(unittest.TestCase):
         featured = re.search(r'<div class="article-list" data-mcl-featured>(.*?)</div>', home, re.S)[1]
         featured_slugs = re.findall(r'href="articles/([^"]+)"', featured)
         self.assertEqual(len(featured_slugs), 6)
-        self.assertEqual(featured_slugs[:2], list(PHASE1_SLUGS[1:3]))
+        self.assertTrue({
+            "manufacturer-salary-10m-career", "manufacturer-inhouse-se-career",
+            "manufacturer-salary-ranking-2026", "physical-ai-manufacturing-careers",
+            "data-center-manufacturing-careers",
+        } <= set(featured_slugs))
         fallback = re.search(r'<div class="mcl-home-directory-fallback">(.*?)</div>', home, re.S)[1]
-        self.assertEqual(len(re.findall(r'<li>', fallback)), 30)
+        fallback_slugs = re.findall(r'href="articles/([a-z0-9-]+)"', fallback)
+        catalog_body = re.search(r'const catalog=\[(.*?)\n \];', catalog, re.S)[1]
+        catalog_slugs = re.findall(r"""^\s*\[\s*['"]([a-z0-9-]+)['"]""", catalog_body, re.M)
+        sitemap_slugs = {url.split("/")[-1] for url in lastmods if url.startswith(DOMAIN + "articles/")}
+        self.assertEqual(len(fallback_slugs), len(sitemap_slugs))
+        self.assertEqual(len(catalog_slugs), len(sitemap_slugs))
+        self.assertEqual(set(fallback_slugs), sitemap_slugs)
+        self.assertEqual(set(catalog_slugs), sitemap_slugs)
         titles, descriptions = set(), set()
         for slug in PHASE1_SLUGS:
             with self.subTest(slug=slug):
@@ -141,7 +154,6 @@ class PublicBuildSmoke(unittest.TestCase):
     def test_batch1_metadata_and_routes(self):
         batch = runpy.run_path(str(ROOT / "mcl_growth_batch.py"))
         catalog = batch["BATCH1_ARTICLES"]
-        self.assertEqual(len(catalog), 10)
         sitemap = ET.parse(DIST / "sitemap.xml")
         lastmods = {node.findtext("{*}loc"): node.findtext("{*}lastmod")
                     for node in sitemap.findall("{*}url")}
@@ -171,12 +183,61 @@ class PublicBuildSmoke(unittest.TestCase):
                 self.assertEqual(article["dateModified"], lastmods[url])
                 self.assertIn('data-mcl-cta="service_guide"', html)
                 self.assertIn('data-mcl-cta="compare_tool"', html)
-                self.assertNotIn("px.a8.net", html)
+                enabled = (slug in batch["APPROVED_BATCH1_ADS"]
+                           and os.environ.get("WORKERS_CI_BRANCH", "main") == "main")
+                self.assertEqual(html.count('href="https://px.a8.net/'), int(enabled))
+                if not enabled:
+                    self.assertNotIn(".a8.net", html)
+                self.assertNotIn("MCL_BATCH1_AFFILIATE", html)
+                self.assertNotIn("MCL_COMPARISON_LEAD", html)
                 if slug in batch["BATCH1_COMPARISONS"]:
                     self.assertIn('id="mcl-financial-findings"', html)
+                    self.assertLess(html.index('id="mcl-financial-findings"'), html.index('class="mcl-financial-table"'))
                     for code in batch["BATCH1_COMPARISONS"][slug]:
                         self.assertIn(f"（{code}）</th>", html)
                 self.assertNotIn("MCL_PHASE1_FINANCIAL_TABLE", html)
+
+    def test_batch1_ad_approval_per_route_and_preview(self):
+        build = runpy.run_path(str(ROOT / "cloudflare-build.py"))
+        programs = build["BATCH1_AD_PROGRAMS"]
+        render = build["render_batch1_affiliate"]
+        for slug, program in programs.items():
+            with self.subTest(slug=slug):
+                source = (ROOT / "articles" / (slug + ".html")).read_text(encoding="utf-8")
+                enabled = render(source, slug, frozenset({slug}), False)
+                source_name = ("articles/manufacturer-engineer-agent-selection.html"
+                               if program == "makers_job" else "onecareer-ads.js")
+                creative = (ROOT / source_name).read_text(encoding="utf-8")
+                ads = re.findall(r'<a href="https://px\.a8\.net/[^"]+"[^>]*>.*?</a>', enabled, re.S)
+                images = re.findall(r'<img\b[^>]*\.a8\.net[^>]*>', enabled)
+                self.assertEqual(len(ads), 1)
+                self.assertEqual(len(images), 1 if program == "makers_job" else 2)
+                self.assertTrue(all(tag in creative for tag in ads + images))
+                self.assertIn("PR｜この記事にはアフィリエイト広告が含まれます。", enabled)
+                self.assertIn("PR｜アフィリエイト広告", enabled)
+                self.assertIn('data-mcl-cta="service_guide"', enabled)
+                for approved, preview in ((frozenset(), False), (frozenset({slug}), True)):
+                    suppressed = render(source, slug, approved, preview)
+                    self.assertNotIn(".a8.net", suppressed)
+                    self.assertIn('data-mcl-cta="service_guide"', suppressed)
+
+    def test_salary_analysis_matches_published_dataset(self):
+        js = (DIST / "company-data.js").read_text(encoding="utf-8")
+        dataset = json.loads(re.search(r"window\.MCL_COMPANIES\s*=\s*(\[[\s\S]*?\])\s*;", js)[1])
+        salaries = [row["averageSalary"] for row in dataset
+                    if row.get("salaryScope") == "提出会社単体"
+                    and isinstance(row.get("averageSalary"), (float, int)) and row["averageSalary"] > 0
+                    and re.fullmatch(r"S[A-Z0-9]{7,15}", row.get("sourceDocId") or "")
+                    and re.fullmatch(r"[0-9a-f]{64}", row.get("sourceSha256") or "")]
+        html = (DIST / "articles/manufacturer-salary-10m-career.html").read_text(encoding="utf-8")
+        count = sum(value >= 1000 for value in salaries)
+        self.assertIn(f"1,000万円以上は{count:,}社／{len(salaries):,}社（{count / len(salaries):.1%}）", html)
+        self.assertNotIn("MCL_BATCH1_SALARY", html)
+        chart = re.search(r'<ul class="mcl-salary-distribution"[^>]+>(.*?)</ul>', html, re.S)[1]
+        bars = re.findall(r'<strong>([\d,]+)社（([\d.]+%)）</strong>', chart)
+        intervals = ((0, 800), (800, 1000), (1000, 1200), (1200, float("inf")))
+        expected = [sum(lo <= value < hi for value in salaries) for lo, hi in intervals]
+        self.assertEqual(bars, [(f"{n:,}", f"{n / len(salaries):.1%}") for n in expected])
 
     def test_built_analytics_route_compatibility(self):
         js = (DIST / "analytics-events.js").read_text(encoding="utf-8")

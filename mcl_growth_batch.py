@@ -19,7 +19,7 @@ BATCH1_ARTICLES = {
         "batch1_career",
     ),
     "manufacturer-salary-10m-career": (
-        "キャリア・転職", "メーカーで年収1,000万円を目指すには", "職責・等級・報酬構成を求人票で確認",
+        "キャリア・転職", "メーカーで年収1,000万円は可能？", "EDINETの給与分布、公式求人、職責と初年度給与を比較",
         "batch1_career",
     ),
     "electronic-component-makers-comparison": (
@@ -50,6 +50,14 @@ BATCH1_COMPARISONS = {
     "measurement-instrument-makers-comparison": ("7701", "6856", "6866", "6841"),
 }
 
-BATCH1_REVISED = "2026-11-25"
-# Set a verified date once the first live deployment is confirmed.
-BATCH1_PUBLISHED = None
+BATCH1_REVISED = "2026-11-26"
+# Main d6ea349 was deployed on 2026-11-25 at 22:44 JST.
+BATCH1_PUBLISHED = "2026-11-25"
+
+BATCH1_AD_PROGRAMS = dict.fromkeys((
+    "production-engineering-career", "quality-assurance-career", "procurement-career",
+    "technical-sales-career", "manufacturer-salary-10m-career",
+), "makers_job") | dict.fromkeys(BATCH1_COMPARISONS, "onecareer")
+
+# Add only slugs whose program-specific terms and URL submission have been verified.
+APPROVED_BATCH1_ADS = frozenset()
