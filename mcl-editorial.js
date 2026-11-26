@@ -30,11 +30,11 @@
    decorateResults();
  }
 
- // Native, keyboard-accessible scrolling for the wide EDINET and career tables.
+ // Native, keyboard-accessible scrolling for the tables that retain columns.
  // Add a hint only when the content actually overflows the containing region.
  function decorateArticleTables(){
   for(const frame of document.querySelectorAll('.article .table-scroll, .mcl-seo-table-wrap')){
-   if(!frame.querySelector('table'))continue;
+   if(!frame.querySelector('table:not(.mcl-prose-table)'))continue;
    frame.tabIndex=0;
    frame.setAttribute('role','region');
    frame.setAttribute('aria-label','表（横にスクロールしてすべての列を確認できます）');

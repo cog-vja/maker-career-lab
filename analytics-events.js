@@ -74,6 +74,11 @@
       });
       return;
     }
+    if (url.origin === window.location.origin && cta === 'article_related' &&
+        /^\/articles\/[a-z0-9-]+$/.test(sourcePage) &&
+        /^\/articles\/[a-z0-9-]+$/.test(url.pathname) && url.pathname !== sourcePage) {
+      record('mcl_article_related_click', { source_page: sourcePage, target_article: url.pathname });
+    }
     if (url.origin === window.location.origin && cta === 'service_guide' &&
         /\/articles\/(?:manufacturer-engineer-agent-selection|agent-guide)\.html$/.test(url.pathname)) {
       record('mcl_funnel_action', {
@@ -175,7 +180,7 @@
 
   function addHomepageArticles() {
     var list = document.querySelector('#articles .article-list');
-    if (!list || document.getElementById('mcl-stage2-article-semi')) return;
+    if (!list || list.hasAttribute('data-mcl-featured') || document.getElementById('mcl-stage2-article-semi')) return;
     var entries = [
       ['mcl-stage2-article-semi', 'articles/semiconductor-equipment-salary-profit.html',
         '半導体関連・企業比較', '半導体製造装置・検査関連9社の平均年収と営業利益率',
