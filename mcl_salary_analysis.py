@@ -3,7 +3,9 @@
 from collections import defaultdict
 from datetime import date
 from html import escape
+import json
 from math import inf, isfinite
+from pathlib import Path
 import re
 from statistics import median
 
@@ -12,6 +14,8 @@ ANALYSIS_MARKER = "<!-- MCL_BATCH1_SALARY_ANALYSIS -->"
 TARGET_SALARY = 1000
 CONSOLIDATED = "連結（給与のみ提出会社）"
 ACCOUNTING_STANDARDS = {"JP_GAAP", "IFRS", "US_GAAP"}
+EDINET_PDF_BASE = "https://disclosure2dl.edinet-fsa.go.jp/searchdocument/pdf/"
+INDUSTRY_REFERENCE = Path(__file__).with_name("mcl_salary_industry_reference.json")
 
 # Classify these editorial examples using the issuer's own business descriptions.
 # The dataset has no general company-type field. Never classify names by suffix.
@@ -136,9 +140,9 @@ def example_rows(examples, issuer_by_id):
         if issuer is None or issuer["averageSalary"] < TARGET_SALARY:
             continue
         name = issuer.get("name") or code
-        document = escape(issuer.get("sourceDocId") or "未記録")
+        document = escape(issuer["sourceDocId"])
         period = escape(issuer.get("period") or "未記録")
-        edinet = f'<a href="https://disclosure2.edinet-fsa.go.jp/">{document}</a>'
+        edinet = f'<a href="{EDINET_PDF_BASE}{document}.pdf">{document}（有報PDF）</a>'
         company_profile = f'<a href="{source}">{escape(name)}の公式情報</a>'
         rows.append((
             f"{name}（{code}）", f'{issuer["averageSalary"]:,.1f}',
@@ -167,16 +171,29 @@ def render_examples(issuers):
         "いずれも提出会社単体の平均です。持株会社の提出書類を見たら、応募先の事業会社が別法人かを"
         "求人票の雇用元欄で確認してください。</p>"
         + "\n".join(examples)
+        + '<p>PDFを開けない場合は、<a href="https://disclosure2.edinet-fsa.go.jp/">EDINETの書類検索</a>で'
+        "証券コードまたは提出会社名を指定します。対象の決算期の有価証券報告書を開き、"
+        "提出書類内容照会の書類管理番号を表の書類IDと照らし合わせてください。</p>"
     )
 
 
 def render_industries(issuers):
+    reference = json.loads(INDUSTRY_REFERENCE.read_text(encoding="utf-8"))
+    filers = reference["filers"]
     groups = defaultdict(list)
     uncategorized = []
+    supplemented = 0
     for issuer in issuers:
-        industry = issuer.get("industry")
-        if isinstance(industry, str) and industry.strip():
-            groups[industry.strip()].append(issuer["averageSalary"])
+        existing = issuer.get("industry")
+        industry = existing.strip() if isinstance(existing, str) else ""
+        record = filers.get(str(issuer["id"]))
+        if not industry and record:
+            published_name, _edinet_code, filer_industry = record
+            if issuer.get("name") == published_name:
+                industry = filer_industry
+                supplemented += 1
+        if industry:
+            groups[industry].append(issuer["averageSalary"])
         else:
             uncategorized.append(issuer["averageSalary"])
     missing = len(uncategorized)
@@ -188,17 +205,31 @@ def render_industries(issuers):
     ]
     if missing:
         rows.append(salary_stats("業種未記録", uncategorized))
+        coverage = (
+            f"業種を集計できるのは{len(issuers) - missing:,}社で、業種未記録は{missing:,}社です"
+            f"（うち平均年間給与1,000万円以上は{at_least(uncategorized):,}社）。"
+        )
+    else:
+        coverage = f"集計対象の{len(issuers):,}社すべてに業種の記録があります。"
+    supplement_note = ""
+    if supplemented:
+        source = escape(reference["source_url"])
+        snapshot = escape(reference["snapshot_date"])
+        supplement_note = (
+            f'公開データに業種がなかった{supplemented:,}社は、<a href="{source}">'
+            f'金融庁のEDINETコードリスト（{snapshot}取得・ZIP）</a>の提出者業種で補いました。'
+        )
     return (
         "<h3>収録企業の業種別に比較する</h3>"
-        f"<p>業種はデータの記録に従い、{len(issuers) - missing:,}社に業種があり、{missing:,}社は業種未記録です。"
-        "各行の割合はその区分に収録された会社の割合です。件数が少ない区分では少数の会社で数値が動きます。</p>"
+        f"<p>{supplement_note}{coverage}"
+        "業種は提出会社の分類です。各行は当サイトの収録企業の分布であり、募集職種や配属先の処遇は求人票で確認します。</p>"
         "<details><summary>業種別の社数・中央値・1,000万円以上の割合を表示</summary>"
         + table("収録企業の業種別の平均年間給与", group_columns("業種"), rows)
         + "</details>"
     )
 
 
-def render_financial_groups(issuers):
+def financial_groups(issuers):
     revenue_pairs = []
     margin_pairs = []
     for issuer in issuers:
@@ -212,12 +243,37 @@ def render_financial_groups(issuers):
             margin = profit / sales * 100
             if isfinite(margin):
                 margin_pairs.append((margin, salary))
+    return revenue_pairs, margin_pairs
 
+
+def band_salaries(pairs, low, high):
+    return [salary for value, salary in pairs if low <= value < high]
+
+
+def financial_lead(revenue_pairs, margin_pairs):
+    comparisons = []
+    for name, pairs, bands in (
+        ("連結売上高・売上収益", revenue_pairs, REVENUE_BANDS),
+        ("連結営業利益率", margin_pairs, MARGIN_BANDS),
+    ):
+        outcomes = []
+        for label, low, high in (bands[0], bands[-1]):
+            salaries = band_salaries(pairs, low, high)
+            if salaries:
+                outcomes.append(f"{label}で{share(at_least(salaries), len(salaries))}")
+        if len(outcomes) == 2:
+            comparisons.append(f"{name}で見ると{outcomes[0]}、{outcomes[1]}")
+    if not comparisons:
+        return ""
+    return (
+        "<p>連結財務を集計できた収録企業では、平均年間給与が1,000万円以上の企業の割合は、"
+        + "、".join(comparisons) + "でした。売上や利益率で分けた集計で、給与差の原因は示していません。</p>"
+    )
+
+
+def render_financial_groups(revenue_pairs, margin_pairs):
     def group(pairs, bands):
-        return [
-            salary_stats(label, [salary for value, salary in pairs if low <= value < high])
-            for label, low, high in bands
-        ]
+        return [salary_stats(label, band_salaries(pairs, low, high)) for label, low, high in bands]
 
     return (
         "<h3>売上規模・営業利益率とあわせて見る</h3>"
@@ -248,10 +304,12 @@ def add_salary_analysis(html, dataset):
         raise RuntimeError("給与分析に使える会社がありません")
     denominator = len(salaries)
     target = at_least(salaries)
+    revenue_pairs, margin_pairs = financial_groups(issuers)
     lead = (
         f'<p class="intro">メーカーキャリアラボの収録企業で、提出会社単体の平均年間給与が'
         f'<strong>1,000万円以上は{target:,}社／{denominator:,}社（{share(target, denominator)}）</strong>です。'
-        "転職でその水準を目指すときは、応募先の法人、職責、等級、基本給・賞与を求人単位で確認しましょう。</p>"
+        "会社の平均と個人の提示年収は別です。転職では応募先の法人、職責、等級、基本給・賞与を求人単位で確認しましょう。</p>"
+        + financial_lead(revenue_pairs, margin_pairs)
     )
     threshold_summary = "、".join(
         f"{threshold:,}万円以上は{count_share(at_least(salaries, threshold), denominator)}"
@@ -268,6 +326,6 @@ def add_salary_analysis(html, dataset):
         + salary_distribution(salaries)
         + render_examples(issuers)
         + render_industries(issuers)
-        + render_financial_groups(issuers)
+        + render_financial_groups(revenue_pairs, margin_pairs)
     )
     return html.replace(LEAD_MARKER, lead).replace(ANALYSIS_MARKER, analysis)
