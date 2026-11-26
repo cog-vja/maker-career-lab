@@ -175,15 +175,36 @@ a{text-underline-offset:.23em}a:focus-visible,button:focus-visible,input:focus-v
 .mcl-financial-sources summary{min-height:44px;padding:9px 0;cursor:pointer;color:var(--green);font-weight:700}
 .mcl-financial-sources dt{margin-top:8px;font-weight:700}
 .mcl-financial-sources dd{margin:0;overflow-wrap:anywhere}
-.mcl-phase1-ad-direct>a{
- display:inline-flex;align-items:center;flex-wrap:wrap;gap:.55rem;min-height:44px;
- max-width:100%;padding:.5rem .75rem;background:var(--green);color:#fff;
- border-radius:4px;font-weight:700;text-decoration:none
+/* Publisher presentation surrounds the original ASP links and images. */
+main .mcl-inline-ad{
+ max-width:790px;margin:1.25rem auto;padding:.65rem 0;
+ border-block:1px solid var(--mcl-strong-line);background:#fff
 }
-.mcl-phase1-ad-direct>a:hover{background:#065c55;color:#fff}
-.mcl-phase1-ad-onecareer>a::after{content:"中途採用・選考情報を確認する"}
-.mcl-phase1-ad-direct>img{display:block}
+.mcl-inline-ad__heading{display:flex;align-items:baseline;flex-wrap:wrap;gap:.15rem .75rem;line-height:1.5}
+.mcl-inline-ad .mcl-ad-disclosure{font-size:.85rem;font-weight:700;color:var(--mcl-muted)}
+main .mcl-inline-ad .mcl-inline-ad__context{margin:.25rem 0 0;font-size:.95rem;line-height:1.65}
+main .mcl-inline-ad .small{margin:.3rem 0 0;line-height:1.6}
+.mcl-inline-ad .mcl-makersjob-action{margin:0}
+.mcl-phase1-ad-direct>a,.mcl-inline-ad .mcl-makersjob-action>a{
+ display:inline-flex;align-items:center;flex-wrap:wrap;gap:.25rem .6rem;min-height:44px;
+ max-width:100%;font-weight:700;text-decoration:underline;color:var(--green)
+}
+.mcl-phase1-ad-onecareer>a{margin-top:.375rem}
+.mcl-phase1-ad-onecareer>a::after{content:"企業情報を見る"}
+.mcl-phase1-ad-direct>img,.mcl-inline-ad__banner img{display:block}
+.mcl-inline-ad__banner{display:flex;align-items:flex-start;overflow-x:auto;margin-top:.5rem}
+.mcl-inline-ad__banner>a{position:relative;flex:none}
+.mcl-inline-ad__banner>a:focus-visible{outline-offset:-4px}
+.mcl-inline-ad__banner>a::after{
+ content:"広告主のサイトへ";position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)
+}
 .mcl-phase1-ad-preview{font-size:.9rem;color:var(--sub)}
+.article .mcl-article-next{margin:1rem 0}
+.article .mcl-article-next p{margin:.35em 0}
+.article .mcl-article-next a.btn{
+ display:inline;padding:0;margin:0;border:0;background:transparent;color:var(--green);
+ text-decoration:underline;font-weight:inherit
+}
 .mcl-table-swipe-hint{margin:16px 0 5px!important;color:#326c64;font-size:.86rem!important;font-weight:700;line-height:1.5!important}
 .mcl-table-swipe-hint::before{content:'↔';display:inline-block;margin-right:.45em;font-weight:700}
 .mcl-table-swipe-hint[hidden]{display:none!important}
@@ -199,21 +220,36 @@ a{text-underline-offset:.23em}a:focus-visible,button:focus-visible,input:focus-v
 .article .mcl-salary-example-table th:nth-child(2){min-width:7em;text-wrap:balance}
 .article .mcl-salary-example-table td:nth-child(2){white-space:nowrap;font-variant-numeric:tabular-nums}
 
-/* Keep numeric comparisons in columns. Stack prose matrices on small screens. */
+/* Keep financial columns on wide tables, and group prose by row on small screens. */
+.mcl-term{white-space:nowrap}
+.mcl-reading-pairs{margin:1rem 0}
+.mcl-reading-pairs>div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,3fr);gap:.25rem 1rem;padding:.55rem 0;border-top:1px solid var(--mcl-line)}
+.mcl-reading-pairs dt{font-weight:700}
+.mcl-reading-pairs dd{margin:0;overflow-wrap:break-word}
 @media screen and (max-width:640px){
+ .article :is(.table-scroll,.mcl-sector-table-wrap,.mcl-seo-table-wrap) caption{max-width:calc(100vw - 3rem)}
+ .article .mcl-sector-table{table-layout:fixed}
+ .article .mcl-sector-table th,.article .mcl-sector-table td{padding:.5rem}
+ .article .mcl-sector-table th{white-space:normal;overflow-wrap:break-word;line-height:1.45}
+ .article .mcl-sector-table thead th:first-child{width:114px}
+ .article .mcl-sector-table thead th:nth-child(2){width:92px}
+ .article .mcl-sector-table thead th:nth-child(3){width:68px}
+ .article .mcl-sector-table th small{white-space:nowrap}
  .article table.mcl-prose-table{position:relative;display:block;min-width:0;width:100%;font-size:1rem;font-variant-numeric:normal}
- .mcl-prose-table caption{display:block;margin-bottom:.4rem;text-align:left;font-size:.875rem}
+ .mcl-prose-table caption{display:block;margin-bottom:.5rem;text-align:left;font-size:.875rem;line-height:1.6;overflow-wrap:break-word}
  .mcl-prose-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
  .mcl-prose-table tbody,.mcl-prose-table tbody tr,.mcl-prose-table tbody th,.mcl-prose-table tbody td{display:block}
- .mcl-prose-table tbody tr{border:1px solid var(--mcl-line)}
- .mcl-prose-table tbody tr+tr{margin-top:.9rem}
- .mcl-prose-table tbody th,.mcl-prose-table tbody td{border:0;padding:.6rem .75rem;overflow-wrap:anywhere}
- .mcl-prose-table tbody td{border-top:1px solid var(--mcl-line);line-height:1.65}
+ .article .mcl-prose-table tbody tr{border-top:1px solid var(--mcl-line);padding:.625rem 0 .75rem;background:transparent}
+ .article .mcl-prose-table tbody tr:last-child{border-bottom:1px solid var(--mcl-line)}
+ .article .mcl-prose-table tbody th,.article .mcl-prose-table tbody td{border:0;background:transparent;padding:0;overflow-wrap:break-word;word-break:normal}
+ .article .mcl-prose-table tbody th{min-width:0;font-weight:750;color:var(--mcl-ink);line-height:1.5}
+ .article .mcl-prose-table tbody td{margin-top:.25rem;line-height:1.65}
  .mcl-prose-table tbody td::before{
   content:attr(data-label);
   content:attr(data-label) / "";
-  display:block;margin-bottom:.15rem;color:var(--mcl-ink);font-size:.875rem;font-weight:700
+  display:block;color:var(--mcl-muted);font-size:.875rem;font-weight:650;line-height:1.45
  }
+ .mcl-reading-pairs>div{display:block}
 }
 
 /* Cycle 4: technical labels and qualifications must remain legible at mobile widths. */

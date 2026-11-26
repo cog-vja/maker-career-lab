@@ -21,8 +21,10 @@ from xml.etree import ElementTree as ET
 
 from mcl_editorial_layer import ARTICLE_INDEX
 from mcl_growth_batch import (
-    APPROVED_BATCH1_ADS, BATCH1_AD_PROGRAMS, BATCH1_ARTICLES, BATCH1_COMPARISONS,
-    BATCH1_PUBLISHED, BATCH1_REVISED,
+    APPROVED_BATCH1_ADS, APPROVED_BATCH2_ADS, BATCH1_AD_PROGRAMS, BATCH2_AD_PROGRAMS,
+    BATCH1_ARTICLES, BATCH2_ARTICLES, BATCH1_COMPARISONS, BATCH2_COMPARISONS,
+    BATCH1_PUBLISHED, BATCH1_REVISED, BATCH2_PUBLISHED, BATCH2_REVISED,
+    GROWTH_AD_PROGRAMS, GROWTH_ARTICLES,
 )
 from mcl_revenue_layer import augment_output, REVENUE_ARTICLES
 from mcl_salary_analysis import add_salary_analysis
@@ -35,6 +37,11 @@ GA_OLD = "G-GKLVPVKKZ4"
 GA_NEW = "G-G3EBC7ZZQ9"
 GOOGLE_TAG = "GT-KT5GGMBR"
 BATCH1_LAST_CHANGE = max(BATCH1_REVISED, BATCH1_PUBLISHED or BATCH1_REVISED)
+BATCH2_LAST_CHANGE = max(BATCH2_REVISED, BATCH2_PUBLISHED or BATCH2_REVISED)
+GROWTH_DATES = (
+    (BATCH1_ARTICLES, BATCH1_PUBLISHED, BATCH1_LAST_CHANGE),
+    (BATCH2_ARTICLES, BATCH2_PUBLISHED, BATCH2_LAST_CHANGE),
+)
 BATCH1_AFFILIATE_MARKER = "<!-- MCL_BATCH1_AFFILIATE -->"
 COMPARISON_LEAD_MARKER = "<!-- MCL_COMPARISON_LEAD -->"
 RELATED_ARTICLE_PATHS = frozenset("/articles/" + slug for slug, _ in ARTICLE_INDEX)
@@ -165,7 +172,7 @@ def build_financial_table(html: str, codes: tuple[str, ...], dataset: list[dict]
         '<div class="table-scroll" tabindex="0" role="region" aria-labelledby="mcl-financial-caption" '
         'aria-describedby="mcl-financial-scroll-hint">'
         f'<table class="mcl-financial-table"{age_attr}>'
-        '<caption id="mcl-financial-caption">有価証券報告書に基づく4社の通期比較</caption>'
+        f'<caption id="mcl-financial-caption">有価証券報告書に基づく{len(codes)}社の通期比較</caption>'
         f"<thead><tr>{header}</tr></thead><tbody>{''.join(rows)}</tbody></table></div>"
         '<details class="mcl-financial-sources"><summary>決算期・会計基準・EDINETの出典を確認</summary>'
         f"<dl>{''.join(sources)}</dl></details>"
@@ -240,22 +247,34 @@ def phase1_affiliate_creative(comparison: bool, preview: bool) -> str:
 
 
 def render_batch1_affiliate(html: str, slug: str, approved: frozenset[str], preview: bool) -> str:
-    program = BATCH1_AD_PROGRAMS.get(slug)
+    program = GROWTH_AD_PROGRAMS.get(slug)
     if html.count(BATCH1_AFFILIATE_MARKER) != int(program is not None):
         raise RuntimeError(f"新規広告の差し込み位置が想定外です: {slug}")
     if preview or slug not in approved or not program:
         return html.replace(BATCH1_AFFILIATE_MARKER, "")
     comparison = program == "onecareer"
     name = "ワンキャリア転職" if comparison else "メーカーズジョブ"
-    description = (
-        "中途採用を調べている社会人向け。募集職種と選考情報を確認できます。"
-        if comparison else
-        "製造業での経験を活かす転職を考えている社会人向け。希望する職種や勤務地について相談先の一つとして確認できます。"
-    )
+    contexts = {
+        "production-engineering-career": "工程設計や設備立ち上げの経験が活かせる求人を探す方へ。",
+        "quality-assurance-career": "顧客品質、仕入先品質、QMSの経験を地域ごとの求人と照らし合わせたい方へ。",
+        "procurement-career": "調達・購買の経験を軸に、扱う製品や担当範囲が異なる求人を探す方へ。",
+        "technical-sales-career": "技術提案や立ち上げ支援の経験から次の仕事を探す方へ。",
+        "manufacturer-salary-10m-career": "担当範囲や等級を整理した後、製造業の求人を探す際の相談先です。",
+        "electronic-component-makers-comparison": "関心のある部品や工程を絞ったら、企業情報や中途の選考体験談を見ておくと求人を読みやすくなります。",
+        "machine-tool-makers-comparison": "機械設計や加工支援など、興味を持った職務から各社の中途採用情報を探せます。",
+        "measurement-instrument-makers-comparison": "計測・分析機器の仕事をさらに調べる方へ。企業情報や中途の選考体験談を参照できます。",
+        "manufacturer-rd-career": "材料・工程・製品開発の経験を活かせる求人を探す方へ。",
+        "manufacturer-design-career": "設計した製品や工程を整理した後、製造業の求人を探す際の相談先です。",
+    }
+    description = contexts.get(slug, (
+        "気になる企業の中途採用や選考体験談を探す方へ。"
+        if comparison else "製造業の経験を活かす求人を探す際の相談先です。"
+    ))
     ad = (
-        f'<section class="cta mcl-phase1-ad" aria-label="PR：{name}">'
-        f'<p class="mcl-ad-disclosure">PR｜アフィリエイト広告</p><h2>{name}</h2>'
-        f'<p>{description}</p>{phase1_affiliate_creative(comparison, preview=False)}</section>'
+        f'<section class="mcl-inline-ad mcl-phase1-ad" aria-label="PR：{name}">'
+        f'<div class="mcl-inline-ad__heading"><span class="mcl-ad-disclosure">PR｜アフィリエイト広告</span>'
+        f'<strong>{name}</strong></div><p class="mcl-inline-ad__context">{description}</p>'
+        f'{phase1_affiliate_creative(comparison, preview=False)}</section>'
     )
     heading = re.search(r"</h1>", html, re.I)
     if heading is None:
@@ -263,6 +282,31 @@ def render_batch1_affiliate(html: str, slug: str, approved: frozenset[str], prev
     disclosure = '<p class="small">PR｜この記事にはアフィリエイト広告が含まれます。</p>'
     html = html[:heading.end()] + disclosure + html[heading.end():]
     return html.replace(BATCH1_AFFILIATE_MARKER, ad)
+
+
+def compact_article_links(html: str) -> str:
+    """Keep article compare/guide links in the reading flow."""
+    def neutralize(match: re.Match) -> str:
+        body = match[1]
+        if not re.search(r'data-mcl-cta="(?:compare_tool|service_guide)"', body):
+            return match[0]
+        return f'<div class="mcl-article-next">{body}</div>'
+
+    return re.sub(r'<div class="cta">((?:(?!</?div\b).)*?)</div>', neutralize, html, flags=re.S)
+
+
+def suppress_preview_affiliates(html: str) -> str:
+    """Omit old static A8 creatives; production keeps their original tags."""
+    html = re.sub(
+        r'<a\b[^>]*\bhref=["\']https://px\.a8\.net/svt/ejp\?[^"\']*["\'][^>]*>.*?</a>',
+        '<span class="mcl-phase1-ad-preview">プレビューでは広告リンクと計測を停止しています。</span>',
+        html, flags=re.I | re.S,
+    )
+    # Some creatives put the impression pixel outside the link's paragraph.
+    return re.sub(
+        r'<img\b[^>]*\bsrc=["\']https://www\d*\.a8\.net/[^"\']*["\'][^>]*>',
+        '', html, flags=re.I,
+    )
 
 
 def annotate_related_links(page: Path) -> None:
@@ -364,9 +408,9 @@ def add_featured_articles(html: str) -> str:
         ("manufacturer-salary-10m-career", *BATCH1_ARTICLES["manufacturer-salary-10m-career"][:3]),
         ("manufacturer-salary-ranking-2026", "年収・企業", "メーカー平均年収ランキング", "EDINETで1,000社以上の開示給与を探す"),
         ("manufacturer-inhouse-se-career", "製造業IT・転職", "メーカー社内SE・工場DXへの転職", "運用・ERP・MES・DX企画の担当範囲を比較"),
-        ("physical-ai-manufacturing-careers", *BATCH1_ARTICLES["physical-ai-manufacturing-careers"][:3]),
+        ("physical-ai-japanese-companies", *BATCH2_ARTICLES["physical-ai-japanese-companies"][:3]),
         ("data-center-manufacturing-careers", *BATCH1_ARTICLES["data-center-manufacturing-careers"][:3]),
-        ("fa-robotics-maker-comparison", "FA・企業比較", "FAメーカー4社の年収・利益率を比較", "製品、販売、導入支援の違いを数字とあわせて読む"),
+        ("optical-fiber-makers-comparison", *BATCH2_ARTICLES["optical-fiber-makers-comparison"][:3]),
     )
     cards = [
         f'<a class="article-tile" href="articles/{slug}"><span class="tag">{escape(category)}</span>'
@@ -510,14 +554,15 @@ def make_sitemap(raw: str, html_paths: list[str]) -> str:
     # New editorial pages are included in the published sitemap automatically.
     # Never silently add arbitrary or internal HTML paths.
     additions = expected - set(newlocs)
-    batch1_urls = {NEW + "articles/" + slug for slug in BATCH1_ARTICLES}
-    allowed = {NEW + p[:-5] for p in REVENUE_ARTICLES} | batch1_urls
+    growth_lastmods = {NEW + "articles/" + slug: revised
+                       for batch, _, revised in GROWTH_DATES for slug in batch}
+    allowed = {NEW + p[:-5] for p in REVENUE_ARTICLES} | growth_lastmods.keys()
     if not additions.issubset(allowed):
         raise RuntimeError(f"sitemap: 未登録ページがあります: {sorted(additions)}")
     for url in sorted(additions):
         node = ET.SubElement(root, f"{{{ns['s']}}}url")
         ET.SubElement(node, f"{{{ns['s']}}}loc").text = url
-        ET.SubElement(node, f"{{{ns['s']}}}lastmod").text = BATCH1_LAST_CHANGE if url in batch1_urls else "2026-11-03"
+        ET.SubElement(node, f"{{{ns['s']}}}lastmod").text = growth_lastmods.get(url, "2026-11-03")
         newlocs.append(url)
     if set(newlocs) != expected or len(newlocs) != len(expected):
         raise RuntimeError(f"sitemap不一致: 実際{len(newlocs)}URL / HTML{len(expected)}件")
@@ -535,12 +580,13 @@ def build() -> None:
     article_files = sorted((ROOT / "articles").glob("*.html"))
     if len(article_files) < 8:
         raise RuntimeError("記事数が想定より少ないため中断します")
-    required_articles = (*REVENUE_ARTICLES, *(f"articles/{slug}.html" for slug in BATCH1_ARTICLES))
+    required_articles = (*REVENUE_ARTICLES, *(f"articles/{slug}.html" for slug in GROWTH_ARTICLES))
     absent = [p for p in required_articles if not (ROOT / p).is_file()]
     if absent:
         raise RuntimeError("今回の新規記事が不足しています: " + ", ".join(absent))
     dataset = assert_dataset(ROOT / "company-data.js")
-    if not APPROVED_BATCH1_ADS <= BATCH1_AD_PROGRAMS.keys():
+    if not (APPROVED_BATCH1_ADS <= BATCH1_AD_PROGRAMS.keys()
+            and APPROVED_BATCH2_ADS <= BATCH2_AD_PROGRAMS.keys()):
         raise RuntimeError("対象外の記事が広告承認一覧に含まれています")
     # Workers Builds exposes the checked-out branch. A8 creatives must stay
     # inactive on unregistered preview domains. Local builds support offline tests.
@@ -550,7 +596,8 @@ def build() -> None:
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True)
     copied_html = []
-    financial_articles = COMPARISON_ARTICLES | BATCH1_COMPARISONS
+    growth_comparisons = BATCH1_COMPARISONS | BATCH2_COMPARISONS
+    financial_articles = COMPARISON_ARTICLES | growth_comparisons
     for item in [ROOT / p for p in ROOT_HTML] + article_files:
         relative = item.relative_to(ROOT)
         dest = OUT / relative
@@ -564,15 +611,22 @@ def build() -> None:
                 html = html.replace(AFFILIATE_MARKER, phase1_affiliate_creative(
                     item.stem in COMPARISON_ARTICLES, preview,
                 ))
-            if item.stem in BATCH1_ARTICLES:
-                html = add_article_dates(html, BATCH1_PUBLISHED, BATCH1_LAST_CHANGE)
-                html = render_batch1_affiliate(html, item.stem, APPROVED_BATCH1_ADS, preview)
+            for batch, published, revised in GROWTH_DATES:
+                if item.stem in batch:
+                    html = add_article_dates(html, published, revised)
+                    html = render_batch1_affiliate(
+                        html, item.stem, APPROVED_BATCH1_ADS | APPROVED_BATCH2_ADS, preview,
+                    )
+                    break
             if item.stem == "manufacturer-salary-10m-career":
                 html = add_salary_analysis(html, dataset)
-            if item.stem in BATCH1_COMPARISONS and html.count(COMPARISON_LEAD_MARKER) != 1:
+            if item.stem in growth_comparisons and html.count(COMPARISON_LEAD_MARKER) != 1:
                 raise RuntimeError(f"財務比較の要約の差し込み位置が想定外です: {relative}")
             if item.stem in financial_articles:
                 html = build_financial_table(html, financial_articles[item.stem], dataset)
+            html = compact_article_links(html)
+        if preview:
+            html = suppress_preview_affiliates(html)
         dest.write_text(html, encoding="utf-8")
         copied_html.append(relative.as_posix())
     for name in STATIC_ASSETS:
@@ -581,7 +635,10 @@ def build() -> None:
         if name == "analytics-events.js":
             dest.write_text(transform_analytics(origin.read_text(encoding="utf-8")), encoding="utf-8")
         elif name == "onecareer-ads.js":
-            dest.write_text(transform_onecareer(origin.read_text(encoding="utf-8")), encoding="utf-8")
+            script = "" if preview else transform_onecareer(origin.read_text(encoding="utf-8"))
+            dest.write_text(script, encoding="utf-8")
+        elif name == "affiliate-config.js" and preview:
+            dest.write_text('window.MCL_ADS = {"version":"3.20","enabled":false,"placements":[]};', encoding="utf-8")
         else:
             shutil.copyfile(origin, dest)
     for name in OTHER_OPTIONAL:
@@ -605,10 +662,10 @@ def build() -> None:
     # Includes SEO pages generated by augment_output.
     for page in OUT.rglob("*.html"):
         if page.name != "404.html" and page.name not in OTHER_OPTIONAL:
-            batch1 = BATCH1_ARTICLES.get(page.stem) if page.parent == OUT / "articles" else None
+            metadata = GROWTH_ARTICLES.get(page.stem) if page.parent == OUT / "articles" else None
             if page.parent == OUT / "articles":
                 annotate_related_links(page)
-            configure_production_tag(page, batch1[3] if batch1 else None)
+            configure_production_tag(page, metadata[3] if metadata else None)
     # Extra guard: past audits / sources / internal tools must never be served.
     paths = {p.relative_to(OUT).as_posix() for p in OUT.rglob("*") if p.is_file()}
     if any(p.startswith(("site-ready/", "site-update/", "site-reference/", "fixtures/", ".github/")) for p in paths):

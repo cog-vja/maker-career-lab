@@ -58,8 +58,8 @@ class PublicBuildSmoke(unittest.TestCase):
         self.assertEqual(len(featured_slugs), 6)
         self.assertTrue({
             "manufacturer-salary-10m-career", "manufacturer-inhouse-se-career",
-            "manufacturer-salary-ranking-2026", "physical-ai-manufacturing-careers",
-            "data-center-manufacturing-careers",
+            "manufacturer-salary-ranking-2026", "physical-ai-japanese-companies",
+            "data-center-manufacturing-careers", "optical-fiber-makers-comparison",
         } <= set(featured_slugs))
         fallback = re.search(r'<div class="mcl-home-directory-fallback">(.*?)</div>', home, re.S)[1]
         fallback_slugs = re.findall(r'href="articles/([a-z0-9-]+)"', fallback)
@@ -135,7 +135,7 @@ class PublicBuildSmoke(unittest.TestCase):
             with self.subTest(slug=slug):
                 html = (DIST / "articles" / (slug + ".html")).read_text(encoding="utf-8")
                 self.assertNotIn("MCL_PHASE1_AFFILIATE", html)
-                self.assertEqual(html.count('class="cta mcl-phase1-ad"'), 1)
+                self.assertEqual(html.count('class="mcl-inline-ad mcl-phase1-ad"'), 1)
                 self.assertIn("PR｜アフィリエイト広告", html)
                 self.assertIn('data-mcl-cta="service_guide"', html)
                 self.assertNotIn("onecareer-ads.js", html)
@@ -150,6 +150,30 @@ class PublicBuildSmoke(unittest.TestCase):
                 source = makers if index < 2 else onecareer
                 for tag in (*ads, *images):
                     self.assertIn(tag, source)
+
+    def test_legacy_affiliate_creatives_stay_intact_and_preview_has_no_a8(self):
+        legacy = (
+            "articles/manufacturer-engineer-agent-selection.html", "articles/agent-guide.html",
+            "articles/it-scm-career.html", "articles/factory-job-guide.html",
+            "articles/science-career-market.html", "company-check.html",
+        )
+        preview = os.environ.get("WORKERS_CI_BRANCH", "main") != "main"
+        for name in legacy:
+            with self.subTest(name=name):
+                source = (ROOT / name).read_text(encoding="utf-8")
+                html = (DIST / name).read_text(encoding="utf-8")
+                tags = re.findall(r'<a href="https://px\.a8\.net/[^"]+"[^>]*>.*?</a>', source, re.S)
+                tags += re.findall(r'<img\b[^>]*\.a8\.net[^>]*>', source)
+                self.assertGreaterEqual(len(tags), 2)
+                for tag in tags:
+                    if preview:
+                        self.assertNotIn(tag, html)
+                    else:
+                        self.assertIn(tag, html)
+        if preview:
+            for path in DIST.rglob("*.html"):
+                self.assertNotIn(".a8.net", path.read_text(encoding="utf-8"), path.name)
+            self.assertNotIn(".a8.net", (DIST / "onecareer-ads.js").read_text(encoding="utf-8"))
 
     def test_batch1_metadata_and_routes(self):
         batch = runpy.run_path(str(ROOT / "mcl_growth_batch.py"))
@@ -197,9 +221,9 @@ class PublicBuildSmoke(unittest.TestCase):
                         self.assertIn(f"（{code}）</th>", html)
                 self.assertNotIn("MCL_PHASE1_FINANCIAL_TABLE", html)
 
-    def test_batch1_ad_approval_per_route_and_preview(self):
+    def test_growth_ad_approval_per_route_and_preview(self):
         build = runpy.run_path(str(ROOT / "cloudflare-build.py"))
-        programs = build["BATCH1_AD_PROGRAMS"]
+        programs = build["GROWTH_AD_PROGRAMS"]
         render = build["render_batch1_affiliate"]
         for slug, program in programs.items():
             with self.subTest(slug=slug):
@@ -220,6 +244,51 @@ class PublicBuildSmoke(unittest.TestCase):
                     suppressed = render(source, slug, approved, preview)
                     self.assertNotIn(".a8.net", suppressed)
                     self.assertIn('data-mcl-cta="service_guide"', suppressed)
+
+    def test_batch2_article_routes_metadata_financials_and_ads(self):
+        batch = runpy.run_path(str(ROOT / "mcl_growth_batch.py"))
+        sitemap = ET.parse(DIST / "sitemap.xml")
+        lastmods = {node.findtext("{*}loc"): node.findtext("{*}lastmod")
+                    for node in sitemap.findall("{*}url")}
+        titles, descriptions = set(), set()
+        preview = os.environ.get("WORKERS_CI_BRANCH", "main") != "main"
+        for slug, (_, _, _, content_group) in batch["BATCH2_ARTICLES"].items():
+            with self.subTest(slug=slug):
+                url = DOMAIN + "articles/" + slug
+                html = (DIST / "articles" / (slug + ".html")).read_text(encoding="utf-8")
+                self.assertIn(f'<link rel="canonical" href="{url}"/>', html)
+                self.assertIn(f'<meta property="og:url" content="{url}">', html)
+                self.assertEqual(len(re.findall(r"<h1\b", html)), 1)
+                title = re.search(r"<title>([^<]+)</title>", html)[1]
+                description = re.search(r'<meta name="description" content="([^"]+)"', html)[1]
+                self.assertNotIn(title, titles)
+                self.assertNotIn(description, descriptions)
+                titles.add(title)
+                descriptions.add(description)
+                structured = [json.loads(block) for block in re.findall(
+                    r'<script type="application/ld\+json">(.*?)</script>', html, re.S)]
+                article = next(item for item in structured if item["@type"] == "Article")
+                breadcrumbs = next(item for item in structured if item["@type"] == "BreadcrumbList")
+                entity = article["mainEntityOfPage"]
+                self.assertEqual(entity["@id"] if isinstance(entity, dict) else entity, url)
+                self.assertEqual(breadcrumbs["itemListElement"][-1]["item"], url)
+                self.assertEqual(article.get("datePublished"), batch["BATCH2_PUBLISHED"])
+                self.assertEqual(article["dateModified"], lastmods[url])
+                self.assertIn(f'{{"content_group":"{content_group}"}}', html)
+                self.assertIn('data-mcl-cta="article_related"', html)
+                self.assertIn('data-mcl-cta="compare_tool"', html)
+                self.assertIn('data-mcl-cta="service_guide"', html)
+                active = slug in batch["APPROVED_BATCH2_ADS"] and not preview
+                self.assertEqual(html.count('href="https://px.a8.net/'), int(active))
+                if not active:
+                    self.assertNotIn(".a8.net", html)
+                if codes := batch["BATCH2_COMPARISONS"].get(slug):
+                    self.assertIn(f"有価証券報告書に基づく{len(codes)}社の通期比較", html)
+                    self.assertLess(html.index('id="mcl-financial-findings"'), html.index('class="mcl-financial-table"'))
+                    for code in codes:
+                        self.assertIn(f"（{code}）</th>", html)
+                for marker in ("MCL_COMPARISON_LEAD", "MCL_PHASE1_FINANCIAL_TABLE", "MCL_BATCH1_AFFILIATE"):
+                    self.assertNotIn(marker, html)
 
     def test_salary_analysis_matches_published_dataset(self):
         js = (DIST / "company-data.js").read_text(encoding="utf-8")
@@ -284,7 +353,7 @@ class PublicBuildSmoke(unittest.TestCase):
                 self.assertRegex(
                     html,
                     r'window\["ga-disable-G-GKLVPVKKZ4"\]=true;gtag\("config","GT-KT5GGMBR"'
-                    r'(?:,\{"content_group":"batch1_(?:career|comparison|growth)"\})?\);'
+                    r'(?:,\{"content_group":"batch[12]_(?:career|comparison|growth)"\})?\);'
                     r'window\.__mclGa4NewDestinationConfigured=true',
                 )
 

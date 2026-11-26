@@ -9,7 +9,7 @@ import re
 import shutil
 from pathlib import Path
 
-from mcl_growth_batch import BATCH1_ARTICLES
+from mcl_growth_batch import GROWTH_ARTICLES
 
 REVENUE_ARTICLES = (
     'articles/manufacturer-career-checklist.html',
@@ -73,7 +73,7 @@ def augment_output(out: Path, copied_html: list[str], root: Path) -> None:
             if script.count(marker) != 1:
                 raise RuntimeError("追加記事の一覧挿入先が一意ではありません")
             entries = (json.dumps((slug, *fields[:3]), ensure_ascii=False)
-                       for slug, fields in BATCH1_ARTICLES.items())
+                       for slug, fields in GROWTH_ARTICLES.items())
             (out / asset).write_text(script.replace(marker, ",\n  ".join(entries)), encoding="utf-8")
         else:
             shutil.copyfile(src, out / asset)
