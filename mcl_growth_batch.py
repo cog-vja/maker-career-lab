@@ -60,4 +60,13 @@ BATCH1_AD_PROGRAMS = dict.fromkeys((
 ), "makers_job") | dict.fromkeys(BATCH1_COMPARISONS, "onecareer")
 
 # Add only slugs whose program-specific terms and URL submission have been verified.
-APPROVED_BATCH1_ADS = frozenset()
+APPROVED_BATCH1_ADS = frozenset({
+    "production-engineering-career",
+    "quality-assurance-career",
+    "procurement-career",
+    "technical-sales-career",
+    "manufacturer-salary-10m-career",
+    "electronic-component-makers-comparison",
+    "machine-tool-makers-comparison",
+    "measurement-instrument-makers-comparison",
+})
