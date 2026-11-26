@@ -33,7 +33,7 @@
  // Native, keyboard-accessible scrolling for the tables that retain columns.
  // Add a hint only when the content actually overflows the containing region.
  function decorateArticleTables(){
-  for(const frame of document.querySelectorAll('.article .table-scroll, .mcl-seo-table-wrap')){
+  for(const frame of document.querySelectorAll('.article .table-scroll, .article .mcl-sector-table-wrap, .mcl-seo-table-wrap')){
    if(!frame.querySelector('table:not(.mcl-prose-table)'))continue;
    frame.tabIndex=0;
    frame.setAttribute('role','region');

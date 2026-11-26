@@ -37,18 +37,9 @@
 .science-guide .science-steps{background:#f4f9f7;padding:18px 22px;border-radius:12px;margin:24px 0}
 .science-guide .science-steps ol{margin:8px 0 0;padding-left:1.4rem}
 .science-guide .science-data-note{font-size:.88rem;color:var(--sub);line-height:1.8}
-.science-guide .science-ad{margin:34px 0;padding:24px;border:1px solid #c9dad5;border-radius:15px;background:#f8fbfa}
-.science-guide .science-ad .science-pr{display:inline-block;background:#d9eae5;color:#175c53;border-radius:99px;padding:4px 12px;font-weight:750;font-size:.83rem}
-.science-guide .science-ad h2{margin-top:16px}
-.science-guide .science-ad-creative{width:300px;max-width:100%;margin:20px auto;min-height:250px;text-align:center}
-.science-guide .science-ad-creative>a{display:inline-block;vertical-align:top}
-.science-guide .science-ad-creative>a img{display:block}
-.science-guide .science-ad-caution{font-size:.85rem;color:var(--sub);margin:0}
 .science-guide .science-related{margin:38px 0 20px;border-top:1px solid var(--line);padding-top:12px}
 .science-guide .science-related ul{padding-left:1.3rem}
-@media(max-width:680px){.science-guide .science-stat-grid,.science-guide .science-criteria{grid-template-columns:1fr}.science-guide .science-ad{padding:16px}}
-/* A8's original 300px banner must not be resized even on narrow 320px phones */
-@media(max-width:360px){.science-guide .science-ad-creative{position:relative;left:50%;transform:translateX(-50%);width:300px;max-width:none}}
+@media(max-width:680px){.science-guide .science-stat-grid,.science-guide .science-criteria{grid-template-columns:1fr}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"やりたいことが決まらない理系学生へ｜稼げる市場から就職先を選ぶ考え方","description":"理系学生が年収、企業の収益力、技術との相性から就職先を比較する方法","datePublished":"2026-10-24","dateModified":"2026-10-24","author":{"@type":"Organization","name":"メーカーキャリアラボ"},"publisher":{"@type":"Organization","name":"メーカーキャリアラボ"},"mainEntityOfPage":"https://cog-vja.github.io/maker-career-lab/articles/science-career-market.html"}</script>
 </head>
@@ -71,11 +62,17 @@
 <section id="science-job-types" class="mcl329-addition">
 <h2>理系学生が知っておきたい研究・開発・生産技術の違い</h2>
 <p>同じメーカーの「技術系総合職」でも、仕事の目的と一日の進め方は異なります。社名より先に配属予定職種を確認しましょう。</p>
-<div style="overflow-x:auto;max-width:100%"><table style="width:100%;min-width:520px;border-collapse:collapse"><thead><tr><th scope="col">職種</th><th scope="col">仕事の中心</th><th scope="col">採用時に確認したいこと</th></tr></thead><tbody>
-<tr><td>研究職</td><td>新しい原理・素材・技術の探索、検証</td><td>研究テーマ、研究設備、配属条件、修士・博士の扱い</td></tr>
-<tr><td>開発・設計職</td><td>製品・システムの仕様検討、設計、評価</td><td>担当製品、設計領域、量産との距離、開発体制</td></tr>
-<tr><td>生産技術職</td><td>製造工程の設計、設備導入、品質・生産性改善</td><td>工場勤務地、出張・交替勤務、設備との関わり</td></tr>
-</tbody></table></div>
+<div class="table-scroll">
+<table class="mcl-prose-table" role="table">
+<caption>研究・設計・生産技術の仕事</caption>
+<thead role="rowgroup"><tr role="row"><th scope="col" role="columnheader">職種</th><th scope="col" role="columnheader">仕事の中心</th><th scope="col" role="columnheader">採用時に確認したいこと</th></tr></thead>
+<tbody role="rowgroup">
+<tr role="row"><th scope="row" role="rowheader">研究職</th><td role="cell" data-label="仕事の中心">新しい原理・素材・技術の探索、検証</td><td role="cell" data-label="採用時に確認したいこと">研究テーマ、研究設備、配属条件、修士・博士の扱い</td></tr>
+<tr role="row"><th scope="row" role="rowheader">開発・設計職</th><td role="cell" data-label="仕事の中心">製品・システムの仕様検討、設計、評価</td><td role="cell" data-label="採用時に確認したいこと">担当製品、設計領域、量産との距離、開発体制</td></tr>
+<tr role="row"><th scope="row" role="rowheader">生産技術職</th><td role="cell" data-label="仕事の中心">製造工程の設計、設備導入、品質・生産性改善</td><td role="cell" data-label="採用時に確認したいこと">工場勤務地、出張・交替勤務、設備との関わり</td></tr>
+</tbody>
+</table>
+</div>
 <p>企業によって呼び方や担当範囲は異なります。「研究職で応募しても入社後に配属を決める」などの制度は、必ず各社の新卒募集要項で確認してください。</p>
 <h2>大手メーカーと中堅メーカー、どちらを選ぶ？</h2>
 <p>会社の規模だけで待遇や成長機会は決められません。大手・中堅の両方を候補にして、<strong>希望する仕事に携われる確度、技術領域、教育制度、賃金・昇給、勤務地、財務の継続性</strong>を同じ表で比較することをおすすめします。</p>
@@ -119,16 +116,15 @@
 <section id="meet-companies"><h2>5. まだ知らない企業に出会う方法もある</h2>
 <p>就活では、企業名を知らないというだけで選択肢から外してしまいがちです。興味のある業界がまだ絞れないなら、研究室以外の技術者や企業の担当者の話を聞き、自分の経験がどこで求められるか確かめるのも一つの方法です。</p>
 <p>例えば企業説明会や就活イベントでは、職種、働き方、技術領域の違いをまとめて比較できます。聞いてみたい質問を2〜3個用意し、参加後に各社の採用情報と財務データを確認すると整理しやすくなります。</p>
-<aside class="science-ad" aria-label="PR：理系就活イベントの広告">
-<span class="science-pr">PR｜アフィリエイト広告</span>
-<h2>理系学生・大学院生向けの就活イベントを探す</h2>
-<p>メーカーやITなど、研究・技術への理解がある企業との接点を増やす方法の一つとして、理系就活イベントの情報を確認してみましょう。開催日・参加対象・申込み条件は移動先で確認してください。</p>
-<div class="science-ad-creative">
+<aside class="mcl-inline-ad" aria-label="PR：理系就活イベントの広告">
+<div class="mcl-inline-ad__heading"><span class="mcl-ad-disclosure">PR｜アフィリエイト広告</span><strong>理系就活イベント</strong></div>
+<p class="mcl-inline-ad__context">メーカーやIT企業の技術者から仕事の話を聞きたい学生・大学院生向けです。</p>
+<div class="mcl-inline-ad__banner">
 <a href="https://px.a8.net/svt/ejp?a8mat=4BEHXF+7JHQ6A+4XOO+NV9N5" rel="nofollow">
 <img border="0" width="300" height="250" alt="" src="https://www26.a8.net/svt/bgt?aid=261016899456&wid=003&eno=01&mid=s00000023028004009000&mc=1"></a>
 <img border="0" width="1" height="1" src="https://www15.a8.net/0.gif?a8mat=4BEHXF+7JHQ6A+4XOO+NV9N5" alt="">
 </div>
-<p class="science-ad-caution">※上記は広告主が提供するバナーです。当サイトは広告経由の成果に応じて報酬を受け取る場合があります。イベントの参加対象学年・実施内容・開催状況は変更される可能性があります。</p>
+<p class="small">広告経由の成果に応じて当サイトが報酬を受け取る場合があります。参加対象と開催日程は広告主のサイトでご確認ください。</p>
 </aside>
 </section>
 
