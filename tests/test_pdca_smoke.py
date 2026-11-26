@@ -239,6 +239,23 @@ class PublicBuildSmoke(unittest.TestCase):
         expected = [sum(lo <= value < hi for value in salaries) for lo, hi in intervals]
         self.assertEqual(bars, [(f"{n:,}", f"{n / len(salaries):.1%}") for n in expected])
 
+    def test_salary_industry_supplement_checks_issuer_identity(self):
+        from mcl_salary_analysis import render_industries
+
+        companies = [
+            {"id": "6861", "name": "株式会社キーエンス", "averageSalary": 1300},
+            {"id": "6146", "name": "別の提出会社", "averageSalary": 1100},
+            {"id": "6920", "name": "レーザーテック株式会社", "industry": "既存の業種", "averageSalary": 1000},
+        ]
+        html = render_industries(companies)
+        self.assertIn("公開データに業種がなかった1社", html)
+        self.assertIn("業種未記録は1社です（うち平均年間給与1,000万円以上は1社）", html)
+        self.assertIn('scope="row">電気機器</th>', html)
+        self.assertIn('scope="row">既存の業種</th>', html)
+        self.assertNotIn('scope="row">機械</th>', html)
+        self.assertIsNone(companies[0].get("industry"))
+        self.assertEqual(companies[2]["industry"], "既存の業種")
+
     def test_built_analytics_route_compatibility(self):
         js = (DIST / "analytics-events.js").read_text(encoding="utf-8")
         self.assertIn(r"company-check(?:\.html)?$", js)
