@@ -87,6 +87,21 @@ test('a failed company data load still emits an error', () => {
   assert.deepEqual(page.events, ['mcl_data_load_error']);
 });
 
+test('saved-comparison events carry just the static tool name and require the tool path', () => {
+  const page = openPage('/company-check?input=synthetic');
+  const handler = page.listeners.get('mcl:compare-saved-action');
+  for (const detail of ['save', 'open', 'restore', 'remove']) handler({ detail });
+  handler({ detail: { action: 'save', issuer: 'synthetic' } });
+  handler({ detail: 'synthetic' });
+  assert.deepEqual(page.events, [
+    'company_comparison_save', 'company_watchlist_open', 'company_comparison_restore', 'company_watchlist_remove',
+  ]);
+  assert.deepEqual(page.parameters, Array.from({ length: 4 }, () => ({ tool: 'company_check' })));
+  const elsewhere = openPage('/articles/manufacturer-salary-10m-career');
+  elsewhere.listeners.get('mcl:compare-saved-action')({ detail: 'save' });
+  assert.deepEqual(elsewhere.events, []);
+});
+
 test('related article click counts one internal navigation and omits query strings', () => {
   const page = openPage('/articles/quality-assurance-career?query=synthetic');
   click(page, '/articles/procurement-career?input=synthetic#work', 'article_related');

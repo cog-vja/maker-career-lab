@@ -68,7 +68,7 @@ ROOT_HTML = (
 STATIC_ASSETS = (
     "style.css", "onecareer-ads.css", "onecareer-ads.js",
     "affiliate-config.js", "affiliate-render.js", "analytics-events.js",
-    "company-data.js", "company-compare.js", "contact-config.js",
+    "company-data.js", "company-compare.js", "company-compare-saved.js", "contact-config.js",
     "contact-form-v321.js", "favicon.ico", "favicon.png", "apple-touch-icon.png",
     "site-logo-192.png", "og-image.png",
 )

@@ -39,6 +39,16 @@
     window.gtag('event', eventName, params || {});
   }
 
+  var savedActions = new Map([
+    ['save', 'company_comparison_save'], ['restore', 'company_comparison_restore'],
+    ['open', 'company_watchlist_open'], ['remove', 'company_watchlist_remove']
+  ]);
+  document.addEventListener('mcl:compare-saved-action', function (event) {
+    if (!/\/company-check\.html$/.test(window.location.pathname)) return;
+    var action = savedActions.get(event.detail);
+    if (action) record(action, { tool: 'company_check' });
+  });
+
   // Link click collection: do not modify A8 hrefs, banner images, or attribution parameters.
   document.addEventListener('click', function (event) {
     var target = event.target;

@@ -19,9 +19,25 @@
 <section><h2>① 現職・志望企業A</h2><label for="name-a">会社名</label><input id="name-a" list="company-list" autocomplete="off" placeholder="会社名を入力" required><p id="hint-a" class="compare-help" aria-live="polite"></p></section>
 <section><h2>② 転職候補・志望企業B</h2><label for="name-b">会社名</label><input id="name-b" list="company-list" autocomplete="off" placeholder="会社名を入力" required><p id="hint-b" class="compare-help" aria-live="polite"></p></section>
 </div><datalist id="company-list"></datalist><div class="compare-actions"><button class="btn" type="submit">2社を比較する →</button><button class="btn btn-neutral" type="button" id="demo">架空データで試す</button><button class="btn btn-neutral" type="button" id="reset">クリア</button></div><p class="compare-help">企業名はこのブラウザ内で照合します。入力した会社名を外部へ送信しません。企業データは公開済みの静的ファイルを参照します。</p></form>
+<details id="compare-saved" class="mcl-saved-comparison" hidden>
+<summary>保存した比較</summary>
+<p class="compare-help">保存内容はこのブラウザに残ります。ブラウザデータを削除すると消えます。</p>
+<p id="compare-saved-empty">比較結果から2社を保存できます。</p>
+<ul id="compare-saved-items"></ul>
+<div class="mcl-saved-actions">
+<button id="compare-saved-restore" class="mcl-saved-button" type="button" hidden>最新データで再比較</button>
+<button id="compare-saved-clear" class="mcl-saved-button" type="button" hidden>保存をすべて削除</button>
+</div>
+<p id="compare-saved-status" class="compare-help" role="status"></p>
+</details>
 <details class="mcl-catalog"><summary>収録企業一覧から選ぶ（検索対応）</summary><label for="catalog-search">企業一覧を絞り込む</label><input id="catalog-search" type="search" placeholder="社名・証券コードで検索" autocomplete="off"><p class="compare-help">企業名をタップすると「検討している会社」に入力します。</p><div id="company-catalog" class="mcl-catalog-grid"></div></details>
 <p id="status" role="status" aria-live="polite"></p>
 <section id="results" class="compare-panel compare-result" hidden><span class="tag" id="result-label">比較結果</span><h2 id="compare-title"></h2><p id="result-context" class="compare-help"></p><div id="result-warnings" class="compare-warn"></div>
+<p id="compare-save-prompt" class="mcl-save-prompt" hidden>
+<button id="compare-save-pair" class="mcl-saved-button" type="button">この2社を保存</button>
+<span id="compare-save-message" class="compare-help" role="status"></span>
+</p>
+
 <div class="table-scroll"><table class="compare-table"><thead><tr><th>指標</th><th>現職</th><th>検討先</th></tr></thead><tbody id="metrics-body"></tbody></table></div>
 <h2>数値から読み取れること・確認したいこと</h2><div id="insights"></div>
 <h2>対象期間と出典</h2><p class="small">書類IDをコピーして金融庁EDINETで原本を検索できます。照合実施日の記録がない場合、日付は推測せず「未記録」と表示します。</p><div id="sources"></div><p class="small">給与は一般に提出会社単体の平均値で、連結財務とは対象範囲が異なります。職種別の提示年収や働き方は求人票・面談で確認してください。</p>
@@ -74,6 +90,21 @@
 </section>
 </main><style>
 .mcl-metric-delta{display:block;font-size:.78em;line-height:1.5;color:#566b72;white-space:nowrap}
+/* Saved comparison controls are local to the company tool. */
+.mcl-saved-comparison{margin:16px 0 22px;border-block:1px solid #d0e2df}
+.mcl-saved-comparison summary{min-height:44px;cursor:pointer;padding:9px 0;font-weight:700}
+.mcl-saved-comparison[open]{padding-bottom:8px}
+.mcl-saved-comparison ul{list-style:none;padding:0;margin:0}
+.mcl-saved-comparison li{border-top:1px solid #d0e2df;padding:10px 0;overflow-wrap:anywhere}
+.mcl-saved-comparison li p{margin:4px 0}
+.mcl-saved-metrics{display:flex;flex-wrap:wrap;gap:0 14px}
+.mcl-saved-metrics span{white-space:nowrap}
+.mcl-saved-actions{display:flex;flex-wrap:wrap;gap:0 16px}
+.mcl-saved-button{padding:6px 0;min-height:44px;min-width:44px;border:0;background:none;color:#075d56;text-decoration:underline;text-underline-offset:.23em;cursor:pointer;font:inherit;text-align:left}
+.mcl-saved-button:focus-visible,.mcl-saved-comparison summary:focus-visible{outline:2px solid #075d56;outline-offset:2px}
+.mcl-save-prompt{margin:8px 0}
+.mcl-save-prompt .compare-help{margin-inline-start:12px}
+#compare-saved-status:empty{margin:0}
 .mcl-source-doc{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 .mcl-copy-doc{cursor:pointer;border:1px solid #a8c0bc;background:#f4faf8;border-radius:6px;padding:5px 9px;color:#215b52;font:inherit}
 .compare-result .source-card{overflow-wrap:anywhere}
@@ -88,4 +119,4 @@
 .mcl-caution-box li+li{margin-top:8px}
 .mcl-evidence-box a,.mcl-caution-box a{overflow-wrap:anywhere;text-underline-offset:2px}
 @media(max-width:480px){.mcl-evidence-box,.mcl-caution-box{padding:13px 12px}}
-</style><script src="company-data.js?v=323" defer></script><script src="company-compare.js?v=323" defer></script><footer class="footer"><div class="container"><strong>メーカーキャリアラボ</strong><p>仕事を変える前に、働く市場を変えよう。</p><div class="footer-links"><a href="about.html">運営者・編集方針</a><a href="privacy.html">プライバシー</a><a href="disclosure.html">広告掲載方針</a><a href="contact.html">お問い合わせ</a></div><small>© 2026 メーカーキャリアラボ｜データの対象期間は各社の出典をご確認ください</small></div></footer></body></html>
+</style><script src="company-data.js?v=323" defer></script><script src="company-compare.js?v=323" defer></script><script src="company-compare-saved.js" defer></script><footer class="footer"><div class="container"><strong>メーカーキャリアラボ</strong><p>仕事を変える前に、働く市場を変えよう。</p><div class="footer-links"><a href="about.html">運営者・編集方針</a><a href="privacy.html">プライバシー</a><a href="disclosure.html">広告掲載方針</a><a href="contact.html">お問い合わせ</a></div><small>© 2026 メーカーキャリアラボ｜データの対象期間は各社の出典をご確認ください</small></div></footer></body></html>
