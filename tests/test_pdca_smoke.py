@@ -25,6 +25,15 @@ PHASE1_SLUGS = (
 
 
 class PublicBuildSmoke(unittest.TestCase):
+    def test_comparison_saved_assets_are_scoped_to_the_tool(self):
+        for path in DIST.rglob("*.html"):
+            html = path.read_text(encoding="utf-8")
+            self.assertEqual(html.count('src="company-compare-saved.js"'), int(path.name == "company-check.html"))
+        tool = (DIST / "company-check.html").read_text(encoding="utf-8")
+        self.assertIn('id="compare-saved" class="mcl-saved-comparison" hidden', tool)
+        self.assertIn('id="compare-save-prompt" class="mcl-save-prompt" hidden', tool)
+        self.assertTrue((DIST / "company-compare-saved.js").is_file())
+
     def test_required_files_exist(self):
         for path in ("index.html", "company-check.html", "analytics-events.js", "company-data.js"):
             with self.subTest(path=path):
