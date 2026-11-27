@@ -1,5 +1,7 @@
 # v3：EDINET実数値取得・検証ガイド
 
+現在の公開データの履歴・月次レビュー・復元は [検証済み企業データの履歴](docs/verified-company-history.md) を参照してください。以下はv3初期の取得と原本照合の手順です。
+
 ## 現時点で可能なこと
 - EDINET API v2の書類一覧を企業名で絞り込む。
 - EDINET CSV (type=5) ZIPを取得し、主要XBRLタグを保守的に抽出する。

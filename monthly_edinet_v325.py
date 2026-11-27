@@ -63,12 +63,18 @@ def six_metric_update(old,audit):
       'verifiedAt':audit['verifiedAt']})
     return fresh
 
-def analyze(public_path,output_dir,days=55,delay=1,asof=None,day_fetcher=None,zip_fetcher=None):
+def analyze(public_path,output_dir,days=55,delay=1,asof=None,day_fetcher=None,zip_fetcher=None,
+            issuer_registry=None):
     if not 1<=days<=90:raise GateError('monthly scan must be 1..90 days')
     raw,match,existing,meta=parse_public(public_path)
     if not 1<=len(existing)<=MAX_COMPANIES:raise GateError('unexpected public company count')
     asof=asof or now_jst().date()
     known={str(x['id']):x for x in existing}
+    issuers = None
+    if issuer_registry is not None:
+        issuers = json.loads(Path(issuer_registry).read_text(encoding='utf-8'))['issuers']
+        if issuers.keys() != known.keys():
+            raise GateError('History issuer registry does not match the published companies')
     if day_fetcher is None or zip_fetcher is None:
         import os
         key=os.environ.get('EDINET_API_KEY','')
@@ -98,13 +104,23 @@ def analyze(public_path,output_dir,days=55,delay=1,asof=None,day_fetcher=None,zi
             report.append({'ticker':code,'status':'UNCHANGED'});continue
         if filing['periodEnd']<=old.get('period','').split('〜')[-1]:
             report.append({'ticker':code,'status':'OLD_FILING_REQUIRES_REVIEW','docID':filing['docID']});review.append(code);continue
+        if issuers is not None and (not issuers[code]['edinet_code']
+                                    or issuers[code]['edinet_code'] != filing.get('edinetCode')):
+            report.append({'ticker': code, 'status': 'ISSUER_ID_REQUIRES_REVIEW', 'docID': filing['docID']})
+            review.append(code)
+            continue
         try:
             raw_zip=zip_fetcher(filing['docID'])
             audit=_audit_one(filing,old['name'],old.get('industry',''),raw_zip)
+            if issuers is not None:
+                prior_scope = '提出会社単体' if old['scope'].startswith('提出会社単体') else '連結'
+                if audit['financialScope'] != prior_scope:
+                    raise GateError('Financial reporting scope changed; review required')
             candidate=six_metric_update(old,audit)
             updates[code]=candidate
             report.append({'ticker':code,'status':'VERIFIED_NEW_PERIOD','previous_docID':old.get('sourceDocId'),
-                           'new_docID':filing['docID'],'new_period':candidate['period']})
+                           'new_docID':filing['docID'],'new_period':candidate['period'],
+                           'edinetCode':filing.get('edinetCode')})
         except Exception as ex:
             report.append({'ticker':code,'status':'SOURCE_REVIEW_REQUIRED','reason':type(ex).__name__+': '+str(ex)[:140]})
             review.append(code)
@@ -125,5 +141,6 @@ if __name__=='__main__':
     ap=argparse.ArgumentParser();ap.add_argument('--public',default='company-data.js')
     ap.add_argument('--output',default='out/monthly');ap.add_argument('--days',type=int,default=55)
     ap.add_argument('--delay',type=float,default=1)
+    ap.add_argument('--issuer-registry')
     a=ap.parse_args()
-    analyze(a.public,a.output,a.days,a.delay)
+    analyze(a.public,a.output,a.days,a.delay,issuer_registry=a.issuer_registry)

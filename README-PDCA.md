@@ -16,7 +16,7 @@ This package is intended for **a new branch**, then a pull request. NEVER upload
 
 ## EDINET updates — leave workflow Disabled for now
 
-The former EDINET v3.26 workflow directly pushed to `main`. The updated workflow now prepares **a review-only PR** with `peter-evans/create-pull-request@v7`, after existing source validation. Its changes are restricted to `company-data.js`; the existing monthly artifact is retained. No PR is created when the verified update count is zero.
+The EDINET v3.26 workflow prepares **a review-only PR** after source validation. A proposal includes `company-data.js` and its corresponding append-only history release. The monthly artifact is retained. No PR is created when the verified update count is zero. See [history and restoration](docs/verified-company-history.md) for the initial capture, review boundary, and recovery steps.
 
 Before re-enabling: store a newly scoped GitHub App token or fine-grained PAT with **Contents: Read/Write** and **Pull requests: Read/Write** for only this repository in GitHub Actions secret `MCL_PDCA_PR_TOKEN`. Do not paste secrets into ChatGPT. Without this token the job fails closed after storing evidence. Review and revoke unused legacy `MCL_PAGES_PUBLISH_PAT` after checking other workflows for references.
 
