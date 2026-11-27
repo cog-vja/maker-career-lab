@@ -40,7 +40,8 @@ jobs:
         run: |
           set -euo pipefail
           test -f company-data.js && test -f monthly_edinet_v325.py
-          python3 -m unittest -v test_v325.py test_v326_monthly.py
+          python3 -m unittest -v test_v325.py test_v326_monthly.py test_company_history.py
+          python3 company_history.py verify
           python3 - <<'PY'
           from expand_manufacturers_v325 import parse_public, GateError
           _,_,rows,meta=parse_public('company-data.js')
@@ -60,6 +61,7 @@ jobs:
           test -n "$EDINET_API_KEY" || { echo 'Missing EDINET_API_KEY secret'; exit 1; }
           python3 monthly_edinet_v325.py \
             --public company-data.js --days "$DAYS" --delay 0.7 \
+            --issuer-registry data/company-history/issuer-registry.json \
             --output out/monthly
       - name: Fail-closed validation of all changes (no new/deleted tickers)
         id: validate
@@ -77,6 +79,16 @@ jobs:
           val='true' if plan['release']=='READY_FOR_AUTOMATED_COMMIT' else 'false'
           with open(os.environ['GITHUB_OUTPUT'],'a',encoding='utf-8') as f:f.write('publish='+val+'\n')
           PY
+      - name: Stage the verified history release together with the data proposal
+        if: steps.validate.outputs.publish == 'true'
+        run: |
+          set -euo pipefail
+          python3 company_history.py stage-monthly \
+            --candidate out/monthly/company-data-VERIFIED-REVIEW.js \
+            --summary out/monthly/monthly-summary-v325.json \
+            --details out/monthly/monthly-details-v325.json \
+            --commit "$GITHUB_SHA" --run-id "$GITHUB_RUN_ID" | tee out/monthly/company-history-plan.json
+          python3 company_history.py verify --source out/monthly/company-data-VERIFIED-REVIEW.js
       - name: Store monthly evidence, including held-for-review cases
         if: always()
         uses: actions/upload-artifact@v4
@@ -109,10 +121,12 @@ jobs:
           base: main
           branch: automation/edinet-verified-monthly
           delete-branch: true
-          add-paths: company-data.js
+          add-paths: |
+            company-data.js
+            data/company-history/releases/*.jsonl
           commit-message: "chore(data): propose source-verified EDINET refresh"
           title: "chore(data): review source-verified monthly EDINET updates"
           body: |
-            Changes to company-data.js are source-verified but require owner review.
+            The verified candidate and its history release require owner review together.
             Inspect corresponding mcl-v326-monthly Actions evidence artifact.
             Wait for PR CI. Production remains unchanged until owner merges.
