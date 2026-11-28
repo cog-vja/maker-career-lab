@@ -129,7 +129,15 @@ BATCH2_REVISED = "2026-11-27"  # Editorial completion date (JST).
 BATCH2_AD_PROGRAMS = dict.fromkeys((
     "manufacturer-rd-career", "manufacturer-design-career",
 ), "makers_job") | dict.fromkeys(BATCH2_COMPARISONS, "onecareer")
-APPROVED_BATCH2_ADS = frozenset()
+APPROVED_BATCH2_ADS = frozenset({
+    "manufacturer-rd-career",
+    "manufacturer-design-career",
+    "construction-machinery-makers-comparison",
+    "optical-fiber-makers-comparison",
+    "semiconductor-device-makers-comparison",
+    "electric-power-equipment-makers-comparison",
+    "pharmaceutical-makers-comparison",
+})
 
 GROWTH_ARTICLES = BATCH1_ARTICLES | BATCH2_ARTICLES
 GROWTH_AD_PROGRAMS = BATCH1_AD_PROGRAMS | BATCH2_AD_PROGRAMS
