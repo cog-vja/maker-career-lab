@@ -123,7 +123,7 @@ BATCH2_COMPARISONS = {
 }
 
 # Record the first production publication date once it is observed.
-BATCH2_PUBLISHED = None
+BATCH2_PUBLISHED = "2026-11-27"
 BATCH2_REVISED = "2026-11-27"  # Editorial completion date (JST).
 
 BATCH2_AD_PROGRAMS = dict.fromkeys((
